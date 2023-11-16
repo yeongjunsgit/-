@@ -10,13 +10,13 @@ import { RouterLink, RouterView } from 'vue-router'
       <HelloWorld msg="You did it!" />
 
       <nav>
-        <RouterLink :to="{name:'HomeView'}">Home</RouterLink> | 
-        <RouterLink :to="{name:'CommunityView'}">CommunityView</RouterLink> | 
-        <RouterLink :to="{name:'ExCalculView'}">ExCalculView</RouterLink> | 
-        <RouterLink to="/rate">DepositeSavingRateView</RouterLink> | 
-        <RouterLink :to="{name:'ProfileView'}">ProfileView</RouterLink> | 
-        <RouterLink :to="{name:'SignInView'}">SignInView</RouterLink> | 
-        <RouterLink :to="{name:'NearBankView'}">NearBankView</RouterLink>
+        <RouterLink :to="{name:'HomeView'}">홈</RouterLink> | 
+        <RouterLink :to="{name:'CommunityView'}">커뮤니티</RouterLink> | 
+        <RouterLink :to="{name:'ExCalculView'}">환율계산기</RouterLink> | 
+        <RouterLink to="/rate">예적금 금리 비교 전체</RouterLink> | 
+        <RouterLink :to="{name:'ProfileView'}">프로필</RouterLink> | 
+        <RouterLink :to="{name:'SignUpView'}">회원가입</RouterLink> | 
+        <RouterLink :to="{name:'NearBankView'}">근처은행</RouterLink>
       
       </nav>
       <RouterView />

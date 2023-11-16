@@ -4,7 +4,7 @@ import CommunityView from '@/views/CommunityView.vue'
 import NearBankView from '@/views/NearBankView.vue'
 import ExCalculView from '@/views/ExCalculView.vue'
 import DepositSavingsRateView from '@/views/DepositSavingsRateView.vue'
-import SignInView from '@/views/SignInView.vue'
+import SignUpView from '@/views/SignUpView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 
 const router = createRouter({
@@ -36,9 +36,9 @@ const router = createRouter({
       component: ProfileView
     },
     {
-      path: '/signin',
-      name: 'SignInView',
-      component: SignInView
+      path: '/signup',
+      name: 'SignUpView',
+      component: SignUpView
     },
     {
       path: '/nearbank',
