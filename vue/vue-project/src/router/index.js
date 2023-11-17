@@ -62,7 +62,7 @@ const router = createRouter({
 
             const article_user = ref(null)
             const user = store.mypk
-            article_user.value = article.value[0].user
+            article_user.value = article.value[0].user.id
 
             if (article_user.value != user) {
               window.alert('내가 작성한 글이 아닙니다.')

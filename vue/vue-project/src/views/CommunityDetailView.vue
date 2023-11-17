@@ -6,10 +6,10 @@
       <!-- {{ article }}
       {{ mypk }} -->
       <!-- {{ article[0] }}s -->
-    <!-- <p>글쓴이 : {{ article[0].user }}</p> -->
+    <p>글쓴이 : {{ article[0].user.username }}</p>
     <p>제목 : {{ article[0].title }}</p>
     <p>내용 : {{ article[0].content }}</p>
-    <div v-if="mypk === article[0].user">
+    <div v-if="mypk === article[0].user.id">
       <button @click="gotoUpdate">수정</button>
       <button @click="deleteArticle">삭제</button>
     </div>
@@ -63,7 +63,7 @@ const gotoUpdate = function(){
 const deleteArticle = function () {
   const payload = {
     article_id: article.value[0].id,
-    article_user:article.value[0].user,
+    article_user:article.value[0].user.id,
     user: mypk.value
   }
   store.deleteArticle(payload)

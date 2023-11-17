@@ -33,27 +33,39 @@ class FinancialOptions(models.Model):
 
 
 
+# # 연금 저축 상품
+# class SavingPrdt(models.Model):
+#     dcls_month = models.CharField(max_length=200)               #공시 제출월 [YYYYMM]
+#     fin_co_no = models.CharField(max_length=200)                #금융회사 코드
+#     kor_co_nm = models.CharField(max_length=200)                #금융회사 명
+#     fin_prdt_cd = models.CharField(max_length=200, primary_key=True)         #금융상품 코드
+#     fin_prdt_nm = models.CharField(max_length=200)              #금융 상품명
+#     join_way = models.CharField(max_length=200, null=True)      #가입 방법
+#     pnsn_kind = models.CharField(max_length=200, null=True)     #연금종류
+#     pnsn_kind_nm = models.CharField(max_length=200, null=True)  #연금종류명
+#     sale_strt_day = models.CharField(max_length=200, null=True) #판매 개시일
+#     mntn_cnt = models.CharField(max_length=200, null=True)      #유지건수[단위: 건] 또는 설정액 [단위: 원]
+#     prdt_type = models.CharField(max_length=200, null=True)     #상품유형
+#     prdt_type_nm = models.CharField(max_length=200, null=True)  #상품유형명
+#     dcls_rate = models.CharField(max_length=200, null=True)     #공시이율 [소수점 2자리]
+#     guar_rate = models.CharField(max_length=200, null=True)     #최저 보증이율
+#     btrm_prft_rate_1 = models.CharField(max_length=200, null=True)         #과거 수익률1(전년도) [소수점 2자리]
+#     btrm_prft_rate_2 = models.CharField(max_length=200, null=True)         #과거 수익률2(전전년도) [소수점 2자리]
+#     btrm_prft_rate_3 = models.CharField(max_length=200, null=True)         #과거 수익률3(전전전년도) [소수점 2자리]
+#     etc = models.CharField(max_length=200, null=True)           #기타사항
+#     sale_co = models.CharField(max_length=200, null=True)       #판매사
+#     dcls_strt_day = models.CharField(max_length=200)            #공시 시작일
+#     dcls_end_day = models.CharField(max_length=200, null=True)         #공시 종료일
+#     fin_co_subm_day = models.CharField(max_length=200, null=True)      #금융회사제출일
 
-# class SavingPrdt(models.Model):                     # 연금 저축 상품
-#     dcls_month = models.CharField(max_length=200)   # dcls_month     공시 제출월 [YYYYMM]
-#     fin_co_no = models.CharField(max_length=200)    # fin_co_no     금융회사 코드
-#     kor_co_nm = models.CharField(max_length=200)    # kor_co_nm    금융회사 명
-#     fin_prdt_cd = models.CharField(max_length=200, primary_key=True)   # fin_prdt_cd    금융상품 코드
-    # fin_prdt_nm    금융 상품명
-    # join_way    가입 방법
-    # pnsn_kind    연금종류
-    # pnsn_kind_nm    연금종류명
-    # sale_strt_day    판매 개시일
-    # mntn_cnt        유지건수[단위: 건] 또는 설정액 [단위: 원]
-    # prdt_type    상품유형
-    # prdt_type_nm    상품유형명
-    # dcls_rate    공시이율 [소수점 2자리]
-    # guar_rate    최저 보증이율
-    # btrm_prft_rate_1    과거 수익률1(전년도) [소수점 2자리]
-    # btrm_prft_rate_2    과거 수익률2(전전년도) [소수점 2자리]
-    # btrm_prft_rate_3    과거 수익률3(전전전년도) [소수점 2자리]
-    # etc    기타사항
-    # sale_co    판매사
-    # dcls_strt_day    공시 시작일
-    # dcls_end_day    공시 종료일
-    # fin_co_subm_day 금융회사제출일[YYYYMMDDHH24MI]
+
+
+
+# class SavingOptions(models.Model):
+#     intr_rate_type = models.CharField(max_length=200, null=True)
+#     intr_rate_type_nm = models.CharField(max_length=200, null=True)
+#     rsrv_type = models.CharField(max_length=200, null=True)
+#     rsrv_type_nm = models.CharField(max_length=200, null=True)
+#     save_trm = models.CharField(max_length=200, null=True)
+#     intr_rate = models.CharField(max_length=200, null=True)
+#     intr_rate2 = models.CharField(max_length=200, null=True)

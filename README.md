@@ -34,19 +34,23 @@
 2. filter의 반환값은 배열이다.
 3. javascript에서 type 유형 확인하는 법 = typeof 였다.
 4. django-rest-auth의 account/user/ 로 들어가면 현재 로그인한 유저의 정보가 나타난다! 
-5. 게시물 생성할때 user의 데이터도 넣고 싶어서 serializer에 user도 추가하였더니 에러가 났다. 
-`serializer.save(user=request.user)`를 통해 request의 user 데이터가 자동으로 들어간 줄 알았으나 vue에서 따로 입력을해줘야 하는 상황이 발생하였다.
-django에서 독자적으로 프로젝트를 만들때는 request로 user에 접근할 수 있었지만, vue와 연결하여 사용할때는 request에서 user을 접근할 수 없기 때문에 게시글 생성시에 user 데이터도 담아야 한다.
-
+5. vue에서 이용자의 데이터에 접근하는 방법에 대해 알게되었다.
+6. serializer 커스텀하는 법
+7. routerguard 사용하는 법
 
 
 
 ## 어려웠던 점
 1. 게시글 수정, 삭제를 하기 위해 해당 게시글을 작성한 유저의 정보를 가져올 필요가 있었는데 해당 정보를 가져오는게 너무 어려웠다. 결국 전부다 해당 게시글의 번호를 통해서 axios 요청으로 데이터를 통째로 가져와 거기에서 해당 게시글의 작성 유저를 찾았다.
 2. field 값에 user를 추가하자, 게시글 작성 시 에러가 생겼다. 해당 문제는, 현재 로그인중인 유저의 id(pk) 값을 store에 저장해 axios 요청을 보낼 때 해당 id 값을 data안에 넣어서 해당 값을 지정해주었다!
+   -> 근데 이게 틀렸다!
+   user 값을 read_only_fields로 주었어야 했다. 그러자 게시글의 작성자를 쓸 수가 없었다. 데이터는 전부 django에서 가져와야 한다는 점이 있었기 때문에
+   article serializer에서 userserializer를 호출하여 username과 user 값을 fields로 하여 user 변수를 생성했고 articleSerializer의 fields에 user 변수를 추가했다.
+3. vue에서 이용자 데이터에 접근하기 위해서는 token에 key값을 넣어줬던 것처럼, 로그인시 user 데이터를 저장해놓는 방법을 사용하였다.
+4. 게시물 수정 삭제시 게시물 작성자의 id와 이용자의 id가 다를시 접근할 수 없게 router을 달아줬는데, 각 then 블럭에서 다음으로 데이터를 넘겨주는 것이 어려워 한 then 블럭을 사용하였다.
 
-
-3. 게시물 수정 삭제시 게시물 작성자의 id와 이용자의 id가 다를시 접근할 수 없게 router을 달아줬는데, 각 then 블럭에서 다음으로 데이터를 넘겨주는 것이 어려워 한 then 블럭을 사용하였다.
+5. router guard를 사용하는데, 현재 접속유저가 글을 작성한 유저가 아니라면, 해당 router에 대한 접속을 거부하는 로직을 짜려고 했다. 그러나 해당 로직을 구현하기 위해서는, 게시글을 작성한 user의 정보가 필요했고, 현재 router에서 얻을 수 있는 정보는 params로 주어지는 article_id(게시글 번호) 뿐이었다.
+그래서 해당 게시글을 axios를 통해 조회하여 해당 게시글의 작성자 정보를 받아와 if문을 이용하여 해당 로직을 구현했다. routerguard 에서 axios를 쓸 수 있을줄은 몰랐다. 현재 로그인 중인 user의 정보는 로그인 할때 token 값을 저장하는 것 처럼 user.id 값도 같이 저장해 주었다.
 
 - 김영준 : 로그인 django 기능 구현, 커뮤니티 기능 구현, 커뮤니티 권한 접근 기능
 - 윤예빈 :  로그인 Vue 기능 구현, 커뮤니티 컴포넌트 구현, 모델링
