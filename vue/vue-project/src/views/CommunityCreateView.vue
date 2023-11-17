@@ -3,12 +3,12 @@
     <h1 class="fw-bold mt-3">게시글 생성 페이지</h1>
     <form @submit.prevent="createArticle">
       <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">제목</label>
-        <input v-model="title" type="text" class="form-control" id="exampleFormControlInput1">
+        <label for="title" class="form-label">제목</label>
+        <input v-model="title" type="text" class="form-control" id="title">
       </div>
       <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-        <textarea v-model="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <label for="content" class="form-label">내용</label>
+        <textarea v-model="content" class="form-control" id="content" rows="3"></textarea>
       </div>
       <input type="submit" name="" id="">
     </form>
@@ -30,7 +30,6 @@ const createArticle = function () {
     title: title.value,
     content: content.value,
   }
-  console.log(payload)
   store.createArticles(payload)
 }
 

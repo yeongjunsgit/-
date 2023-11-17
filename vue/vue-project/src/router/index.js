@@ -9,6 +9,7 @@ import ProfileView from '@/views/ProfileView.vue'
 import LoginView from '@/views/LoginView.vue'
 import CommunityDetailView from '@/views/CommunityDetailView.vue'
 import CommunityCreateView from '@/views/CommunityCreateView.vue'
+import CommunityUpdateView from '@/views/CommunityUpdateView.vue'
 
 
 const router = createRouter({
@@ -28,6 +29,17 @@ const router = createRouter({
       path: '/community/:id',
       name: 'CommunityDetailView',
       component: CommunityDetailView
+    },
+   
+    {
+      path: '/create',
+      name: 'create',
+      component: CommunityCreateView
+    },
+    {
+      path: '/update/:id',
+      name: 'update',
+      component: CommunityUpdateView
     },
     {
       path: '/exchange',
@@ -58,11 +70,6 @@ const router = createRouter({
       path: '/login',
       name: 'LoginView',
       component: LoginView
-    },
-    {
-      path: '/create',
-      name: 'create',
-      component: CommunityCreateView
     },
    
   ]

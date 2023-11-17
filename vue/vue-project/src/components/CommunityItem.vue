@@ -12,10 +12,9 @@ import { useRouter } from 'vue-router'
 const props = defineProps({
   article: Object,
 })
-console.log(props.article.id)
+// console.log(props.article.id)
 const router = useRouter()
 const goDetail = function(){
-  console.log('디테일 뷰로 가기')
   router.push(`/community/${props.article.id}`)
   
 }
