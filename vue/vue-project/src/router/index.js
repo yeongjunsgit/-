@@ -6,6 +6,10 @@ import ExCalculView from '@/views/ExCalculView.vue'
 import DepositSavingsRateView from '@/views/DepositSavingsRateView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import LoginView from '@/views/LoginView.vue'
+import CommunityDetailView from '@/views/CommunityDetailView.vue'
+import CommunityCreateView from '@/views/CommunityCreateView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,6 +23,11 @@ const router = createRouter({
       path: '/community',
       name: 'CommunityView',
       component: CommunityView
+    },
+    {
+      path: '/community/:id',
+      name: 'CommunityDetailView',
+      component: CommunityDetailView
     },
     {
       path: '/exchange',
@@ -44,6 +53,16 @@ const router = createRouter({
       path: '/nearbank',
       name: 'NearBankView',
       component: NearBankView
+    },
+    {
+      path: '/login',
+      name: 'LoginView',
+      component: LoginView
+    },
+    {
+      path: '/create',
+      name: 'create',
+      component: CommunityCreateView
     },
    
   ]

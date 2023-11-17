@@ -43,6 +43,7 @@ REST_FRAMEWORK = {
 INSTALLED_APPS = [
     'accounts',
     'articles',
+    'fin_prct_recom',
     'corsheaders',
     'django.contrib.sites',			
     'dj_rest_auth.registration',
