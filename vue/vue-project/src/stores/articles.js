@@ -104,7 +104,7 @@ export const useArticleStore = defineStore('articles', () => {
       data: {
         title: title,
         content: content,
-        user: mypk.value,
+        // user: mypk.value,
       },
     })
       .then((res) => {
@@ -119,31 +119,43 @@ export const useArticleStore = defineStore('articles', () => {
   }
   
   const updateArticle = function (payload) {
-    const { title, content, article_id } = payload
-    axios({
-      method: 'put',
-      url: `${API_URL}/articles/manage/${article_id}/`,
-      headers: {
-        Authorization: `Token ${token.value}`
-      },
-      data: {
-        title: title,
-        content: content,
-      },
-    })
-      .then((res) => {
-        console.log('게시글이 수정되었습니다.')
-        router.push({name:'CommunityDetailView', params:article_id})
+    const { title, content, article_id, user, article_user } = payload
+    if (user != article_user) {
+      window.alert('니가 작성하지 않았다.')
+    } else {
+      axios({
+        method: 'put',
+        url: `${API_URL}/articles/manage/${article_id}/`,
+        headers: {
+          Authorization: `Token ${token.value}`
+        },
+        data: {
+          title: title,
+          content: content,
+          user: user,
+        },
       })
-      .catch((err) => {
-        console.log(err)
-      })
+        .then((res) => {
+          console.log('게시글이 수정되었습니다.')
+          router.push({name:'CommunityDetailView', params:article_id})
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
   }
   
-  const deleteArticle = function (article_id) {
+  const deleteArticle = function (payload) {
+    const { article_id,article_user, user } = payload
+    if (user !=article_user ) {
+      window.alert('내가 작성한 글이 아닙니다.')
+    } else {
     axios({
       method: 'delete',
       url: `${API_URL}/articles/manage/${article_id}/`,
+      data: {
+        user: user,
+      },
       headers: {
         Authorization: `Token ${token.value}`
       },
@@ -155,6 +167,7 @@ export const useArticleStore = defineStore('articles', () => {
       .catch((err) => {
         console.log(err)
       })
+    }
   }
 
   return { articles, signUp, login, token, getArticles, API_URL,

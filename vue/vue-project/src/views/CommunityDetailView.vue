@@ -3,8 +3,10 @@
     <h1>Community Detail</h1>
   
     <div v-if="article">
-
-    <p>글쓴이 : {{ article[0].user }}</p>
+      <!-- {{ article }}
+      {{ mypk }} -->
+      <!-- {{ article[0] }}s -->
+    <!-- <p>글쓴이 : {{ article[0].user }}</p> -->
     <p>제목 : {{ article[0].title }}</p>
     <p>내용 : {{ article[0].content }}</p>
     <div v-if="mypk === article[0].user">
@@ -53,12 +55,18 @@ onMounted(() => {
 const router = useRouter()
 
 const gotoUpdate = function(){
-  
+  console.log('업데이트하러가기')
+
   router.push({name:'update',params:route.params.id})
 }
 
 const deleteArticle = function () {
-  store.deleteArticle(article.value[0].id)
+  const payload = {
+    article_id: article.value[0].id,
+    article_user:article.value[0].user,
+    user: mypk.value
+  }
+  store.deleteArticle(payload)
 }
 </script>
 

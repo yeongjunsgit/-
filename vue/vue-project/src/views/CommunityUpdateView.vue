@@ -53,13 +53,13 @@ onMounted(() => {
 })
 
 
-
-
 const updateArticles = function () {
   const payload = {
     title: title.value,
     content: content.value,
-    article_id:route.params.id
+    article_id:route.params.id,
+    user: store.mypk,
+    article_user: article.value[0].user,
   }
   store.updateArticle(payload)
 }
