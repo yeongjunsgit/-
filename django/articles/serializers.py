@@ -13,7 +13,7 @@ class ArticleListSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Article
-        fields = ('id', 'title', 'content','user' )
+        fields = ('id', 'title', 'content','user',)
         
 
 
