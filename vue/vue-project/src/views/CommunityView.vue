@@ -1,3 +1,4 @@
+<!-- CommunityView.vue -->
 <template>
   <div>
     <h1>Community</h1>
