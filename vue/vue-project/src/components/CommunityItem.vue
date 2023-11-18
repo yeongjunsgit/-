@@ -1,3 +1,4 @@
+<!-- CommnityItemView.vue -->
 <template>
   <div class="border"> 
     <p @click="goDetail">제목 : {{ article.title }}</p>
