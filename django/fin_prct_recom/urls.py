@@ -27,4 +27,8 @@ urlpatterns = [
 
     # 됨
     path('save-fincompany-info/',views.save_fincompany_info, name="save_fincompany_info" ),
+
+    path('list-financial-products/',views.list_financial_products),
+    path('list-financial-options/',views.list_financial_options),
+    
 ]

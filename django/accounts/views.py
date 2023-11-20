@@ -1,19 +1,20 @@
-# from dj_rest_auth.registration.views import RegisterView
-# # from .serializers import CustomRegisterSerializer
-# from rest_framework.decorators import api_view
-# from django.http import JsonResponse
-# from rest_framework.response import Response
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
+# permission Decorators
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
-# # class CustomRegisterView(RegisterView):
-# #     serializer_class = CustomRegisterSerializer
+from django.shortcuts import get_object_or_404, get_list_or_404
 
+from .serializers import CustomRegisterSerializer
+from .models import User
 
-
-# # @api_view(['POST'])
-# # def signup(request):    
-
-# #     serializer = CustomRegisterSerializer(data=request.data)
-# #     if serializer.is_valid(raise_exception=True):
-# #         return Response(serializer.data)
-        
+# Create your views here.
+@api_view(['GET'])
+def user_detail(request):
+    if request.method == 'GET':
+        Users = get_list_or_404(User)
+        serializer = CustomRegisterSerializer(Users, many=True)
+        return Response(serializer.data)
         

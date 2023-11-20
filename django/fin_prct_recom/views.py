@@ -1,10 +1,17 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework.response import Response
 import requests
 from .serializers import FinancialPrdtSerializer, FinancialOptionsSerializer,YearSavingPrdtSerializer, YearSavingOptionsSerializer, DepositLoanPrdtSerializer, DepositLoanOptionsSerializer, SavingPrdtSerializer, SavingOptionsSerializer, PersonalCreditLoanPrdtSerializer, PersonalCreditLoanOptionsSerializer, FinCompanyInfoSerializer, FinCompanyOptionSerializer, HouseLoanPrdtSerializer, HouseLoanOptionsSerializer
 from .models import FinancialOptions,FinancialPrdt,YearSavingPrdt,YearSavingOptions, DepositLoanPrdt, DepositLoanOptions, SavingPrdt, PersonalCreditLoanPrdt,FinCompanyInfo,FinCompanyOptions, HouseLoanPrdt,HouseLoanOptions,SavingOptions
+# from rest_framework.decorators import permiSthenticated, IsAdminUser
+
+
 api_key = '3fd1a070dff058dde65e087c621280b7'
 # Create your views here.
 @api_view(['GET'])
@@ -418,6 +425,7 @@ def save_fincompany_info(request):
 
 
 def delete(req):
+
     data = FinancialOptions.objects.all()
     data.delete()
     data = FinancialPrdt.objects.all()
@@ -447,3 +455,35 @@ def delete(req):
 
     
     return JsonResponse({'message':'okay'})
+
+
+@api_view(['GET'])
+def list_financial_products(request):
+    if request.method == 'GET':
+        financial_data = get_list_or_404(FinancialPrdt)
+
+
+        serializer = FinancialPrdtSerializer(financial_data, many=True)
+        return Response(serializer.data)
+    
+    
+@api_view(['GET'])
+def list_financial_options(request):
+    if request.method == 'GET':
+        financial_datas = FinancialOptions.objects.all().order_by('-intr_rate2')
+        if financial_datas:
+            serializer = FinancialOptionsSerializer(financial_datas, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+
+# # Create your views here.
+# @api_view(['GET'])
+# def user_detail(request):
+#     if request.method == 'GET':
+#         Users = get_list_or_404(User)
+#         serializer = CustomRegisterSerializer(Users, many=True)
+#         return Response(serializer.data)
+        
