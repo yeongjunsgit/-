@@ -13,13 +13,14 @@ export const useArticleStore = defineStore('articles', () => {
 
   const signUp = function(payload){
     // 구조분해할당
-    const {username,password1,password2} = payload
+    const {username, password1, password2, age, salary, money, nickname, prdts} = payload
+    console.log(payload)
     axios({
       method:'post',
       url:`${API_URL}/accounts/signup/`,
       // 단축 속성
       data:{
-        username,password1,password2
+        username, password1, password2, age, salary, money, nickname, prdts
       }
     })
     .then((res) =>{
