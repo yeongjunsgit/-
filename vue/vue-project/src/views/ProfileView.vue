@@ -17,11 +17,19 @@ const mydata = ref(null)
 
 onMounted(() => {
   const store = useArticleStore()
+  console.log('토큰',store.token)
+  console.log('이름',store.myname)
+  
   axios({
     method: 'get',
-    url: `${store.API_URL}/accounts/user_detail/`
+    url: `${store.API_URL}/accounts/user_detail/`,
+    headers: {
+      Authorization: `Token ${store.token}`
+    }
   })
   .then((res)=>{
+    console.log(res.data)
+    console.log(store.myname)
     mydata.value = res.data.filter((user) => user.username === store.myname)
     console.log(mydata.value)
   })

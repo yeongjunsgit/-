@@ -7,12 +7,9 @@ class FinancialPrdtSerializer(serializers.ModelSerializer):
         model = FinancialPrdt
         fields = '__all__'
 
-
-
-
 class FinancialOptionsSerializer(serializers.ModelSerializer):
     # product 는 읽기 전용 필드로 지정한다.
-    product = serializers.ReadOnlyField(source='FinancialOptions.product')
+    product = FinancialPrdtSerializer(read_only=True)
     class Meta:
         model = FinancialOptions
         # fields =  ('fin_prdt_cd_id', 'intr_rate_type_nm', 'intr_rate', 'intr_rate2', 'save_trm', )
