@@ -16,12 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-# from accounts.views import signup
+# from accounts.views import CustomRegisterView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('articles/', include("articles.urls")),
     path('fin_prct/', include("fin_prct_recom.urls")),
-    path('accounts/', include('dj_rest_auth.urls')),
+    path('accounts/', include('allauth.urls')),
+    # path('accounts/', include('dj_rest_auth.urls')),
     path('accounts/signup/', include('dj_rest_auth.registration.urls')),
-    # path('custom-accounts/signup/',views.signup),
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
 ]

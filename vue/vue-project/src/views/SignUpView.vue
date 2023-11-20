@@ -2,7 +2,7 @@
   <div class="signup-container">
     <h1>회원가입</h1>
     <form @submit.prevent="signUp" class="signup-form">
-      <div class="mb-3">
+      <div class="mb-3 input-group">
         
         <input
           id="username"
@@ -12,8 +12,7 @@
           name=""
           placeholder="아이디 *"
         />
-      </div>
-      <div class="mb-3">
+  
         
         <input
           id="password1"
@@ -23,8 +22,7 @@
           name=""
           placeholder="비밀번호 *"
         />
-      </div>
-      <div class="mb-3">
+   
         
         <input
           id="password2"

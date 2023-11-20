@@ -17,7 +17,7 @@ export const useArticleStore = defineStore('articles', () => {
     console.log(payload)
     axios({
       method:'post',
-      url:`${API_URL}/accounts/signup/`,
+      url:`${API_URL}/dj-rest-auth/registration/`,
       // 단축 속성
       data:{
         username, password1, password2, age, salary, money, nickname, prdts
@@ -39,7 +39,7 @@ export const useArticleStore = defineStore('articles', () => {
     const { username, password } = payload
     axios ({
       method: 'post',
-      url:`${API_URL}/accounts/login/`,
+      url:`${API_URL}/dj-rest-auth/login/`,
       data: {
         username, password
       }
