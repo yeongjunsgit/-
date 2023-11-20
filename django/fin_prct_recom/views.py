@@ -461,8 +461,6 @@ def delete(req):
 def list_financial_products(request):
     if request.method == 'GET':
         financial_data = get_list_or_404(FinancialPrdt)
-
-
         serializer = FinancialPrdtSerializer(financial_data, many=True)
         return Response(serializer.data)
     

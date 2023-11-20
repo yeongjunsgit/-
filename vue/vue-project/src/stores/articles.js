@@ -51,15 +51,18 @@ export const useArticleStore = defineStore('articles', () => {
       // 유저 데이터 가져오기
         axios ({
           method: 'get',
-          url:`${API_URL}/accounts/user/`,
+          url:`${API_URL}/dj-rest-auth/user/`,
           headers: {
             Authorization: `Token ${token.value}`
           }
         })
         .then((res) =>{
           console.log(res.data)
+
           myname.value = res.data.username
           mypk.value = res.data.pk
+          console.log(myname.value)
+          console.log(mypk.value)
         })
         .catch((err) => {
           console.log(err)
