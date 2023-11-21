@@ -16,7 +16,7 @@ from django.shortcuts import render
 def user_detail(request):
     if request.method == 'GET':
         Users = get_list_or_404(User)
-        serializer = UserSerializer(Users, many=True)
+        serializer = CustomRegisterSerializer(Users, many=True)
         return Response(serializer.data)
         
 

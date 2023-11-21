@@ -36,6 +36,9 @@ const username = ref(null);
 const password = ref(null);
 
 const login = function() {
+  // console.log('로그인 뷰')
+  // console.log(username.value)
+  // console.log(password.value)
   const payload = {
     username: username.value,
     password: password.value,

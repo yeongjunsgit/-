@@ -38,6 +38,8 @@ export const useArticleStore = defineStore('articles', () => {
   
   const login = function (payload) {
     const { username, password } = payload
+    // console.log('스토어도착')
+    // console.log(username, password)
     axios ({
       method: 'post',
       url:`${API_URL}/dj-rest-auth/login/`,
@@ -58,11 +60,11 @@ export const useArticleStore = defineStore('articles', () => {
           }
         })
         .then((res) =>{
-          console.log(res.data)
+          // console.log(res.data)
           myname.value = res.data.username
           mypk.value = res.data.pk
-          console.log(myname.value)
-          console.log(mypk.value)
+          // console.log(myname.value)
+          // console.log(mypk.value)
         })
         .catch((err) => {
           console.log(err)

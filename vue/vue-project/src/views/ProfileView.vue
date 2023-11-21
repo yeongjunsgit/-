@@ -36,9 +36,9 @@ onMounted(() => {
   })
   .then((res)=>{
     console.log(res.data)
-    // console.log(store.myname)
+    console.log('저장한 내 이름',store.myname)
     mydata.value = res.data.filter((user) => user.username === store.myname)
-    // console.log(mydata.value)
+    console.log(mydata.value)
   })
   .catch((err) => {
     // console.log(store.token)
