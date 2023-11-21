@@ -16,7 +16,23 @@ class CustomRegisterSerializer(RegisterSerializer):
     age = serializers.IntegerField(required=False)
     money = serializers.IntegerField(required=False)
     salary = serializers.IntegerField(required=False)
-    financial_products = serializers.ListField(child=serializers.IntegerField(), required=False)
+    financial_products = serializers.CharField(
+        required=False,
+        allow_blank=True,
+        max_length=1000
+    )
+
+    def validate_financial_products(self, value):
+        # financial_products 값을 쉼표로 구분하여 리스트로 변환
+        if value:
+            value = value.split(',')
+        return value
+
+    def to_internal_value(self, data):
+        # financial_products 값을 쉼표로 구분하여 리스트로 변환
+        if isinstance(data, str):
+            data = data.split(',')
+        return super().to_internal_value(data)
     def get_cleaned_data(self):
         return {
         'username': self.validated_data.get('username', ''),

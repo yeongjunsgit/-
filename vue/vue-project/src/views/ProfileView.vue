@@ -1,8 +1,14 @@
 <template>
   <div>
     <h1>ProfileView</h1>
+    키 {{ store.token }}
     <div v-if="mydata">
-      {{ mydata }}
+      <h3>{{mydata[0].nickname}}님의 페이지</h3>
+      <p>아이디 : {{mydata[0].username}}</p>
+      <p>내 나이 : {{ mydata[0].age }}세</p>
+      <p v-if="mydata[0].money">내 자산 : {{ mydata[0].money }}원</p>
+      <p v-if="mydata[0].financial_products">내 금융 상품 : {{ mydata[0].financial_products }}</p>
+      
     </div>
     <p @click="gotoDetail"> 금융상품 추가하기 > </p>
   </div>
@@ -38,7 +44,9 @@ onMounted(() => {
     console.log(res.data)
     console.log('저장한 내 이름',store.myname)
     mydata.value = res.data.filter((user) => user.username === store.myname)
-    console.log(mydata.value)
+    console.log(mydata.value[0].financial_products)
+    
+    
   })
   .catch((err) => {
     // console.log(store.token)

@@ -79,7 +79,7 @@ def save_yearsaving_products(request):
     # 정기예금
     url = f"http://finlife.fss.or.kr/finlifeapi/annuitySavingProductsSearch.json?auth={api_key}&topFinGrpNo=060000&pageNo=1"
     response = requests.get(url).json()
-    # return Response(response)
+   
     
     # 상품 저장
     for li in response['result']['baseList']:
