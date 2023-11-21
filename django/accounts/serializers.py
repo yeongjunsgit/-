@@ -57,3 +57,10 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields=('financial_products',)
+
+
+# class UserSurveySerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = UserSurvey
+#         fields=('__all__')
+#         read_only_fields=('user',)

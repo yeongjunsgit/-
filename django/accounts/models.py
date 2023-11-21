@@ -69,3 +69,23 @@ class CustomAccountAdapter(DefaultAccountAdapter):
             # this adapter by adding
             user.save()
         return user
+    
+# from django.conf import settings
+# class UserSurvey(models.Model):
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+#     # 연금저축
+#     like_yearsaving = models.BooleanField(null=True)
+#     # 적금
+#     like_save = models.BooleanField(null=True)
+#     # 예금
+#     like_deposit = models.BooleanField(null=True)
+#     # 장기추구, 단기 추구
+#     period = models.CharField(max_length=30,null=True)
+#     # 대출필요?
+#     need_loan = models.BooleanField(null=True)
+#     # 대출 필요할때 주택담보/ 개인신용/ 전세자금
+#     need_loantype = models.CharField(max_length=30,null=True)
+#     # 한도? vs 최저금리
+#     like_high_limit = models.BooleanField(null=True)
+
+    

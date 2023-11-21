@@ -11,6 +11,7 @@
       
     </div>
     <p @click="gotoDetail"> 금융상품 추가하기 > </p>
+    <p @click="gotoSurvey"> 금융상품 취향 설문조사 > </p>
   </div>
 </template>
 
@@ -24,8 +25,11 @@ const store = useArticleStore()
 const mydata = ref(null)
 const router = useRouter()
 const gotoDetail = function(){
-  console.log(store.mypk)
   router.push(`/profile/${store.mypk}`)
+}
+
+const gotoSurvey = function(){
+  router.push(`/profile/survey`)
 }
 
 onMounted(() => {

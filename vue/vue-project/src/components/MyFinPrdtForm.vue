@@ -53,8 +53,10 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import {useArticleStore} from '@/stores/articles'
+import { useRouter,useRoute } from 'vue-router'
 
-
+const router = useRouter()
+const route = useRoute()
 const store = useArticleStore()
 const prdtsList = ref([])
 const prdts = ref(null)
@@ -143,6 +145,7 @@ const donePrdt = function (){
   console.log('상품을 보냅니다.')
   console.log(prdtsList.value)
   emit('emitPrdts',prdtsList.value)
+  router.push(`/profile`)
 }
 
 </script>
