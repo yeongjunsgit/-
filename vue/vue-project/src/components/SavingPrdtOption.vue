@@ -1,6 +1,7 @@
 <template>
     <div v-if="product">
         <h4>{{ product[0].fin_prdt_nm }}</h4>
+        
         <p>우대 조건 : {{ product[0].spcl_cnd }}</p>
         <p>가입 제한 : 
             <span v-if="product[0].join_deny===1">
