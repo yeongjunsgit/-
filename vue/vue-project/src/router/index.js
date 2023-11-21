@@ -3,13 +3,19 @@ import HomeView from '@/views/HomeView.vue'
 import CommunityView from '@/views/CommunityView.vue'
 import NearBankView from '@/views/NearBankView.vue'
 import ExCalculView from '@/views/ExCalculView.vue'
-import DepositSavingsRateView from '@/views/DepositSavingsRateView.vue'
+import RecommendView from '@/views/RecommendView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import LoginView from '@/views/LoginView.vue'
 import CommunityDetailView from '@/views/CommunityDetailView.vue'
 import CommunityCreateView from '@/views/CommunityCreateView.vue'
 import CommunityUpdateView from '@/views/CommunityUpdateView.vue'
+import RecomFinanPrdtView from '@/views/RecomFinanPrdtView.vue'
+import RecomYearSavView from '@/views/RecomYearSavView.vue'
+import RecomSavingPrdtView from '@/views/RecomSavingPrdtView.vue'
+import RecomHomeLoanView from '@/views/RecomHomeLoanView.vue'
+import RecomDepositLoanView from '@/views/RecomDepositLoanView.vue'
+
 import { useArticleStore } from '@/stores/articles'
 import axios from 'axios'
 import { ref, computed } from 'vue'
@@ -82,8 +88,8 @@ const router = createRouter({
     },
     {
       path: '/rate',
-      name: 'DepositSavingsRateView',
-      component: DepositSavingsRateView
+      name: 'recommendView',
+      component: RecommendView
     },
     {
       path: '/profile',
@@ -104,6 +110,31 @@ const router = createRouter({
       path: '/login',
       name: 'LoginView',
       component: LoginView
+    },
+    {
+      path: '/finanprdt',
+      name: 'RecomFinanPrdtView',
+      component: RecomFinanPrdtView
+    },
+    {
+      path: '/yearsave',
+      name: 'RecomYearSavView',
+      component: RecomYearSavView
+    },
+    {
+      path: '/save',
+      name: 'RecomSavingPrdtView',
+      component: RecomSavingPrdtView
+    },
+    {
+      path: '/homeloan',
+      name: 'RecomHomeLoanView',
+      component: RecomHomeLoanView
+    },
+    {
+      path: '/depositloan',
+      name: 'RecomDepositLoanView',
+      component: RecomDepositLoanView
     },
    
   ]

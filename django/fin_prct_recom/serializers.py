@@ -9,11 +9,12 @@ class FinancialPrdtSerializer(serializers.ModelSerializer):
 
 class FinancialOptionsSerializer(serializers.ModelSerializer):
     # product 는 읽기 전용 필드로 지정한다.
-    product = FinancialPrdtSerializer(read_only=True)
+    # product = FinancialPrdtSerializer(read_only=True)
     class Meta:
         model = FinancialOptions
         # fields =  ('fin_prdt_cd_id', 'intr_rate_type_nm', 'intr_rate', 'intr_rate2', 'save_trm', )
         fields = '__all__'
+        read_only_fields=('product',)
 
 
 class YearSavingPrdtSerializer(serializers.ModelSerializer):
@@ -23,10 +24,11 @@ class YearSavingPrdtSerializer(serializers.ModelSerializer):
 
 class YearSavingOptionsSerializer(serializers.ModelSerializer):
     # product 는 읽기 전용 필드로 지정한다.
-    product = serializers.ReadOnlyField(source='YearSavingOptions.product')
+    # product = serializers.ReadOnlyField(source='YearSavingOptions.product')
     class Meta():
         model = YearSavingOptions
         fields = '__all__'
+        read_only_fields=('product',)
 
 class DepositLoanPrdtSerializer(serializers.ModelSerializer):
     class Meta():
@@ -35,10 +37,11 @@ class DepositLoanPrdtSerializer(serializers.ModelSerializer):
 
 class DepositLoanOptionsSerializer(serializers.ModelSerializer):
     # product 는 읽기 전용 필드로 지정한다.
-    product = serializers.ReadOnlyField(source='DepositLoanOptions.product')
+    # product = serializers.ReadOnlyField(source='DepositLoanOptions.product')
     class Meta():
         model = DepositLoanOptions
         fields = '__all__'
+        read_only_fields=('product',)
 
 class SavingPrdtSerializer(serializers.ModelSerializer):
     class Meta():
@@ -47,10 +50,11 @@ class SavingPrdtSerializer(serializers.ModelSerializer):
 
 class SavingOptionsSerializer(serializers.ModelSerializer):
     # product 는 읽기 전용 필드로 지정한다.
-    product = serializers.ReadOnlyField(source='SavingOptions.product')
+    # product = serializers.ReadOnlyField(source='SavingOptions.product')
     class Meta():
         model = SavingOptions
         fields = '__all__'
+        read_only_fields=('product',)
 
 class PersonalCreditLoanPrdtSerializer(serializers.ModelSerializer):
     class Meta():
@@ -59,10 +63,11 @@ class PersonalCreditLoanPrdtSerializer(serializers.ModelSerializer):
 
 class PersonalCreditLoanOptionsSerializer(serializers.ModelSerializer):
     # product 는 읽기 전용 필드로 지정한다.
-    product = serializers.ReadOnlyField(source='PersonalCreditLoanOptions.product')
+    # product = serializers.ReadOnlyField(source='PersonalCreditLoanOptions.product')
     class Meta():
         model = PersonalCreditLoanOptions
         fields = '__all__'
+        read_only_fields=('product',)
 
 class HouseLoanPrdtSerializer(serializers.ModelSerializer):
     class Meta():
@@ -71,10 +76,11 @@ class HouseLoanPrdtSerializer(serializers.ModelSerializer):
 
 class HouseLoanOptionsSerializer(serializers.ModelSerializer):
     # product 는 읽기 전용 필드로 지정한다.
-    product = serializers.ReadOnlyField(source='HouseLoanOptions.product')
+    # product = serializers.ReadOnlyField(source='HouseLoanOptions.product')
     class Meta():
         model = HouseLoanOptions
         fields = '__all__'
+        read_only_fields=('product',)
 
 class FinCompanyInfoSerializer(serializers.ModelSerializer):
     class Meta():
@@ -83,10 +89,12 @@ class FinCompanyInfoSerializer(serializers.ModelSerializer):
 
 class FinCompanyOptionSerializer(serializers.ModelSerializer):
     # product 는 읽기 전용 필드로 지정한다.
-    product = serializers.ReadOnlyField(source='FinCompanyOption.product')
+    # product = serializers.ReadOnlyField(source='FinCompanyOption.product')
     class Meta():
         model = FinCompanyOptions
         fields = '__all__'
+        read_only_fields=('product',)
+
 
 
 
