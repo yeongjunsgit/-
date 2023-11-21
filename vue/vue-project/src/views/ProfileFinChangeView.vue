@@ -17,7 +17,7 @@ import { useArticleStore } from '@/stores/articles'
 const store = useArticleStore()
 
 const prdt_cd_list = ref([])
-
+const type_list = ref([])
 
 const gerPrdts = function(ps){
   console.log('이벤트를 받았습니다')
@@ -25,6 +25,7 @@ const gerPrdts = function(ps){
 
   ps.forEach(prdt => {
     prdt_cd_list.value.push(prdt.fin_prdt_cd)
+    type_list.value.push(prdt.type)
   })
 
   axios ({
@@ -33,6 +34,7 @@ const gerPrdts = function(ps){
     data: {  
       user:store.mypk,
       financial_products:prdt_cd_list.value.join(','),
+      product_type:type_list.value.join(',')
     },
     headers: {
             Authorization: `Token ${store.token}`

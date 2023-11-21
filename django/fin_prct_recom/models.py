@@ -224,3 +224,4 @@ from django.conf import settings
 class UserJoinPrdt(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     product = models.TextField(null=True)
+    product_type = models.TextField(null=True)

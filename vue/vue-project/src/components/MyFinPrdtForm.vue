@@ -60,7 +60,7 @@ const prdtsList = ref([])
 const prdts = ref(null)
 const select = ref(null)
 const filteredprdt = ref(null)
-
+const type = ref(null)
 
 const selectPrdt = function(id){
   select.value = id
@@ -72,18 +72,23 @@ const searchPrdt = function(){
   const tmpUrl = ref(null)
   if (select.value == 1) {
     tmpUrl.value = 'list-financial-products'
+    type.value = 'financial'
   } 
   else if (select.value === 2){
     tmpUrl.value = 'list-yearsaving-products'
+    type.value = 'yearsaving'
   }
   else if (select.value === 3){
     tmpUrl.value = 'list-saving-products'
+    type.value = 'saving'
   }
   else if (select.value === 4){
     tmpUrl.value = 'list-homeloan-products'
+    type.value = 'homeloan'
   }
   else if (select.value === 5){
     tmpUrl.value = 'list-depositloan-products'
+    type.value = 'depositloan'
   }
   console.log(tmpUrl.value)
   axios ({
@@ -114,6 +119,7 @@ const addPrdt = function(cd){
       {
         fin_prdt_cd:cd.fin_prdt_cd,
         fin_prdt_nm:cd.fin_prdt_nm,
+        type:type.value,
       }
     
     )

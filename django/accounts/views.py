@@ -28,20 +28,21 @@ def add_data(request):
     if request.method == 'PUT':
         user_instance = get_object_or_404(User, username=request.user.username)
         serializer = UserSerializer(user_instance, data={'financial_products':request.data['financial_products']}, partial=True)
-        print()
-        
-        print(request.data)
-        join_data = {
-            'user':request.data['user'],
-            'product':request.data['financial_products'],
-        }
-        print(join_data)
-        serializer2 = UserJoinPrdtSerializer(data=join_data)
-    
+        financial_products_list = request.data['financial_products'].split(',')
+        type_products_list = request.data['product_type'].split(',')
+
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            if serializer2.is_valid(raise_exception=True):
-                serializer2.save()
+            for i in range(len(financial_products_list)):
+                join_data = {
+                    'user':request.data['user'],
+                    'product':financial_products_list[i],
+                    'product_type':type_products_list[i],
+                }
+                print(join_data)
+                serializer2 = UserJoinPrdtSerializer(data=join_data)
+                if serializer2.is_valid(raise_exception=True):
+                    serializer2.save()
             return Response(serializer.data)
         
 
