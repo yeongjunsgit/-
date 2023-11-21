@@ -24,6 +24,7 @@ class User(AbstractUser):
     
 class CustomAccountAdapter(DefaultAccountAdapter):
     def save_user(self, request, user, form, commit=True):
+        print('aaaaaaa')
         """
         Saves a new `User` instance using information provided in the
         signup form.
@@ -40,6 +41,7 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         money = data.get("money")
         salary = data.get("salary")
         financial_product = data.get("financial_products")
+        print('aaaaaaa', financial_product)
         user_email(user, email)
         user_username(user, username)
         if first_name:
@@ -59,7 +61,8 @@ class CustomAccountAdapter(DefaultAccountAdapter):
             financial_products.append(financial_product)
             if len(financial_products) > 1:
                 financial_products = ','.join(financial_products)
-                user_field(user, "financial_products", financial_products)
+            user_field(user, "financial_products", financial_products)
+            
         if "password1" in data:
             user.set_password(data["password1"])
         else:

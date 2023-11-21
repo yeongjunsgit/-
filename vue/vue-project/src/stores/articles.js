@@ -13,14 +13,15 @@ export const useArticleStore = defineStore('articles', () => {
 
   const signUp = function(payload){
     // 구조분해할당
-    const {username, password1, password2, age, salary, money, nickname, prdts} = payload
-    console.log(payload)
+    const {username, password1, password2, age, salary, money, nickname} = payload
+    // console.log('store의 회원가입까지 왔습니다.',typeof(financial_products))
+    // console.log(payload)
     axios({
       method:'post',
       url:`${API_URL}/dj-rest-auth/registration/`,
       // 단축 속성
       data:{
-        username, password1, password2, age, salary, money, nickname, prdts
+        username, password1, password2, age, salary, money, nickname
       }
     })
     .then((res) =>{
@@ -58,7 +59,6 @@ export const useArticleStore = defineStore('articles', () => {
         })
         .then((res) =>{
           console.log(res.data)
-
           myname.value = res.data.username
           mypk.value = res.data.pk
           console.log(myname.value)

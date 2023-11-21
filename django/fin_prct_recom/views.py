@@ -7,8 +7,8 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework.response import Response
 import requests
-from .serializers import FinancialPrdtSerializer, FinancialOptionsSerializer,YearSavingPrdtSerializer, YearSavingOptionsSerializer, DepositLoanPrdtSerializer, DepositLoanOptionsSerializer, SavingPrdtSerializer, SavingOptionsSerializer, PersonalCreditLoanPrdtSerializer, PersonalCreditLoanOptionsSerializer, FinCompanyInfoSerializer, FinCompanyOptionSerializer, HouseLoanPrdtSerializer, HouseLoanOptionsSerializer
-from .models import FinancialOptions,FinancialPrdt,YearSavingPrdt,YearSavingOptions, DepositLoanPrdt, DepositLoanOptions, SavingPrdt, PersonalCreditLoanPrdt,FinCompanyInfo,FinCompanyOptions, HouseLoanPrdt,HouseLoanOptions,SavingOptions
+from .serializers import FinancialPrdtSerializer, FinancialOptionsSerializer,YearSavingPrdtSerializer, YearSavingOptionsSerializer, DepositLoanPrdtSerializer, DepositLoanOptionsSerializer, SavingPrdtSerializer, SavingOptionsSerializer, PersonalCreditLoanPrdtSerializer, PersonalCreditLoanOptionsSerializer, FinCompanyInfoSerializer, FinCompanyOptionSerializer, HouseLoanPrdtSerializer, HouseLoanOptionsSerializer, UserJoinPrdtSerializer
+from .models import FinancialOptions,FinancialPrdt,YearSavingPrdt,YearSavingOptions, DepositLoanPrdt, DepositLoanOptions, SavingPrdt, PersonalCreditLoanPrdt,FinCompanyInfo,FinCompanyOptions, HouseLoanPrdt,HouseLoanOptions,SavingOptions, UserJoinPrdt
 # from rest_framework.decorators import permiSthenticated, IsAdminUser
 
 
@@ -549,10 +549,12 @@ def list_homeloan_options(request):
 @api_view(['GET'])
 def list_depositloan_products(request):
     if request.method == 'GET':
-        financial_data = get_list_or_404(DepositLoanPrdt)
-        serializer = DepositLoanPrdtSerializer(financial_data, many=True)
-        return Response(serializer.data)
-    
+        financial_datas = DepositLoanPrdt.objects.all().order_by('-loan_lmt')
+        if financial_datas:
+            serializer = DepositLoanPrdtSerializer(financial_datas, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
     
 @api_view(['GET'])
 def list_depositloan_options(request):
@@ -564,4 +566,7 @@ def list_depositloan_options(request):
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+    
+        
+        
         

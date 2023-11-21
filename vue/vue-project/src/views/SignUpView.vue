@@ -2,7 +2,7 @@
   <div class="signup-container">
     <h1>회원가입</h1>
     <form @submit.prevent="signUp" class="signup-form">
-      <div class="mb-3 input-group">
+      <div class="mb-3">
         
         <input
           id="username"
@@ -80,17 +80,11 @@
           placeholder="닉네임"
         />
       </div>
-      <div class="mb-3">
-        <!-- <label for="password2" class="form-label">소장한 금융상품 :</label> -->
-        <input
-          id="prdts"
-          v-model.trim="prdts"
-          type="text"
-          class="form-control"
-          name=""
-          placeholder="소장한 금융상품"
-        />
-      </div>
+
+
+      <!-- <MyFinPrdtForm
+      @emit-prdts="gerPrdts"/> -->
+      
       <button type="submit" class="btn btn-primary w-100 mt-3">회원가입</button>
     </form>
   </div>
@@ -99,7 +93,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useArticleStore } from '@/stores/articles';
-
+// import MyFinPrdtForm from '../components/MyFinPrdtForm.vue';
 const store = useArticleStore();
 const username = ref(null);
 const password1 = ref(null);
@@ -108,11 +102,11 @@ const age = ref(null);
 const salary = ref(null);
 const money = ref(null);
 const nickname = ref(null);
-const prdts = ref(null);
+// const prdts = ref(null)
 
 
 const signUp = function() {
-  console.log(Number(age.value))
+
   const payload = {
     username: username.value,
     password1: password1.value,
@@ -121,10 +115,16 @@ const signUp = function() {
     salary: Number(salary.value),
     money: Number(money.value),
     nickname: nickname.value,
-    prdts: prdts.value,
-  };
+
+  }
   store.signUp(payload);
-};
+}
+
+// const gerPrdts = function(ps){
+//   console.log('이벤트를 받았습니다')
+//   console.log(ps)
+//   prdts.value = ps
+// }
 </script>
 
 <style scoped>

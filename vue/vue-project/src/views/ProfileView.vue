@@ -4,6 +4,7 @@
     <div v-if="mydata">
       {{ mydata }}
     </div>
+    <p @click="gotoDetail"> 금융상품 추가하기 > </p>
   </div>
 </template>
 
@@ -11,29 +12,36 @@
 import { useArticleStore } from '@/stores/articles'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-
+import { useRouter } from 'vue-router';
+const store = useArticleStore()
 // 0. 나의 데이터 가져오기
 const mydata = ref(null)
+const router = useRouter()
+const gotoDetail = function(){
+  console.log(store.mypk)
+  router.push(`/profile/${store.mypk}`)
+}
 
 onMounted(() => {
   const store = useArticleStore()
-  console.log('토큰',store.token)
-  console.log('이름',store.myname)
+  // console.log('토큰',store.token)
+  // console.log('이름',store.myname)
   
   axios({
     method: 'get',
-    url: `${store.API_URL}/accounts/user_detail/`,
+    url: `${store.API_URL}/accounts/user-detail/`,
     headers: {
       Authorization: `Token ${store.token}`
     }
   })
   .then((res)=>{
     console.log(res.data)
-    console.log(store.myname)
+    // console.log(store.myname)
     mydata.value = res.data.filter((user) => user.username === store.myname)
-    console.log(mydata.value)
+    // console.log(mydata.value)
   })
   .catch((err) => {
+    // console.log(store.token)
         console.log(err)
  
       })

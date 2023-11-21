@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import FinancialPrdt, FinancialOptions,YearSavingPrdt,YearSavingOptions, DepositLoanPrdt,DepositLoanOptions, SavingPrdt,SavingOptions, PersonalCreditLoanPrdt, PersonalCreditLoanOptions,HouseLoanPrdt,HouseLoanOptions,FinCompanyInfo,FinCompanyOptions
+from .models import FinancialPrdt, FinancialOptions,YearSavingPrdt,YearSavingOptions, DepositLoanPrdt,DepositLoanOptions, SavingPrdt,SavingOptions, PersonalCreditLoanPrdt, PersonalCreditLoanOptions,HouseLoanPrdt,HouseLoanOptions,FinCompanyInfo,FinCompanyOptions, UserJoinPrdt
 
 
 class FinancialPrdtSerializer(serializers.ModelSerializer):
@@ -96,6 +96,11 @@ class FinCompanyOptionSerializer(serializers.ModelSerializer):
         read_only_fields=('product',)
 
 
+class UserJoinPrdtSerializer(serializers.ModelSerializer):
+    class Meta():
+        model = UserJoinPrdt
+        fields = '__all__'
+        read_only_fields=('user',)
 
 
 

@@ -79,7 +79,7 @@ SITE_ID = 1
 
 # REST-AUTH 회원가입 기본 Serailizer 재정의
 REST_AUTH = {
-'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
 }
 
 ACCOUNT_ADAPTER = 'accounts.models.CustomAccountAdapter'

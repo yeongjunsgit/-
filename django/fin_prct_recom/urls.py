@@ -7,7 +7,7 @@ urlpatterns = [
     
     # 됨
     path('save-financial-products/',views.save_financial_products, name="save_financial_products" ),
-    
+
     # 됨
     path('delete/',views.delete, name="delete" ),
     
@@ -48,5 +48,8 @@ urlpatterns = [
     # 전세 자금 대출 필터링 URL
     path('list-depositloan-products/',views.list_depositloan_products),
     path('list-depositloan-options/',views.list_depositloan_options),
+    
+    # 비슷한 나이대 상품 정리 URL
+    # path('same_age_filter/',views.same_age_filter),
     
 ]

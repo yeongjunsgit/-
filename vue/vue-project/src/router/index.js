@@ -6,6 +6,7 @@ import ExCalculView from '@/views/ExCalculView.vue'
 import RecommendView from '@/views/RecommendView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import ProfileFinChangeView from '@/views/ProfileFinChangeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import CommunityDetailView from '@/views/CommunityDetailView.vue'
 import CommunityCreateView from '@/views/CommunityCreateView.vue'
@@ -122,6 +123,11 @@ const router = createRouter({
       path: '/profile',
       name: 'ProfileView',
       component: ProfileView
+    },
+    {
+      path: '/profile/:id',
+      name: 'ProfileFinChangeView',
+      component: ProfileFinChangeView
     },
     {
       path: '/signup',
