@@ -30,15 +30,13 @@ const gerPrdts = function(ps){
   axios ({
     method: 'put',
     url: `${store.API_URL}/accounts/add-data/`,
-    data: {
+    data: {  
+      user:store.mypk,
       financial_products:prdt_cd_list.value.join(','),
-      
     },
     headers: {
             Authorization: `Token ${store.token}`
-          
           }
-
   })
   .then((res) => {
    console.log(res) 

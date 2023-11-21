@@ -100,7 +100,7 @@ class UserJoinPrdtSerializer(serializers.ModelSerializer):
     class Meta():
         model = UserJoinPrdt
         fields = '__all__'
-        read_only_fields=('user',)
+        # read_only_fields = ('user','product',)
 
 
 

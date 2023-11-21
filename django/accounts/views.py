@@ -11,6 +11,7 @@ from .serializers import CustomRegisterSerializer,UserSerializer
 from .models import User
 from django.shortcuts import render
 
+from fin_prct_recom.serializers import UserJoinPrdtSerializer
 # Create your views here.
 @api_view(['GET'])
 def user_detail(request):
@@ -23,23 +24,28 @@ def user_detail(request):
 from django.contrib.auth import get_user_model
 @api_view(['PUT'])
 def add_data(request):
-
+    print('add_data')
     if request.method == 'PUT':
         user_instance = get_object_or_404(User, username=request.user.username)
+        serializer = UserSerializer(user_instance, data={'financial_products':request.data['financial_products']}, partial=True)
+        print()
         
-        serializer = UserSerializer(user_instance, data=request.data, partial=True)
+        print(request.data)
+        join_data = {
+            'user':request.data['user'],
+            'product':request.data['financial_products'],
+        }
+        print(join_data)
+        serializer2 = UserJoinPrdtSerializer(data=join_data)
+    
         if serializer.is_valid(raise_exception=True):
             serializer.save()
+            if serializer2.is_valid(raise_exception=True):
+                serializer2.save()
             return Response(serializer.data)
         
 
 
-# @api_view(['GET'])
-# def recom_prdt(request):
-#     if request.method == 'GET':
-#         Users = get_list_or_404(User)
-#         prdt_list = Users
-    
     
 # # 나와 비슷한 나이대의 사용자가 많이 가입한 상품 데이터 정제
 # @api_view(['GET'])
