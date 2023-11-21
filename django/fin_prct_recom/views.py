@@ -525,9 +525,13 @@ def list_saving_options(request):
 @api_view(['GET'])
 def list_homeloan_products(request):
     if request.method == 'GET':
-        financial_data = get_list_or_404(HouseLoanPrdt)
-        serializer = HouseLoanPrdtSerializer(financial_data, many=True)
-        return Response(serializer.data)
+        
+        financial_datas = HouseLoanPrdt.objects.all().order_by('-loan_lmt')
+        if financial_datas:
+            serializer = HouseLoanPrdtSerializer(financial_datas, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
     
     
 @api_view(['GET'])

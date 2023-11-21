@@ -89,7 +89,34 @@ const router = createRouter({
     {
       path: '/rate',
       name: 'recommendView',
-      component: RecommendView
+      component: RecommendView,
+      children:[
+        {
+          path: '/finanprdt',
+          name: 'RecomFinanPrdtView',
+          component: RecomFinanPrdtView
+        },
+        {
+          path: '/yearsave',
+          name: 'RecomYearSavView',
+          component: RecomYearSavView
+        },
+        {
+          path: '/save',
+          name: 'RecomSavingPrdtView',
+          component: RecomSavingPrdtView
+        },
+        {
+          path: '/homeloan',
+          name: 'RecomHomeLoanView',
+          component: RecomHomeLoanView
+        },
+        {
+          path: '/depositloan',
+          name: 'RecomDepositLoanView',
+          component: RecomDepositLoanView
+        },
+      ]
     },
     {
       path: '/profile',
@@ -111,31 +138,7 @@ const router = createRouter({
       name: 'LoginView',
       component: LoginView
     },
-    {
-      path: '/finanprdt',
-      name: 'RecomFinanPrdtView',
-      component: RecomFinanPrdtView
-    },
-    {
-      path: '/yearsave',
-      name: 'RecomYearSavView',
-      component: RecomYearSavView
-    },
-    {
-      path: '/save',
-      name: 'RecomSavingPrdtView',
-      component: RecomSavingPrdtView
-    },
-    {
-      path: '/homeloan',
-      name: 'RecomHomeLoanView',
-      component: RecomHomeLoanView
-    },
-    {
-      path: '/depositloan',
-      name: 'RecomDepositLoanView',
-      component: RecomDepositLoanView
-    },
+    
    
   ]
 })

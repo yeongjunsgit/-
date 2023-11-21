@@ -188,7 +188,7 @@ class HouseLoanPrdt(models.Model):
     fin_co_subm_day = models.CharField(max_length=20,null=True)    # 금융회사 제출일 [YYYYMMDDHH24MI]
 
 
-# # 주택 담보 대출 옵션
+# 주택 담보 대출 옵션
 class HouseLoanOptions(models.Model):
     product = models.ForeignKey(HouseLoanPrdt,on_delete=models.CASCADE,related_name='option')  # 금융상품 코드
     mrtg_type = models.CharField(max_length=200,null=True)  # 담보유형 코드
@@ -201,7 +201,7 @@ class HouseLoanOptions(models.Model):
     lend_rate_max = models.CharField(max_length=10,null=True)  # 대출금리_최고 [소수점 2자리]
     lend_rate_avg = models.CharField(max_length=10,null=True)  # 전월 취급 평균금리 [소수점 2자리]
     
-# # 금융회사 정보 
+# 금융회사 정보 
 class FinCompanyInfo(models.Model):
     dcls_month = models.CharField(max_length=6,null=True)         # 공시 제출월 [YYYYMM]**
     fin_co_no = models.CharField(max_length=200,primary_key=True)   # 금융회사코드**
@@ -220,3 +220,7 @@ class FinCompanyOptions(models.Model):
     
 
 
+# from django.conf import settings
+# class UserJoinPrdt(models.Model):
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+#     product = models.CharField(max_length=30)

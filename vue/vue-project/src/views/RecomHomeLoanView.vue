@@ -2,9 +2,9 @@
   <div>
     <h1>HomeLoan</h1>
     <div v-if="filteredData">
-      <div v-for="option in filteredData">
+      <div v-for="product in filteredData">
         <HomeLoanOptionVue
-        :option="option"
+        :product="product"
         />
       </div>
     </div>
@@ -27,7 +27,7 @@ onMounted(() => {
   const store = useArticleStore()
   axios({
     method: 'get',
-    url: `${store.API_URL}/fin_prct/list-homeloan-options/`,
+    url: `${store.API_URL}/fin_prct/list-homeloan-products/`,
     headers: {
       Authorization: `Token ${store.token}`
     }
