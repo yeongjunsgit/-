@@ -1,5 +1,5 @@
 <template>
-  <div v-if="product">
+  <div v-if="product" @click="gotoDetail(options[0].product)">
     <!-- {{   product }} -->
     <h4>{{ product.fin_prdt_nm }}</h4>
     <p>대출 한도 : {{ product.loan_lmt }}</p>
@@ -13,14 +13,19 @@
 import { ref,onMounted } from 'vue'
 import axios from 'axios'
 import { useArticleStore } from '@/stores/articles'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const store = useArticleStore()
-
 const props = defineProps({
   product: Object,
 })
 
 const options = ref(null)
+
+const gotoDetail = function(fin_prdt_cd){
+    router.push(`/homeloan_prdt/${fin_prdt_cd}`)
+}
 
 onMounted (()=>{
   axios({

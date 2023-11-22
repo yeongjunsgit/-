@@ -20,7 +20,7 @@
 
           </nav>
           <RouterView/>
-          <h3>나이별 추천 상품</h3>
+
           
         </div>
       </div>

@@ -31,7 +31,7 @@
       <select v-model="need_loantype">
         <option disabled value="">Please select one</option>
         <option>주택담보</option>
-        <option>개인신용</option>
+        <!-- <option>개인신용</option> -->
         <option>전세자금</option>
       </select>
       </div>

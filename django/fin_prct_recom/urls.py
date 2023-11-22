@@ -49,9 +49,8 @@ urlpatterns = [
     path('list-depositloan-products/',views.list_depositloan_products),
     path('list-depositloan-options/',views.list_depositloan_options),
     
-    # 비슷한 나이대 상품 정리 URL
-    # path('same_age_filter/',views.same_age_filter),
 
+    
     path('object_financial_products/<str:fin_prdt_cd>',views.object_financial_products),
     path('object_financial_options/<str:fin_prdt_cd>',views.object_financial_options),
     path('object_yearsaving_products/<str:fin_prdt_cd>',views.object_yearsaving_products),

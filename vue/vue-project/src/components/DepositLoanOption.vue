@@ -1,5 +1,5 @@
 <template>
-  <div v-if="product">
+  <div v-if="product" @click="gotoDetail([options[0].product])">
     <p>상품</p>
     
     <h4>{{ product.fin_prdt_nm }}</h4>
@@ -15,12 +15,20 @@
 import { ref,onMounted } from 'vue'
 import axios from 'axios'
 import { useArticleStore } from '@/stores/articles'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const store = useArticleStore()
 
 const props = defineProps({
   product: Object,
 })
+
+const gotoDetail = function(fin_prdt_cd){
+  console.log(options)
+  router.push(`/depositloan_prdt/${fin_prdt_cd}`)
+}
 
 const options = ref(null)
 

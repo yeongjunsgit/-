@@ -213,7 +213,6 @@ def get_survey(request):
             'like_high_limit':s.like_high_limit,
         }
         final_data = {}
-
         print()
         print()
         print()
@@ -231,25 +230,12 @@ def get_survey(request):
         # # 걍 아묻따 작년기준 높은거
         yearsaving_data = YearSavingPrdt.objects.all()
 
-        # 위험성 OK
         if data['like_yearsaving'] == 1:
             warning_yearsave = yearsaving_data.order_by('-btrm_prft_rate_1')
-            temp_lis = list(warning_yearsave[:3])
+            temp_lis = list(warning_yearsave.values()[:3])
             
-            json_data = list(temp_lis.values())
-            
-            final_data['YearSavingPrdt'] = json_data
+            final_data['YearSavingPrdt'] = temp_lis
 
-            print()
-            print()
-            print()
-            print('json 데이처')
-            print(json_data)
-            print()
-            print()
-            print()
-            print()
-            print()
         # # 위험성 NO
         else:
             warning_yearsave = yearsaving_data.annotate(calculated_field=ExpressionWrapper(
@@ -257,27 +243,17 @@ def get_survey(request):
                 output_field=fields.FloatField()
                     )).order_by('-calculated_field')
             
-            temp_lis = warning_yearsave[:3]
+            temp_lis = list(warning_yearsave.values()[:3])
             
-            json_data = list(temp_lis.values())
-            
-            final_data['YearSavingPrdt'] = json_data
+            final_data['YearSavingPrdt'] = temp_lis
 
-            print()
-            print()
-            print()
-            print()
-            print(final_data)
-            print()
-            print()
-            print()
-            print()
-            print()
-        # # 저축기간 형식 필터 → 최고 우대 금리 높은 순
-        # # 예금
+
+        # # # 저축기간 형식 필터 → 최고 우대 금리 높은 순
+        
+
         # 적금 추천을 받겠다
-        # int(data['like_save']) == 
-        if 1:
+
+        if data['like_save']:
             saving_data = SavingOptions.objects.all()
             if data['period'] == '단기':
                 # 적금
@@ -285,11 +261,7 @@ def get_survey(request):
               
             else:
                 saving_data = SavingOptions.objects.filter(save_trm__gte=12).order_by('-intr_rate2')
-                
-
-
             top_3_saving_data = saving_data[:min(len(saving_data),3)]
-
 
             final_saving_data = []
             for i in range(len(top_3_saving_data)):
@@ -308,8 +280,7 @@ def get_survey(request):
             final_data['saving_data'] = final_saving_data
 
         # 예금 추천을 받겠다
-        # data['like_deposit'] ==
-        if  1:
+        if  data['like_deposit']:
             if data['period'] == '단기':
                 # 적금
                 deposit_data = FinancialOptions.objects.filter(save_trm=6).order_by('-intr_rate2')
@@ -334,15 +305,50 @@ def get_survey(request):
         print()
         print()
         print()
-        print('예금 저장')
-    
-        # 연금
+        print('예적금 저장')
         print(final_data)
         print()
         print()
         print()
         print()
         print()
+
+        # 대출
+        # 필요? → 추천
+        # 필요 x → 추천 X
+        # 한도 높은거 VS 금리 낮은거
+        # 주택 필요하신분 → 주택
+        if data['need_loan']:
+            final_loan_data = []
+            if data['need_loantype'] == '주택담보':
+                houseloanprdt_options = HouseLoanOptions.objects.all().order_by('lend_rate_min')
+                top_3 = houseloanprdt_options[:3]
+                for i in range(3):
+                    prdt = get_object_or_404(HouseLoanPrdt,fin_prdt_cd=top_3[i].product_id)
+                    house_loan_dict={
+                        'fin_prdt_cd':prdt.fin_prdt_cd,
+                        'kor_co_nm':prdt.kor_co_nm,
+                        'fin_prdt_nm':prdt.fin_prdt_nm,
+                        'lend_rate_min':top_3[i].lend_rate_min,
+                        'lend_rate_max':top_3[i].lend_rate_max,
+                        'product_type':'house_loan',
+                    }
+                    final_loan_data.append(house_loan_dict)
+            elif data['need_loantype'] == '전세자금':
+                depositloanprdt_options = DepositLoanOptions.objects.all().order_by('lend_rate_min')
+                top_3 = depositloanprdt_options[:3]
+                for i in range(3):
+                    prdt = get_object_or_404(DepositLoanPrdt,fin_prdt_cd=top_3[i].product_id)
+                    deposit_loan_dict={
+                        'fin_prdt_cd':prdt.fin_prdt_cd,
+                        'kor_co_nm':prdt.kor_co_nm,
+                        'fin_prdt_nm':prdt.fin_prdt_nm,
+                        'lend_rate_min':top_3[i].lend_rate_min,
+                        'lend_rate_max':top_3[i].lend_rate_max,
+                        'product_type':'deposit_loan',
+                    }
+                    final_loan_data.append(deposit_loan_dict)
+            final_data['loan_data'] = final_loan_data
 # like_save
 # like_deposit
 # period
@@ -350,46 +356,74 @@ def get_survey(request):
 # need_loantype
 # like_high_limit
 
+# 주택담보
+# 개인신용
+# 전세자금
+
+# # 전세 자금 대출 상품
+# class DepositLoanPrdt(models.Model):
+#     dcls_month = models.CharField(max_length=20)                   # 공시 제출월 [YYYYMM] 1
+#     fin_co_no = models.CharField(max_length=200)                    # 금융회사 코드 1
+#     kor_co_nm = models.CharField(max_length=200,null=True)          # 금융회사 명
+#     fin_prdt_cd = models.CharField(max_length=200, primary_key=True) # 금융상품 코드 1
+#     fin_prdt_nm = models.CharField(max_length=200,null=True)        # 금융 상품명
+#     join_way = models.CharField(max_length=200,null=True)           # 가입 방법
+#     loan_inci_expn = models.CharField(max_length=500,null=True)     # 대출 부대비용
+#     erly_rpay_fee = models.CharField(max_length=200,null=True)      # 중도상환 수수료
+#     dly_rate = models.CharField(max_length=200,null=True)           # 연체 이자율
+#     loan_lmt = models.CharField(max_length=200,null=True)           # 대출한도
+#     dcls_strt_day = models.CharField(max_length=20,null=True)      # 공시 시작일
+#     dcls_end_day = models.CharField(max_length=20,null=True)       # 공시 종료일
+#     fin_co_subm_day = models.CharField(max_length=20,null=True)    # 금융회사 제출일 [YYYYMMDDHH24MI]
+
+
+# # 전세 자금 대출 옵션
+
+# class DepositLoanOptions(models.Model):
+#     product = models.ForeignKey(DepositLoanPrdt,on_delete=models.CASCADE,related_name="option")      # 상품 옵션
+#     rpay_type = models.CharField(max_length=200,null=True)            # 대출상환유형 코드
+#     rpay_type_nm = models.CharField(max_length=200)                   # 대출상환유형 **
+#     lend_rate_type = models.CharField(max_length=200,null=True)       # 대출금리유형 코드
+#     lend_rate_type_nm = models.CharField(max_length=200,null=True)    # 대출금리유형
+#     lend_rate_min = models.FloatField(null=True)        # 대출금리_최저 [소수점 2자리]
+#     lend_rate_max = models.FloatField(null=True)        # 대출금리_최고 [소수점 2자리]
+#     lend_rate_avg = models.CharField(max_length=20,null=True)        # 전월 취급 평균금리 [소수점 2자리]
+
+
+
+# # 주택 담보 대출
+# class HouseLoanPrdt(models.Model):
+#     dcls_month = models.CharField(max_length=6)                   # 공시 제출월 [YYYYMM] ***
+#     fin_co_no = models.CharField(max_length=200)                    # 금융회사 코드 ***
+#     kor_co_nm = models.CharField(max_length=200,null=True)          # 금융회사 명
+#     fin_prdt_cd = models.CharField(max_length=200,primary_key=True)  # 금융상품 코드 ***
+#     fin_prdt_nm = models.CharField(max_length=200,null=True)        # 금융 상품명
+#     join_way = models.CharField(max_length=200,null=True)           # 가입 방법
+#     loan_inci_expn = models.CharField(max_length=200,null=True)     # 대출 부대비용
+#     erly_rpay_fee = models.CharField(max_length=200,null=True)      # 중도상환 수수료
+#     dly_rate = models.CharField(max_length=200,null=True)           # 연체 이자율
+#     loan_lmt = models.CharField(max_length=200,null=True)                       # 대출한도
+#     dcls_strt_day = models.CharField(max_length=20,null=True)      # 공시 시작일
+#     dcls_end_day = models.CharField(max_length=20,null=True)       # 공시 종료일
+#     fin_co_subm_day = models.CharField(max_length=20,null=True)    # 금융회사 제출일 [YYYYMMDDHH24MI]
+
+
+# # 주택 담보 대출 옵션
+# class HouseLoanOptions(models.Model):
+#     product = models.ForeignKey(HouseLoanPrdt,on_delete=models.CASCADE,related_name='option')  # 금융상품 코드
+#     mrtg_type = models.CharField(max_length=200,null=True)  # 담보유형 코드
+#     mrtg_type_nm = models.CharField(max_length=200,null=True)  # 담보유형
+#     rpay_type = models.CharField(max_length=200,null=True)  # 대출상환유형 코드
+#     rpay_type_nm = models.CharField(max_length=200)         # 대출상환유형 **
+#     lend_rate_type = models.CharField(max_length=200,null=True)  # 대출금리유형 코드
+#     lend_rate_type_nm = models.CharField(max_length=200,null=True)  # 대출금리유형
+#     lend_rate_min = models.FloatField(null=True)  # 대출금리_최저 [소수점 2자리]
+#     lend_rate_max = models.FloatField(null=True)  # 대출금리_최고 [소수점 2자리]
+#     lend_rate_avg = models.CharField(max_length=10,null=True)  # 전월 취급 평균금리 [소수점 2자리]            
             
-            
-        
-        # 대출
-        # 필요? → 추천
-        # 필요 x → 추천 X
-        # 한도 높은거 VS 금리 낮은거
-        # 주택 필요하신분 → 주택
-        # if data.need_loan == 1:
-        #     if data.need_loantype == '주택담보':
-        #         houseloanprdt_options = get_list_or_404(HouseLoanOptions)
-        #         houseloanprdt_data = get_list_or_404(HouseLoanPrdt)
-        #         houseloan_dict = {}
-        #         if data.like_high_limit == 1:
-        #             high_limit_data = houseloanprdt_data.order_by('loan_lmt')
-        #             temp_lis = high_limit_data[:3]
-                    
-        #             for t in range(3):
-        #                 for data in filter(t. ,houseloanprdt_options)
-                    
-                    
-        #         elif data.like_high_limit == 0:
-                
-                
-                
-                
-            # elif data.need_loantype == '전세자금':
-            #     depositloanprdt_data = get_list_or_404(DepositLoanPrdt)
-            #     if data.like_high_limit == 1:
-                    
-                    
-            #     elif data.like_high_limit == 0:
-                
-                
-                
-            
-        # depositloan_data = DepositLoanPrdt.objects.order_by('some_field'
-        # # 전세필요하신분 → 전세
-        # houseloan_data = get_list_or_404(HouseLoanPrdt)
+
 
         return JsonResponse({'data': final_data})
     
+        
     
