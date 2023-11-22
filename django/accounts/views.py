@@ -12,6 +12,12 @@ from .models import User,UserSurvey
 from django.shortcuts import render
 from fin_prct_recom.models import UserJoinPrdt, FinancialPrdt, YearSavingPrdt, DepositLoanPrdt, SavingPrdt, PersonalCreditLoanPrdt, HouseLoanPrdt,FinancialOptions, YearSavingOptions, DepositLoanOptions, SavingOptions, PersonalCreditLoanOptions, HouseLoanOptions
 from fin_prct_recom.serializers import UserJoinPrdtSerializer
+from django.core import serializers 
+from django.core.serializers import serialize
+from django.http import JsonResponse
+import heapq
+from django.db.models import F, ExpressionWrapper, fields
+import json
 
 # Create your views here.
 @api_view(['GET'])
@@ -166,18 +172,11 @@ def same_age_filter(request, myage):
                             'product_type': 'homeloan'
                         }
                         response_data.append(wanna_data)
-    print()
-    print()
-    print()
-    print()
-    print(response_data)
-    print()
-    print()
-    print()
+   
     return Response({'data' : response_data}, status=status.HTTP_200_OK)
 
 
-@api_view(['POST'])
+@api_view(['POST', 'DELETE'])
 def survey(request):
     user_survey = UserSurvey.objects.filter(user_id=request.data['user'])
     if len(user_survey)==0 and request.method == "POST":
@@ -186,6 +185,7 @@ def survey(request):
             serializer.save()
             return Response(serializer.data)
     elif request.method == "POST":
+        
         user_survey = get_object_or_404(UserSurvey, user_id=request.data['user'])
         serializer = UserSurveySerializer(user_survey,data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -195,5 +195,201 @@ def survey(request):
         user_surveys = UserSurvey.objects.all()
         user_surveys.delete()
         return Response({'mes':'okay'})
+    
+    
+@api_view(['GET'])
+def get_survey(request):
+    if request.method == 'GET':
+        s = UserSurvey.objects.filter(id=request.user.pk)[0]
+
+        # print(s)
+        data = {
+            'like_yearsaving':s.like_yearsaving,
+            'like_save':s.like_save,
+            'like_deposit':s.like_deposit,
+            'period':s.period,
+            'need_loan':s.need_loan,
+            'need_loantype':s.need_loantype,
+            'like_high_limit':s.like_high_limit,
+        }
+        final_data = {}
+
+        print()
+        print()
+        print()
+        print()
+        print(data)
+        print()
+        print()
+        print()
+        print()
+        print()
+        # # 위험성 필터 → 
+        # # 위험을 안골랐을때
+        # # 전년도, 전전년도, 전전전년도 셋이 비등비등 → 차가 적은것
+        # # 위험을 고른 경우
+        # # 걍 아묻따 작년기준 높은거
+        yearsaving_data = YearSavingPrdt.objects.all()
+
+        # 위험성 OK
+        if data['like_yearsaving'] == 1:
+            warning_yearsave = yearsaving_data.order_by('-btrm_prft_rate_1')
+            temp_lis = list(warning_yearsave[:3])
+            
+            json_data = list(temp_lis.values())
+            
+            final_data['YearSavingPrdt'] = json_data
+
+            print()
+            print()
+            print()
+            print('json 데이처')
+            print(json_data)
+            print()
+            print()
+            print()
+            print()
+            print()
+        # # 위험성 NO
+        else:
+            warning_yearsave = yearsaving_data.annotate(calculated_field=ExpressionWrapper(
+                F('btrm_prft_rate_1') - F('btrm_prft_rate_2') + F('btrm_prft_rate_1') - F('btrm_prft_rate_3') + F('btrm_prft_rate_3') - F('btrm_prft_rate_2'),
+                output_field=fields.FloatField()
+                    )).order_by('-calculated_field')
+            
+            temp_lis = warning_yearsave[:3]
+            
+            json_data = list(temp_lis.values())
+            
+            final_data['YearSavingPrdt'] = json_data
+
+            print()
+            print()
+            print()
+            print()
+            print(final_data)
+            print()
+            print()
+            print()
+            print()
+            print()
+        # # 저축기간 형식 필터 → 최고 우대 금리 높은 순
+        # # 예금
+        # 적금 추천을 받겠다
+        # int(data['like_save']) == 
+        if 1:
+            saving_data = SavingOptions.objects.all()
+            if data['period'] == '단기':
+                # 적금
+                saving_data.filter(save_trm=6).order_by('-intr_rate2')
+              
+            else:
+                saving_data = SavingOptions.objects.filter(save_trm__gte=12).order_by('-intr_rate2')
+                
+
+
+            top_3_saving_data = saving_data[:min(len(saving_data),3)]
+
+
+            final_saving_data = []
+            for i in range(len(top_3_saving_data)):
+
+                saving_data_prdt = get_object_or_404(SavingPrdt,fin_prdt_cd=top_3_saving_data[i].product_id)
+                if saving_data_prdt:
+                    saving_dict = {
+                    'fin_prdt_cd':saving_data_prdt.fin_prdt_cd,
+                    'kor_co_nm':saving_data_prdt.kor_co_nm,
+                    'fin_prdt_nm':saving_data_prdt.fin_prdt_nm,
+                    'intr_rate2':top_3_saving_data[i].intr_rate2,
+                    'save_trm':top_3_saving_data[i].save_trm,
+                    }
+                    final_saving_data.append(saving_dict)
+
+            final_data['saving_data'] = final_saving_data
+
+        # 예금 추천을 받겠다
+        # data['like_deposit'] ==
+        if  1:
+            if data['period'] == '단기':
+                # 적금
+                deposit_data = FinancialOptions.objects.filter(save_trm=6).order_by('-intr_rate2')
+            else:
+                deposit_data = FinancialOptions.objects.filter(save_trm__gte=12).order_by('-intr_rate2')
+
+            top_3_deposit_data = deposit_data[:min(len(deposit_data),3)]
+            final_deposit_data = []
+            for i in range(len(top_3_deposit_data)):
+                deposit_data_prdt = get_object_or_404(FinancialPrdt,fin_prdt_cd=top_3_deposit_data[i].product_id)
+                if deposit_data_prdt:
+                    deposit_dict = {
+                    'fin_prdt_cd':deposit_data_prdt.fin_prdt_cd,
+                    'kor_co_nm':deposit_data_prdt.kor_co_nm,
+                    'fin_prdt_nm':deposit_data_prdt.fin_prdt_nm,
+                    'intr_rate2':top_3_deposit_data[i].intr_rate2,
+                    'save_trm':top_3_deposit_data[i].save_trm,
+                    }
+                    final_deposit_data.append(deposit_dict)
+                
+            final_data['deposit_data'] = final_deposit_data
+        print()
+        print()
+        print()
+        print('예금 저장')
+    
+        # 연금
+        print(final_data)
+        print()
+        print()
+        print()
+        print()
+        print()
+# like_save
+# like_deposit
+# period
+# need_loan
+# need_loantype
+# like_high_limit
+
+            
+            
+        
+        # 대출
+        # 필요? → 추천
+        # 필요 x → 추천 X
+        # 한도 높은거 VS 금리 낮은거
+        # 주택 필요하신분 → 주택
+        # if data.need_loan == 1:
+        #     if data.need_loantype == '주택담보':
+        #         houseloanprdt_options = get_list_or_404(HouseLoanOptions)
+        #         houseloanprdt_data = get_list_or_404(HouseLoanPrdt)
+        #         houseloan_dict = {}
+        #         if data.like_high_limit == 1:
+        #             high_limit_data = houseloanprdt_data.order_by('loan_lmt')
+        #             temp_lis = high_limit_data[:3]
+                    
+        #             for t in range(3):
+        #                 for data in filter(t. ,houseloanprdt_options)
+                    
+                    
+        #         elif data.like_high_limit == 0:
+                
+                
+                
+                
+            # elif data.need_loantype == '전세자금':
+            #     depositloanprdt_data = get_list_or_404(DepositLoanPrdt)
+            #     if data.like_high_limit == 1:
+                    
+                    
+            #     elif data.like_high_limit == 0:
+                
+                
+                
+            
+        # depositloan_data = DepositLoanPrdt.objects.order_by('some_field'
+        # # 전세필요하신분 → 전세
+        # houseloan_data = get_list_or_404(HouseLoanPrdt)
+
+        return JsonResponse({'data': final_data})
     
     

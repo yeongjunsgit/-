@@ -26,8 +26,8 @@ class FinancialOptions(models.Model):
     intr_rate_type = models.CharField(max_length=200)       # 저축 금리 유형
     intr_rate_type_nm = models.CharField(max_length=200, null=True)    # 저축 금리 유형명
     save_trm = models.IntegerField()             # 저축 기간 [단위: 개월]
-    intr_rate = models.CharField(max_length=10,null=True)            # 저축 금리 [소수점 2자리]
-    intr_rate2 = models.CharField(max_length=10,null=True)           # 최고 우대금리 [소수점 2자리]
+    intr_rate = models.FloatField(null=True)            # 저축 금리 [소수점 2자리]
+    intr_rate2 = models.FloatField(null=True)           # 최고 우대금리 [소수점 2자리]
 
 # 추가 모델 작성, makemigration 안해서 주석처리 해놓은 상태
 
@@ -47,9 +47,9 @@ class YearSavingPrdt(models.Model):
     prdt_type_nm = models.CharField(max_length=200, null=True)  #상품유형명
     dcls_rate = models.CharField(max_length=20, null=True)     #공시이율 [소수점 2자리]
     guar_rate = models.CharField(max_length=20, null=True)     #최저 보증이율
-    btrm_prft_rate_1 = models.CharField(max_length=20, null=True)         #과거 수익률1(전년도) [소수점 2자리]
-    btrm_prft_rate_2 = models.CharField(max_length=20, null=True)         #과거 수익률2(전전년도) [소수점 2자리]
-    btrm_prft_rate_3 = models.CharField(max_length=20, null=True)         #과거 수익률3(전전전년도) [소수점 2자리]
+    btrm_prft_rate_1 = models.FloatField(null=True)         #과거 수익률1(전년도) [소수점 2자리]
+    btrm_prft_rate_2 = models.FloatField(null=True)         #과거 수익률2(전전년도) [소수점 2자리]
+    btrm_prft_rate_3 = models.FloatField(null=True)         #과거 수익률3(전전전년도) [소수점 2자리]
     etc = models.CharField(max_length=200, null=True)           #기타사항
     sale_co = models.CharField(max_length=1000, null=True)       #판매사
     dcls_strt_day = models.CharField(max_length=20)            #공시 시작일
@@ -100,8 +100,8 @@ class DepositLoanOptions(models.Model):
     rpay_type_nm = models.CharField(max_length=200)                   # 대출상환유형 **
     lend_rate_type = models.CharField(max_length=200,null=True)       # 대출금리유형 코드
     lend_rate_type_nm = models.CharField(max_length=200,null=True)    # 대출금리유형
-    lend_rate_min = models.CharField(max_length=20,null=True)        # 대출금리_최저 [소수점 2자리]
-    lend_rate_max = models.CharField(max_length=20,null=True)        # 대출금리_최고 [소수점 2자리]
+    lend_rate_min = models.FloatField(null=True)        # 대출금리_최저 [소수점 2자리]
+    lend_rate_max = models.FloatField(null=True)        # 대출금리_최고 [소수점 2자리]
     lend_rate_avg = models.CharField(max_length=20,null=True)        # 전월 취급 평균금리 [소수점 2자리]
 
 
@@ -132,9 +132,9 @@ class SavingOptions(models.Model):
     intr_rate_type_nm = models.CharField(max_length=200,null=True)      # 저축 금리 유형명
     rsrv_type = models.CharField(max_length=200,null=True)              # 적립 유형
     rsrv_type_nm = models.CharField(max_length=200,null=True)           # 적립 유형명
-    save_trm = models.CharField(max_length=20,null=True)               # 저축 기간 [단위: 개월]
+    save_trm = models.IntegerField(null=True)               # 저축 기간 [단위: 개월]
     intr_rate = models.CharField(max_length=20,null=True)              # 저축 금리 [소수점 2자리]
-    intr_rate2 = models.CharField(max_length=20,null=True)             # 최고 우대금리 [소수점 2자리]
+    intr_rate2 = models.FloatField(null=True)             # 최고 우대금리 [소수점 2자리]
 
 
 
@@ -182,7 +182,7 @@ class HouseLoanPrdt(models.Model):
     loan_inci_expn = models.CharField(max_length=200,null=True)     # 대출 부대비용
     erly_rpay_fee = models.CharField(max_length=200,null=True)      # 중도상환 수수료
     dly_rate = models.CharField(max_length=200,null=True)           # 연체 이자율
-    loan_lmt = models.CharField(max_length=200,null=True)           # 대출한도
+    loan_lmt = models.CharField(max_length=200,null=True)                       # 대출한도
     dcls_strt_day = models.CharField(max_length=20,null=True)      # 공시 시작일
     dcls_end_day = models.CharField(max_length=20,null=True)       # 공시 종료일
     fin_co_subm_day = models.CharField(max_length=20,null=True)    # 금융회사 제출일 [YYYYMMDDHH24MI]
@@ -197,8 +197,8 @@ class HouseLoanOptions(models.Model):
     rpay_type_nm = models.CharField(max_length=200)         # 대출상환유형 **
     lend_rate_type = models.CharField(max_length=200,null=True)  # 대출금리유형 코드
     lend_rate_type_nm = models.CharField(max_length=200,null=True)  # 대출금리유형
-    lend_rate_min = models.CharField(max_length=10,null=True)  # 대출금리_최저 [소수점 2자리]
-    lend_rate_max = models.CharField(max_length=10,null=True)  # 대출금리_최고 [소수점 2자리]
+    lend_rate_min = models.FloatField(null=True)  # 대출금리_최저 [소수점 2자리]
+    lend_rate_max = models.FloatField(null=True)  # 대출금리_최고 [소수점 2자리]
     lend_rate_avg = models.CharField(max_length=10,null=True)  # 전월 취급 평균금리 [소수점 2자리]
     
 # 금융회사 정보 

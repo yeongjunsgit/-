@@ -570,8 +570,3 @@ def list_depositloan_options(request):
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
-
-    
-        
-        
-        

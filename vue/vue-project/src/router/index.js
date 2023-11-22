@@ -9,6 +9,7 @@ import ProfileView from '@/views/ProfileView.vue'
 import ProfileFinChangeView from '@/views/ProfileFinChangeView.vue'
 import ProfileSurveyView from '@/views/ProfileSurveyView.vue'
 import ProfileAgeRecomView from '@/views/ProfileAgeRecomView.vue'
+import ProfileSurveyRecomView from '@/views/ProfileSurveyRecomView.vue'
 import LoginView from '@/views/LoginView.vue'
 import CommunityDetailView from '@/views/CommunityDetailView.vue'
 import CommunityCreateView from '@/views/CommunityCreateView.vue'
@@ -124,7 +125,18 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'ProfileView',
-      component: ProfileView
+      component: ProfileView,
+      children: [{
+           path: '/agerecommend/:age',
+           name: 'ProfileAgeRecomView',
+           component: ProfileAgeRecomView
+         },
+         {
+          path: '/surveyrecommend',
+          name: 'ProfileSurveyRecomView',
+          component: ProfileSurveyRecomView
+        },]
+
     },
     {
       path: '/profile/:id',
@@ -151,11 +163,8 @@ const router = createRouter({
       name: 'LoginView',
       component: LoginView
     },
-    // {
-    //   path: '/agerecommend',
-    //   name: 'ProfileAgeRecomView',
-    //   component: ProfileAgeRecomView
-    // },
+    
+    
     
    
   ]

@@ -13,10 +13,15 @@
         <p v-if="mydata[0].money">내 자산 : {{ mydata[0].money }}원</p>
         <p v-if="mydata[0].financial_products">내 금융 상품 : {{ mydata[0].financial_products }}</p>
         <div>
-          <p>추천 상품</p>
-          <ProfileAgeRecomViewVue
-          :age="mydata[0]"
-          />
+          <nav>
+            {{ mydata[0].age }}
+            <RouterLink :to="{name:'ProfileAgeRecomView',params:{ age: mydata[0].age }}">나이별추천상품</RouterLink> | 
+            <RouterLink :to="{name:'ProfileSurveyRecomView'}">설문조사별 추천상품</RouterLink> 
+
+          </nav>
+          <RouterView/>
+          <h3>나이별 추천 상품</h3>
+          
         </div>
       </div>
     </div>

@@ -13,20 +13,16 @@ import { ref, onMounted } from 'vue'
 import { useArticleStore } from '@/stores/articles'
 import ProfileRecommendPrdt from '@/components/ProfileRecommendPrdt.vue'
 import axios from 'axios';
-
+import { useRoute } from 'vue-router';
 const store = useArticleStore()
-
-const ageData = defineProps({
-  age: Object,
-})
-console.log('ageData',ageData)
+const route = useRoute()
 const ageRecommend = ref([])
 
 onMounted (() => {
-  console.log(ageData.age.age)
+  
   axios({
     method: 'get',
-    url: `${store.API_URL}/accounts/age-filter/${ageData.age.age}/`,
+    url: `${store.API_URL}/accounts/age-filter/${route.params.age}/`,
     headers: {
       Authorization: `Token ${store.token}`
     }
