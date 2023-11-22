@@ -48,6 +48,7 @@ AUTHENTICATION_BACKENDS = (
 # Application definition
 
 INSTALLED_APPS = [
+    'exchangerate',
     'accounts',
     'articles',
     'fin_prct_recom',
