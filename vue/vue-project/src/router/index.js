@@ -19,6 +19,9 @@ import RecomYearSavView from '@/views/RecomYearSavView.vue'
 import RecomSavingPrdtView from '@/views/RecomSavingPrdtView.vue'
 import RecomHomeLoanView from '@/views/RecomHomeLoanView.vue'
 import RecomDepositLoanView from '@/views/RecomDepositLoanView.vue'
+import FinanDetailView from '@/views/FinanDetailView.vue'
+
+
 
 import { useArticleStore } from '@/stores/articles'
 import axios from 'axios'
@@ -162,6 +165,11 @@ const router = createRouter({
       path: '/login',
       name: 'LoginView',
       component: LoginView
+    },
+    {
+      path: '/finan_prdt/:fin_prdt_cd',
+      name: 'FinanDetailView',
+      component: FinanDetailView
     },
     
     

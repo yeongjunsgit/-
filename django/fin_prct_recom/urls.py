@@ -51,5 +51,19 @@ urlpatterns = [
     
     # 비슷한 나이대 상품 정리 URL
     # path('same_age_filter/',views.same_age_filter),
+
+    path('object_financial_products/<str:fin_prdt_cd>',views.object_financial_products),
+    path('object_financial_options/<str:fin_prdt_cd>',views.object_financial_options),
+    path('object_yearsaving_products/<str:fin_prdt_cd>',views.object_yearsaving_products),
+    path('object_yearsaving_options/<str:fin_prdt_cd>',views.object_yearsaving_options),
+    path('object_saving_products/<str:fin_prdt_cd>',views.object_saving_products),
+    path('object_saving_options/<str:fin_prdt_cd>',views.object_saving_options),
+    path('object_homeloan_products/<str:fin_prdt_cd>',views.object_homeloan_products),
+    path('object_homeloan_options/<str:fin_prdt_cd>',views.object_homeloan_options),
+    path('object_depositloan_products/<str:fin_prdt_cd>',views.object_depositloan_products),
+    path('object_depositloan_options/<str:fin_prdt_cd>',views.object_depositloan_options),
+
+
+
     
 ]

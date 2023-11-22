@@ -461,6 +461,7 @@ def delete(req):
     
     return JsonResponse({'message':'okay'})
 
+# 여러개 조회---------------------------------------------------------------------------------------
 
 # 정기 예금 필터링 view 함수
 @api_view(['GET'])
@@ -565,6 +566,138 @@ def list_depositloan_products(request):
 def list_depositloan_options(request):
     if request.method == 'GET':
         financial_datas = DepositLoanOptions.objects.all().order_by('lend_rate_min')
+        if financial_datas:
+            serializer = DepositLoanOptionsSerializer(financial_datas, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+
+@api_view(['GET'])
+def list_depositloan_products(request):
+    if request.method == 'GET':
+        financial_datas = DepositLoanPrdt.objects.all().order_by('-loan_lmt')
+        if financial_datas:
+            serializer = DepositLoanPrdtSerializer(financial_datas, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['GET'])
+def list_depositloan_options(request):
+    if request.method == 'GET':
+        financial_datas = DepositLoanOptions.objects.all().order_by('lend_rate_min')
+        if financial_datas:
+            serializer = DepositLoanOptionsSerializer(financial_datas, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+# -----------------------------------------------------------------------------------------
+# 단일조회
+@api_view(['GET'])
+def object_financial_products(request,fin_prdt_cd):
+    if request.method == 'GET':
+        financial_data = get_object_or_404(FinancialPrdt,fin_prdt_cd=fin_prdt_cd)
+        serializer = FinancialPrdtSerializer(financial_data)
+        return Response(serializer.data)
+    
+    
+@api_view(['GET'])
+def object_financial_options(request,fin_prdt_cd):
+    if request.method == 'GET':
+        financial_datas = FinancialOptions.objects.filter(product=fin_prdt_cd).order_by('-intr_rate2')
+        if financial_datas:
+            serializer = FinancialOptionsSerializer(financial_datas, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+# 연금 저축 필터링 view 함수
+@api_view(['GET'])
+def object_yearsaving_products(request,fin_prdt_cd):
+    if request.method == 'GET':
+        financial_data = get_object_or_404(YearSavingPrdt,fin_prdt_cd=fin_prdt_cd)
+
+        if financial_data:
+            serializer = YearSavingPrdtSerializer(financial_data)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    
+@api_view(['GET'])
+def object_yearsaving_options(request,fin_prdt_cd):
+    if request.method == 'GET':
+        financial_datas = get_list_or_404(YearSavingOptions,fin_prdt_cd=fin_prdt_cd)
+        serializer = YearSavingOptionsSerializer(financial_datas, many=True)
+        return Response(serializer.data)
+        
+        
+        
+
+# 적금 필터링 view 함수
+@api_view(['GET'])
+def object_saving_products(request,fin_prdt_cd):
+    if request.method == 'GET':
+        financial_data = get_object_or_404(SavingPrdt,fin_prdt_cd=fin_prdt_cd)
+        serializer = SavingPrdtSerializer(financial_data)
+        return Response(serializer.data)
+    
+    
+@api_view(['GET'])
+def object_saving_options(request,fin_prdt_cd):
+    if request.method == 'GET':
+        financial_datas =  SavingOptions.objects.filter(product=fin_prdt_cd).order_by('-intr_rate2')
+        if financial_datas:
+            serializer = SavingOptionsSerializer(financial_datas, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+
+# 주택 담보 대출 view 함수
+@api_view(['GET'])
+def object_homeloan_products(request,fin_prdt_cd):
+    if request.method == 'GET':    
+        financial_datas = get_object_or_404(HouseLoanPrdt,fin_prdt_cd=fin_prdt_cd)
+        if financial_datas:
+            serializer = HouseLoanPrdtSerializer(financial_datas)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    
+@api_view(['GET'])
+def object_homeloan_options(request,fin_prdt_cd):
+    if request.method == 'GET':
+        financial_datas = HouseLoanOptions.objects.filter(product=fin_prdt_cd).order_by('lend_rate_min')
+        if financial_datas:
+            serializer = HouseLoanOptionsSerializer(financial_datas, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        
+# 전세자금 대출 view 함수
+@api_view(['GET'])
+def object_depositloan_products(request,fin_prdt_cd):
+    if request.method == 'GET':
+        financial_datas = get_object_or_404(DepositLoanPrdt,fin_prdt_cd=fin_prdt_cd)
+        if financial_datas:
+            serializer = DepositLoanPrdtSerializer(financial_datas)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['GET'])
+def object_depositloan_options(request,fin_prdt_cd):
+    if request.method == 'GET':
+        financial_datas = DepositLoanOptions.objects.filter(product=fin_prdt_cd).order_by('lend_rate_min')
         if financial_datas:
             serializer = DepositLoanOptionsSerializer(financial_datas, many=True)
             return Response(serializer.data)
