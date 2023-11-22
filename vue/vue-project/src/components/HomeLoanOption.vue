@@ -31,8 +31,8 @@ onMounted (()=>{
       }
   })
   .then ((res)=>{
-      console.log(res.data)
-      console.log(props.option)
+      // console.log(res.data)
+      // console.log(props.option)
       options.value = res.data.filter((option)=>option.product === props.product.fin_prdt_cd)
   })
   .catch ((err) => {

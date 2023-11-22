@@ -223,5 +223,6 @@ class FinCompanyOptions(models.Model):
 from django.conf import settings
 class UserJoinPrdt(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    user_age = models.IntegerField(null=True)
     product = models.TextField(null=True)
     product_type = models.TextField(null=True)

@@ -1,17 +1,24 @@
 <template>
   <div>
-    <h1>ProfileView</h1>
-    키 {{ store.token }}
-    <div v-if="mydata">
-      <h3>{{mydata[0].nickname}}님의 페이지</h3>
-      <p>아이디 : {{mydata[0].username}}</p>
-      <p>내 나이 : {{ mydata[0].age }}세</p>
-      <p v-if="mydata[0].money">내 자산 : {{ mydata[0].money }}원</p>
-      <p v-if="mydata[0].financial_products">내 금융 상품 : {{ mydata[0].financial_products }}</p>
-      
+    <div>
+      <h1>ProfileView</h1>
+      키 {{ store.token }}
+      <div v-if="mydata">
+        <h3>{{mydata[0].nickname}}님의 페이지</h3>
+        <p>아이디 : {{mydata[0].username}}</p>
+        <p>내 나이 : {{ mydata[0].age }}세</p>
+        <p v-if="mydata[0].money">내 자산 : {{ mydata[0].money }}원</p>
+        <p v-if="mydata[0].financial_products">내 금융 상품 : {{ mydata[0].financial_products }}</p>
+        <div>
+          <!-- <ProfileAgeRecomViewVue
+          :age="mydata[0]"
+          /> -->
+        </div>
+        
+      </div>
+      <p @click="gotoDetail"> 금융상품 추가하기 > </p>
+      <p @click="gotoSurvey"> 금융상품 취향 설문조사  > </p>
     </div>
-    <p @click="gotoDetail"> 금융상품 추가하기 > </p>
-    <p @click="gotoSurvey"> 금융상품 취향 설문조사 > </p>
   </div>
 </template>
 
@@ -19,7 +26,9 @@
 import { useArticleStore } from '@/stores/articles'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
+import ProfileAgeRecomViewVue from '@/views/ProfileAgeRecomView.vue'
+// import { useArticleStore } from '@/stores/articles'
 const store = useArticleStore()
 // 0. 나의 데이터 가져오기
 const mydata = ref(null)

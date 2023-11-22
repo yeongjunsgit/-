@@ -142,8 +142,8 @@ const emit = defineEmits(['emitPrdts',])
 
 
 const donePrdt = function (){
-  console.log('상품을 보냅니다.')
-  console.log(prdtsList.value)
+  // console.log('상품을 보냅니다.')
+  // console.log(prdtsList.value)
   emit('emitPrdts',prdtsList.value)
   router.push(`/profile`)
 }

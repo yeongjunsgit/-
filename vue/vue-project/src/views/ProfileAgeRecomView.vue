@@ -9,16 +9,20 @@ import { ref, onMounted } from 'vue'
 import { useArticleStore } from '@/stores/articles'
 import axios from 'axios';
 
-defineProps({
-  userinfo: Object,
+const store = useArticleStore()
+
+const ageData = defineProps({
+  age: Object,
 })
 
 const ageRecommend = ref([])
 
 onMounted (() => {
+  console.log(ageData.age.age)
+  // 1. 모든 유저 정보를 가져와 나이가 위아래로 10인 사람들의 정보를 추려냄
   axios({
     method: 'get',
-    url: `${store.API_URL}/fin_prct/입력해주세요./`,
+    url: `${store.API_URL}/accounts/age-filter/${ageData.age.age}/`,
     headers: {
       Authorization: `Token ${store.token}`
     }

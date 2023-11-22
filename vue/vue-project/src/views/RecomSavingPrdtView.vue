@@ -27,20 +27,6 @@ const products = ref(null)
 onMounted(() => {
   const store = useArticleStore()
 
-  // axios({
-  //   method: 'get',
-  //   url: `${store.API_URL}/fin_prct/save-saving-products/`,
-  //   headers: {
-  //     Authorization: `Token ${store.token}`
-  //   }})
-  // .then((res)=>{
-  //   console.log('저장')
-  // })
-  // .catch((err)=>{
-  //   console.log(err)
-  // }
-  // )
-  
   axios({
     method: 'get',
     url: `${store.API_URL}/fin_prct/list-saving-options/`,

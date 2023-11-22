@@ -6,6 +6,7 @@ export const useArticleStore = defineStore('articles', () => {
   const router = useRouter()
   const myname = ref(null)
   const mypk = ref(null)
+  // const doSurvey = ref(false)
 
   const token = ref(null)
   const articles = ref([])
@@ -60,7 +61,7 @@ export const useArticleStore = defineStore('articles', () => {
           }
         })
         .then((res) =>{
-          // console.log(res.data)
+          console.log(res.data)
           myname.value = res.data.username
           mypk.value = res.data.pk
           // console.log(myname.value)
@@ -179,5 +180,5 @@ export const useArticleStore = defineStore('articles', () => {
   
 
   return { articles, signUp, login, token, getArticles, API_URL,
-    createArticles, myname, mypk, updateArticle, deleteArticle}
+    createArticles, myname, mypk, updateArticle, deleteArticle,}
 }, { persist: true })

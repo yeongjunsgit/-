@@ -47,8 +47,8 @@ axios({
     }
 })
 .then ((res)=>{
-    console.log(res.data)
-    console.log(props.option)
+    // console.log(res.data)
+    // console.log(props.option)
     product.value = res.data.filter((product)=>product.fin_prdt_cd === props.option.product)
 })
 .catch ((err) => {
