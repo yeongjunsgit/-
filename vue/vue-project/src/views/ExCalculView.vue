@@ -1,19 +1,34 @@
 <template>
   <div>
     <h1>환율계산기</h1>
-    <p v-if="data">{{ data }}
+    <p v-if="datas">
     <select v-model="country">
       <option disabled value="">Please select one</option>
       <option>미국 달러</option>
-      <option>한국 원</option>
       <option>유로</option>
       <option>위안화</option>
-      <option>영국 파운드</option>
-      <option>캐나다 달러</option>
-      <option>인도네시아 루피아</option>
     </select>
+    <input v-model="koreaMoney" type="text" name="" id="">
   </p>
-    <p>{{exchangerateData}}</p>
+  <div v-if="country=='미국 달러'">
+  <div v-if="USAData">{{USAData}}
+  <!-- <p>전신환(송금) 받으실때	: {{ Number(koreaMoney) }}</p>
+  <p>전신환(송금) 보내실때	: {{ Number(koreaMoney) }}</p>
+  <p>매매 기준율	: {{ Number(koreaMoney) }}</p>
+  <p>10일환가료율	: {{ Number(koreaMoney) }}</p>
+  <p>서울외국환중개매매기준율	: {{ Number(koreaMoney) }}</p> -->
+  <p>서울외국환중개장부가격	: {{ Number(koreaMoney)*USAData.kftc_bkpr }}</p>
+  </div>
+
+  </div>
+  <div v-else-if="country=='위안화'">
+  <div v-if="ChinaData">{{ChinaData}}</div>
+  </div>
+  <div v-else-if="country=='유로'">
+  <div v-if="EuroData">{{EuroData}}</div>
+  </div>
+
+
   </div>
 </template>
 
@@ -21,9 +36,13 @@
 import axios from 'axios';
 import {useArticleStore} from '@/stores/articles'
 import { ref,computed,onMounted } from 'vue';
-
+const koreaMoney = ref(null)
 const country = ref('미국 달러')
-const data = ref(null)
+const datas = ref(null)
+const USAData = ref(null)
+const ChinaData = ref(null)
+const KoreaData = ref(null)
+const EuroData = ref(null)
 onMounted(()=>{
   const store = useArticleStore()
   axios({
@@ -31,8 +50,25 @@ onMounted(()=>{
     url:`${store.API_URL}/exchangerate/get_data/`
   })
   .then((res)=>{
-    data.value=res.data
-    console.log(data.value)
+    datas.value=res.data.data
+    console.log(datas.value)
+    datas.value.forEach(data => {
+      // console.log(data)
+      if (data.cur_nm =='미국 달러'){
+        USAData.value = data
+        console.log(USAData.value.kftc_bkpr)
+        USAData.value.kftc_bkpr = Number(USAData.value.kftc_bkpr.split(',').join(""))
+        console.log(USAData.value.kftc_bkpr)
+      } else if (data.cur_nm =='위안화'){
+        ChinaData.value = data
+      } else if (data.cur_nm =='유로'){
+        EuroData.value = data
+      }
+       else if (data.cur_nm =='한국 원'){
+        KoreaData.value = data
+      }
+    });
+    
   })
   .catch((err)=>{
     console.log(err)
