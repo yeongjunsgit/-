@@ -19,7 +19,11 @@ import RecomYearSavView from '@/views/RecomYearSavView.vue'
 import RecomSavingPrdtView from '@/views/RecomSavingPrdtView.vue'
 import RecomHomeLoanView from '@/views/RecomHomeLoanView.vue'
 import RecomDepositLoanView from '@/views/RecomDepositLoanView.vue'
-import FinanDetailView from '@/views/FinanDetailView.vue'
+import DetailFinanView from '@/views/DetailFinanView.vue'
+import DetailSavingView from '@/views/DetailSavingView.vue'
+import DetailYearSavingView from '@/views/DetailYearSavingView.vue'
+import DetailHomeLoanView from '@/views/DetailHomeLoanView.vue'
+import DetailDepositLoanView from '@/views/DetailDepositLoanView.vue'
 
 
 
@@ -168,8 +172,31 @@ const router = createRouter({
     },
     {
       path: '/finan_prdt/:fin_prdt_cd',
-      name: 'FinanDetailView',
-      component: FinanDetailView
+      name: 'DetailFinanView',
+      component: DetailFinanView
+    },
+    {
+      path: '/saving_prdt/:fin_prdt_cd',
+      name: 'DetailSavingView',
+      component: DetailSavingView
+    },
+    
+    {
+      path: '/yearsaving_prdt/:fin_prdt_cd',
+      name: 'DetailYearSavingView',
+      component: DetailYearSavingView
+    },
+
+    {
+      path: '/homeloan_prdt/:fin_prdt_cd',
+      name: 'DetailHomeLoanView',
+      component: DetailHomeLoanView
+    },
+
+    {
+      path: '/depositloan_prdt/:fin_prdt_cd',
+      name: 'DetailDepositLoanView',
+      component: DetailDepositLoanView
     },
     
     

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="product">
+  <div v-if="product" @click="gotoDetail(product[0].fin_prdt_cd)">
     <h4>{{ product[0].fin_prdt_nm }}</h4>
     
     <p>가입 제한 : 제한없음 </p>
@@ -12,9 +12,15 @@
 import { ref,onMounted } from 'vue'
 import axios from 'axios'
 import { useArticleStore } from '@/stores/articles'
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const store = useArticleStore()
 
+const gotoDetail = function(fin_prdt_cd){
+  console.log(fin_prdt_cd)
+  router.push(`/yearsaving_prdt/${fin_prdt_cd}`)
+}
 const props = defineProps({
   option: Object,
 })
