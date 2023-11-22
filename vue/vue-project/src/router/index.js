@@ -151,11 +151,11 @@ const router = createRouter({
       name: 'LoginView',
       component: LoginView
     },
-    {
-      path: '/agerecommend',
-      name: 'ProfileAgeRecomView',
-      component: ProfileAgeRecomView
-    },
+    // {
+    //   path: '/agerecommend',
+    //   name: 'ProfileAgeRecomView',
+    //   component: ProfileAgeRecomView
+    // },
     
    
   ]

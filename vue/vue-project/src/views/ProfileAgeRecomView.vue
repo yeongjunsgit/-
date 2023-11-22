@@ -1,12 +1,17 @@
 <template>
   <div>
-
+    <!-- {{ ageRecommend }} -->
+    <ProfileRecommendPrdt
+    v-for="recom in ageRecommend.data"
+    :data="recom"
+    />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useArticleStore } from '@/stores/articles'
+import ProfileRecommendPrdt from '@/components/ProfileRecommendPrdt.vue'
 import axios from 'axios';
 
 const store = useArticleStore()
@@ -14,12 +19,11 @@ const store = useArticleStore()
 const ageData = defineProps({
   age: Object,
 })
-
+console.log('ageData',ageData)
 const ageRecommend = ref([])
 
 onMounted (() => {
   console.log(ageData.age.age)
-  // 1. 모든 유저 정보를 가져와 나이가 위아래로 10인 사람들의 정보를 추려냄
   axios({
     method: 'get',
     url: `${store.API_URL}/accounts/age-filter/${ageData.age.age}/`,
@@ -29,7 +33,7 @@ onMounted (() => {
   })
     .then((res) => {
       console.log(res.data)
-      ageRecommend.value = res.data.filter((item) =>  Math.max(0, props.age - 10) <= item.user.age <= props.age + 10)
+      ageRecommend.value = res.data
       
     })
     .catch((err) => {

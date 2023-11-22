@@ -38,6 +38,11 @@ onMounted(() => {
     for (let i = 0; i < loopCount; i++) {
       filteredData.value.push(res.data[i])
     }
+    
+
+  })
+  .catch((err) => {
+    console.log(err)
     axios({
       method: 'get',
       url: `${store.API_URL}/fin_prct/save-yearsaving-products/`,
@@ -57,10 +62,6 @@ onMounted(() => {
     .catch((err) => {
       console.log(err)
     })
-
-  })
-  .catch((err) => {
-    console.log(err)
   })
   
 

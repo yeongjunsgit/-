@@ -4,25 +4,27 @@
       <h1>ProfileView</h1>
       키 {{ store.token }}
       <div v-if="mydata">
+        <p @click="gotoDetail"> 금융상품 추가하기 > </p>
+        <p @click="gotoSurvey"> 금융상품 취향 설문조사  > </p>
+        <!-- <p @click="gotoRecom"> 추천상품 받으러 가기  > </p> -->
         <h3>{{mydata[0].nickname}}님의 페이지</h3>
         <p>아이디 : {{mydata[0].username}}</p>
         <p>내 나이 : {{ mydata[0].age }}세</p>
         <p v-if="mydata[0].money">내 자산 : {{ mydata[0].money }}원</p>
         <p v-if="mydata[0].financial_products">내 금융 상품 : {{ mydata[0].financial_products }}</p>
         <div>
-          <!-- <ProfileAgeRecomViewVue
+          <p>추천 상품</p>
+          <ProfileAgeRecomViewVue
           :age="mydata[0]"
-          /> -->
+          />
         </div>
-        
       </div>
-      <p @click="gotoDetail"> 금융상품 추가하기 > </p>
-      <p @click="gotoSurvey"> 금융상품 취향 설문조사  > </p>
     </div>
   </div>
 </template>
 
 <script setup>
+// /agerecommend
 import { useArticleStore } from '@/stores/articles'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
@@ -40,7 +42,9 @@ const gotoDetail = function(){
 const gotoSurvey = function(){
   router.push(`/profile/survey`)
 }
-
+const gotoRecom = function(){
+  router.push('/agerecommend')
+}
 onMounted(() => {
   const store = useArticleStore()
   // console.log('토큰',store.token)
