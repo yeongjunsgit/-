@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="my-3">
     <h1>금융 상품 추천 탭</h1>
     <div>
 

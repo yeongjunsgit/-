@@ -150,7 +150,7 @@ export const useArticleStore = defineStore('articles', () => {
   const updateArticle = function (payload) {
     const { title, content, article_id, user, article_user } = payload
     if (user != article_user) {
-      window.alert('니가 작성하지 않았다.')
+      window.alert('님이 작성한 글이 아닙니다.')
     } else {
       axios({
         method: 'put',
@@ -219,17 +219,21 @@ export const useArticleStore = defineStore('articles', () => {
   const findPrdt = function(type,fin_prdt_cd){
     axios({
       method:'get',
-      url:`${store.API_URL}/opject_${type}_product/${fin_prdt_cd}`
+      url:`http://127.0.0.1:8000/fin_prct/opject_${type}_product/${fin_prdt_cd}`
     })
     .then((res)=>{
+      console.log('여기는 스토어')
       console.log(res.data)
       return res.data
     })
     .catch((err)=>{
+      console.log('여기는 스토어 오류')
       console.log(err)
       return err
     })
   }
+
+
   return { doSurvey,isLogin,articles, signUp, login, token, getArticles, API_URL,
-    createArticles, myname, mypk, updateArticle, deleteArticle,getExchangeData,exchangedata,logout}
+    createArticles, myname, mypk, updateArticle, deleteArticle,getExchangeData,exchangedata,logout,findPrdt}
 }, { persist: true })

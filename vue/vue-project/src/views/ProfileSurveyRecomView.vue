@@ -1,6 +1,60 @@
 <template>
   <div class="m-3" v-if="mySurvey">
-    <!-- {{   mySurvey }} -->
+ 
+<div class="d-flex justify-content-evenly m-2">
+<button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#yearsaving" aria-controls="yearsaving">연금저축</button>
+<div class="offcanvas offcanvas-top" tabindex="-1" id="yearsaving" aria-labelledby="offcanvasTopLabel">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title" id="offcanvasTopLabel">연금저축</h3>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    손해를 보더라도 높은 수익률을 기대하십니까? 항목에 예를 누르면 수익률이 높으나 원금이 보장이 되지 않는 연금을 추천합니다.
+    아니오를 고른 경우, 수익률이 높지는 않지만 안정성 있는 연금저축 상품을 추천드립니다.
+  </div>
+</div>
+
+<button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#deposit" aria-controls="deposit">예적금</button>
+<div class="offcanvas offcanvas-top" tabindex="-1" id="deposit" aria-labelledby="offcanvasTopLabel">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title" id="offcanvasTopLabel">예적금</h3>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    예적금 상품 추천받기를 원하는 분들에게는 최대 금리가 높은 예적금 상품들을 추천해드립니다.
+  </div>
+</div>
+
+<button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#period" aria-controls="period">기간</button>
+<div class="offcanvas offcanvas-top" tabindex="-1" id="period" aria-labelledby="offcanvasTopLabel">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title" id="offcanvasTopLabel">기간</h3>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    단기를 원하시는 분들에게는 6개월, 장기를 원하시는 분들에게는 12개월 이상의 상품을 추천드립니다.
+  </div>
+</div>
+
+<button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#loan" aria-controls="loan">대출</button>
+<div class="offcanvas offcanvas-top" tabindex="-1" id="loan" aria-labelledby="offcanvasTopLabel">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title" id="offcanvasTopLabel">대출</h3>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    대출을 원하시는 분들에게는 원하는 타입에 따라 금리가 낮은 상품들을 추천드립니다.
+  </div>
+</div>
+
+</div>
+
+
+
+
+
+
+
 
     <h3 v-if="mySurvey.data.YearSavingPrdt">연금저축 상품</h3>
     <div class="card my-3" v-for="yearsave in mySurvey.data.YearSavingPrdt" >
@@ -53,6 +107,14 @@
 </template>
 
 <script setup>
+{/* <p>1. 손해를 보더라도 높은 수익률을 기대하십니까?</p>
+<p for="like_deposit">2. 예금 상품 추천을 원하십니까?</p>
+<p for="like_save">3. 적금 상품 추천을 원하십니까?</p>
+<p for="period">4. 원하는 기간 유형을 선택해주세요</p>
+<p for="need_loan">5. 대출 상품 추천을 원하십니까?</p>
+<p for="need_loantype">6. 원하시는 대출 옵션을 골라주세요</p> */}
+
+
 import { ref, onMounted } from 'vue'
 import { useArticleStore } from '@/stores/articles'
 import ProfileRecommendPrdt from '@/components/ProfileRecommendPrdt.vue'

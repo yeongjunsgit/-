@@ -1,6 +1,6 @@
 <template>
   <div>
-  
+    
     <div class="btn-group dropup">
     <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
       상품 종류
