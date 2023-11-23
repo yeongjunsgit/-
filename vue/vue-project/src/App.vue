@@ -45,7 +45,10 @@
     </nav>
       <RouterView class="mx-5"/>
     </div>
-    <footer class="text-center text-bg-light p-2 mt-5">
+    <footer class="p-2 mt-5">
+                                      
+    </footer>
+    <footer class="text-center text-bg-light p-2 mt-5 fixed-bottom">
       footer
     </footer>
   </header>

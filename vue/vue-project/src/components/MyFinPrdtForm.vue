@@ -12,7 +12,7 @@
       <li><a @click="selectPrdt(4)" class="dropdown-item" href="#">주택담보대출</a></li>
       <li><a @click="selectPrdt(5)" class="dropdown-item" href="#">전세자금대출</a></li>
     </ul>
-  </div>
+    </div>
   
       <form v-if="select" @submit.prevent="searchPrdt" class="mb-3">
         <div class="input-group">
@@ -29,22 +29,42 @@
       </form>
 
 
-      <span>검색결과</span>
-        <div v-if="filteredprdt">
+      <div class="my-5" v-if="isSearch">
+      <span >검색결과</span>
+      <div class="mt-3" v-if="filteredprdt">
           
-            <div v-for="prdt in filteredprdt">
-              <div  @click="addPrdt(prdt)">{{ prdt.fin_prdt_nm }}</div>
+          <ul>
+            <li class="dropdown-item" v-for="prdt in filteredprdt" :key="prdt.fin_prdt_cd">
+   
+              <div  style="height: 40px;" @click="addPrdt(prdt)">
+              {{ prdt.fin_prdt_nm }}
+              </div>
+              
+            </li>
+          </ul>
           
-          </div>
         </div>
         <span v-else>
           없음
         </span>
-      <div class="card" v-for="prdt in prdtsList">
-        {{ prdt.fin_prdt_nm }} <button @click="deletePrdt(prdt)">x</button>
+
+      </div>
+      <h5 class="my-3"><strong>선택한 금융상품</strong></h5>
+
+
+      
+      <div class="mb-3 d-flex flex-wrap">
+        <div v-for="prdt in prdtsList" :key="prdt.id" class="col-3 mb-3">
+          <div style="height: 130px;" class="card">
+            <div class="card-body">
+              <h5 class="card-text">{{ prdt.fin_prdt_nm }}</h5>
+              <a href="#" class="btn btn-danger" @click="deletePrdt(prdt)">삭제하기</a>
+            </div>
+          </div>
+        </div>
       </div>
     <form @submit.prevent="donePrdt">
-      <input  type="submit" value="완료">
+      <input class="btn btn-success" type="submit" value="금융상품 변경하기">
     </form>
   </div>
 </template>
@@ -63,14 +83,15 @@ const prdts = ref(null)
 const select = ref(null)
 const filteredprdt = ref(null)
 const type = ref(null)
+const isSearch = ref(false)
 
 const selectPrdt = function(id){
   select.value = id
-  // console.log(select.value)
+
 }
 
 const searchPrdt = function(){
-  // console.log('검색하기')
+  isSearch.value = true
   const tmpUrl = ref(null)
   if (select.value == 1) {
     tmpUrl.value = 'list-financial-products'
@@ -100,16 +121,16 @@ const searchPrdt = function(){
 
   })
   .then((res) => {
-    // console.log('검색어',prdts.value)
-    // console.log('반환 데이터',res.data)
+
     filteredprdt.value  = res.data.filter((item) => item.fin_prdt_nm.includes(prdts.value))
-    // console.log(filteredprdt.value)
+
   })
   .catch((err)=> {
     console.log(err)
   })
 
 }
+
 
 const addPrdt = function(cd){
   const index = prdtsList.value.findIndex((item)=> item.fin_prdt_cd===cd.fin_prdt_cd)
@@ -151,5 +172,8 @@ const donePrdt = function (){
 </script>
 
 <style scoped>
-
+.selected{
+  /* color: red; */
+  font-weight: bold;
+}
 </style>

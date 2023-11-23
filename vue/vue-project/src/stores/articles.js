@@ -71,9 +71,6 @@ export const useArticleStore = defineStore('articles', () => {
         .catch((err) => {
           console.log(err)
         })
-
-
-
         console.log(res)
         // mypk.value = res.data.
         router.push({name:'HomeView'})
@@ -209,6 +206,8 @@ export const useArticleStore = defineStore('articles', () => {
       url:`${API_URL}/exchangerate/get_data/`
     })
     .then((res)=>{
+      console.log('여기는 스토어')
+      console.log(res.data)
       exchangedata.value=res.data.data
       
     })

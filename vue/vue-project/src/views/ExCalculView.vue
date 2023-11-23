@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1>환율계산기</h1>
+    <h1 class="my-3">환율계산기</h1>
     <!-- {{ country }} -->
-    <select v-model="country">
+    <select class="form-select" v-model="country">
       <option disabled value="">Please select one</option>
       <option>미국 달러</option>
       <option>유로</option>
@@ -28,26 +28,46 @@
       <option>싱가포르 달러</option>
       <option>태국 바트</option>
     </select>
-    <!-- <p>{{koreaMoney}}</p> -->
-    <p v-if="filteredData.length">
-      <h3>현재 환율 : {{   filteredData[0].kftc_bkpr }}</h3>
-      <input v-model="koreaMoney" type="text" name="" id="">
-      <span> 원</span>
+    
+    <div  v-if="filteredData.length">
+      <h3 class="my-3">현재 환율 : {{   filteredData[0].kftc_bkpr }}</h3>
+      <div class="input-group">
+        <input class="form-control" v-model="koreaMoney" type="text" name="" id="">
+        <span class="input-group-text"> 원</span>
+      </div>
       <p>
-        <input v-model="otherMoney" type="text" name="" id="">
-        {{ country.split(' ')[1] }}
+        <div class="input-group">
+          <input class="form-control" v-model="otherMoney" type="text" name="" id="">
+          
+          <span class="input-group-text">{{ country.split(' ')[1] }}</span>
+        </div>
       </p>
       
-      <p>{{ (koreaMoney / Number(filteredData[0].kftc_bkpr.replace(',',''))).toFixed(2)}}{{ country.split(' ')[1] }}
-        
-      </p>
+      <div>
+        <h3 class="my-3"> 
+        최종 금액 : {{ (koreaMoney / Number(filteredData[0].kftc_bkpr.replace(',',''))).toFixed(2)}}{{ country.split(' ')[1] }}
+        </h3>
+      <div class="d-flex gap-3">
 
-      <span @click="changemoney(1000)">1,000원  </span>
-      <span @click="changemoney(10000)">10,000원  </span>
-      <span @click="changemoney(100000)">100,000원  </span>
-      <span @click="changemoney(1000000)">1,000,000원  </span>
-      <!-- {{ data }} -->
-    </p>
+        <button style="width: 130px;" class="btn btn-primary" @click="changemoney(1000)">1,000원  </button>
+        <button style="width: 130px;" class="btn btn-primary" @click="changemoney(5000)">5,000원  </button>
+        <button style="width: 130px;" class="btn btn-outline-primary" @click="changemoney(10000)">10,000원  </button>
+        <button style="width: 130px;" class="btn btn-outline-primary" @click="changemoney(50000)">50,000원  </button>
+        <button style="width: 130px;" class="btn btn-outline-secondary" @click="changemoney(100000)">100,000원  </button>
+        <button style="width: 130px;" class="btn btn-outline-secondary" @click="changemoney(500000)">500,000원  </button>
+      </div>
+      <div class="d-flex gap-3 mt-3">
+        <button style="width: 130px;" class="btn btn-primary" @click="changeforeignmoney(1)">1 {{ country.split(' ')[1] }} </button>
+        <button style="width: 130px;" class="btn btn-primary" @click="changeforeignmoney(5)">5 {{ country.split(' ')[1] }}</button>
+        <button style="width: 130px;" class="btn btn-outline-primary" @click="changeforeignmoney(10)">10 {{ country.split(' ')[1] }}</button>
+        <button style="width: 130px;" class="btn btn-outline-primary" @click="changeforeignmoney(50)">50 {{ country.split(' ')[1] }}</button>
+        <button style="width: 130px;" class="btn btn-outline-secondary" @click="changeforeignmoney(100)">100  {{ country.split(' ')[1] }}</button>
+        <button style="width: 130px;" class="btn btn-outline-secondary" @click="changeforeignmoney(500)">500  {{ country.split(' ')[1] }}</button>
+      </div>
+        
+      </div>
+
+    </div>
   
 
 
@@ -55,7 +75,7 @@
 </template>
 
 <script setup>
-import axios from 'axios';
+
 import {useArticleStore} from '@/stores/articles'
 import { ref,computed,onMounted, watch } from 'vue';
 
@@ -87,16 +107,29 @@ watch(otherMoney, (newValue) => {
 const changemoney = function(money){
   koreaMoney.value = money
 }
+
+
+const changeforeignmoney = function(money){
+  otherMoney.value = money
+}
+
 onMounted(()=>{
   const store = useArticleStore()
+  console.log('여기는 뷰')
   store.getExchangeData()  
+
 })
 const store = useArticleStore()
 datas.value = store.exchangedata
 
 
 const filteredData = computed(() => {
-  return datas.value.filter((item) => item.cur_nm === country.value);
+  if(datas.value === null){
+    pass
+  } else{
+
+    return datas.value.filter((item) => item.cur_nm === country.value);
+  }
 })
 
 

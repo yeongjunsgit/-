@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>ProfileFinChangeView</h1>
+    <h3><strong>금융상품 추가하기</strong></h3>
     <MyFinPrdtForm
     @emit-prdts="gerPrdts"
     />

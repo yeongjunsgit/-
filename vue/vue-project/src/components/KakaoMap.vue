@@ -1,24 +1,44 @@
 <template>
   <div>
-    <div id="menu_wrap">
-      <form @submit.prevent="searchBanksNearby">
-        <input type="text" v-model="location" placeholder="위치" />
-        <input type="text" v-model="bankName" placeholder="은행명" />
-        <button type="submit">검색</button>
+    <div id="menu_wrap" class="mt-3 d-flex">
+      <form @submit.prevent="searchBanksNearby" class="d-flex flex-grow-1 justify-content-between">
+        <div>
+          <label for="loca" class="mr-2">위치 : </label>
+          <input type="text" v-model="location" placeholder="위치" id="loca" class=" mr-2"/>
+        </div>
+        <div>
+          <label for="bank_nm" class="mr-2">은행 명 : </label>
+          <input type="text" v-model="bankName" placeholder="은행명" id="bank_nm" class=" mr-2"/>
+          <button class="btn btn-info" type="submit">검색</button>
+        </div>
+        
       </form>
     </div>
-    <div id="map"></div>
-    <div id="placesList"></div>
-    <div id="pagination"></div>
+    <div id="map" class=""></div>
+    <div class="row">
+      <div v-for="(place, index) in places" :key="index" class="col-md-6 g-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ place.place_name }}</h5>
+            <p class="card-text" v-if="place.road_address_name">{{ place.road_address_name }}</p>
+            <p class="card-text" v-if="place.road_address_name">{{ place.address_name }}</p>
+            <p class="card-text" v-else>{{ place.address_name }}</p>
+            <p class="card-text tel">{{ place.phone }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+const VITE_MAP_API_KEY = import.meta.env.VITE_MAP_API_KEY
 export default {
   data() {
     return {
       location: "",
       bankName: "",
+      places: [], // places를 data에 추가
       markers: [],
       map: null,
       infowindow: null,
@@ -42,7 +62,7 @@ export default {
             });
           };
           script.src =
-            "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=515518f4fc322125ee5a59b92e14d7b6&libraries=services,clusterer,drawing";
+            `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${VITE_MAP_API_KEY}&libraries=services,clusterer,drawing`;
           document.head.appendChild(script);
         });
 
@@ -73,52 +93,77 @@ export default {
       // 위치와 은행명을 이용하여 검색하고 결과를 처리하세요.
       // 예시로 주변 은행을 검색하는 함수를 호출하도록 작성했습니다.
       this.searchNearbyBanks(location, bankName);
-    },
-    searchNearbyBanks(location, bankName) {
-      // 여기에 위치와 은행명을 이용하여 검색하는 로직을 추가하세요.
-      // 검색된 결과를 this.displayPlaces 메서드로 전달하여 표시하세요.
-      const ps = new window.kakao.maps.services.Places();
-      const keyword = `${location} ${bankName}`;
-      ps.keywordSearch(keyword, this.placesSearchCB);
-    },
-    placesSearchCB(data, status, pagination) {
-      if (status === window.kakao.maps.services.Status.OK) {
-        this.displayPlaces(data);
-        this.displayPagination(pagination);
-      } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
-        alert("검색 결과가 존재하지 않습니다.");
-      } else if (status === window.kakao.maps.services.Status.ERROR) {
-        alert("검색 결과 중 오류가 발생했습니다.");
-      }
-    },
-    displayPlaces(places) {
-      const listEl = document.getElementById("placesList"),
-        bounds = new window.kakao.maps.LatLngBounds();
+      },
+      async searchNearbyBanks(location, bankName) {
+        try {
+          const ps = new window.kakao.maps.services.Places();
+          const keyword = `${location} ${bankName}`;
 
-      // 기존 마커 및 목록 삭제
-      this.removeMarker();
-      this.removeAllChildNodes(listEl);
+          console.log("API 요청 중...");
 
-      places.forEach((place, index) => {
-        const placePosition = new window.kakao.maps.LatLng(place.y, place.x);
-        const marker = this.addMarker(placePosition, index);
-        const itemEl = this.getListItem(index, place);
+          const response = await new Promise((resolve) => {
+            ps.keywordSearch(keyword, (data, status, message) => {
+              resolve({ data, status, message });
+            });
+          });
 
-        bounds.extend(placePosition);
+          console.log('API 응답:', response);
 
-        itemEl.addEventListener("mouseover", () => {
-          this.displayInfowindow(marker, place.place_name);
+          if (response && response.data) {
+            // 데이터를 this.places에 설정
+            this.places = response.data;
+            this.displayPlaces(this.places); // displayPlaces를 호출하여 마커 표시
+            this.displayPagination(response.message);
+          } else {
+            console.error("Error searching nearby banks: Invalid response structure - missing documents property");
+          }
+        } catch (error) {
+          console.error("주변 은행 검색 중 오류:", error);
+        }
+      },
+
+
+
+      displayPlaces(places) {
+        const listEl = document.getElementById("placesList"),
+          bounds = new window.kakao.maps.LatLngBounds();
+
+        // 기존 마커 및 목록 삭제
+        this.removeMarker();
+        this.removeAllChildNodes(listEl);
+
+        places.forEach((place, index) => {
+          const placePosition = new window.kakao.maps.LatLng(place.y, place.x);
+
+          // 중복 체크
+          const existingMarker = this.markers.find(
+            (marker) =>
+              marker.getPosition().equals(placePosition) && marker.getTitle() === place.place_name
+          );
+
+          if (!existingMarker) {
+            const marker = this.addMarker(placePosition, index);
+            const itemEl = this.getListItem(index, place);
+
+            bounds.extend(placePosition);
+
+            itemEl.addEventListener("mouseover", () => {
+              this.displayInfowindow(marker, place.place_name);
+            });
+
+            itemEl.addEventListener("mouseout", () => {
+              this.infowindow.close();
+            });
+
+            if (listEl) {
+              listEl.appendChild(itemEl);
+              console.log(listEl);
+            }
+          }
         });
 
-        itemEl.addEventListener("mouseout", () => {
-          this.infowindow.close();
-        });
-
-        listEl.appendChild(itemEl);
-      });
-
-      this.map.setBounds(bounds);
-    },
+        this.map.setBounds(bounds);
+      },
     addMarker(position, idx) {
       const imageSrc =
         "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png";
@@ -162,8 +207,10 @@ export default {
       return itemEl;
     },
     removeAllChildNodes(el) {
-      while (el.hasChildNodes()) {
-        el.removeChild(el.lastChild);
+      if (el) {
+        while (el.hasChildNodes()) {
+          el.removeChild(el.lastChild);
+        }
       }
     },
     displayPagination(pagination) {
@@ -209,4 +256,5 @@ export default {
 button {
   margin: 0 3px;
 }
+
 </style>

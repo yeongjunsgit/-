@@ -1,6 +1,6 @@
 <template>
-  <h1>근처 은행 찾기</h1>
   <div id="app">
+    <h1 class="my-3">근처 은행 찾기</h1>
     <KakaoMap />
   </div>
 </template>

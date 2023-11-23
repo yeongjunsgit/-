@@ -2,56 +2,111 @@
   <div>
     <h3>설문조사</h3>
     <form @submit.prevent="submitSurvey">
-        <div class="m-3 form-check">
-        <label for="like_yearsaving">1. 손해를 보더라도 높은 수익률을 기대하십니까?</label>
-        <input  class="form-check-input" type="checkbox" id="like_yearsaving" v-model="like_yearsaving">
+      <div style="height: 300px;" id="carouselExample" class="carousel slide text-bg-light d-flex  text-center align-items-center">
+        <div class="carousel-indicators bg-primary-subtle text-emphasis-primary">
+          <button class="active" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="6" aria-label="Slide 7"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="7" aria-label="Slide 8"></button>
         </div>
-        <div class="m-3 form-check">
-        <label for="like_deposit">2. 예금 상품 추천을 원하십니까?</label>
-        <input  class="form-check-input" type="checkbox" id="like_deposit" v-model="like_deposit">
+
+
+
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="m-3 form-check">
+              <p>1. 손해를 보더라도 높은 수익률을 기대하십니까?</p>
+              <div class="d-flex justify-content-evenly">
+                <a @click="yesRisk" class="btn btn-primary">예</a>
+                <a @click="noRisk" class="btn btn-outline-primary">아니요</a>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="carousel-item">
+            <div class="m-3 form-check">
+              <p for="like_deposit">2. 예금 상품 추천을 원하십니까?</p>
+              <div class="d-flex justify-content-evenly">
+                <a @click="yesdeposit" class="btn btn-primary">예</a>
+                <a @click="nodeposit" class="btn btn-outline-primary">아니요</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="m-3 form-check">
+              <p for="like_save">3. 적금 상품 추천을 원하십니까?</p>
+              <div class="d-flex justify-content-evenly">
+                <a @click="yessave" class="btn btn-primary">예</a>
+                <a @click="nosave" class="btn btn-outline-primary">아니요</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="m-3">
+              <p for="period">4. 원하는 기간 유형을 선택해주세요</p>
+              <div class="d-flex justify-content-evenly">
+                <a @click="yesperiod" class="btn btn-primary">단기</a>
+                <a @click="noperiod" class="btn btn-outline-primary">장기</a>
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          <div class="carousel-item">
+            <div class="m-3 form-check">
+              <p for="need_loan">5. 대출 상품 추천을 원하십니까?</p>
+              
+              <div class="d-flex justify-content-evenly">
+                <a @click="yesloan" class="btn btn-primary">예</a>
+                <a @click="noloan" class="btn btn-outline-primary">아니요</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="m-3">
+              <p for="need_loantype">6. 원하시는 대출 옵션을 골라주세요</p>
+              <div class="d-flex justify-content-evenly">
+                <a @click="houseoption" class="btn btn-primary">주택담보</a>
+                <a @click="depositoption" class="btn btn-outline-primary">전세자금</a>
+              </div>
+              
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="m-3">
+              <input class="btn btn-primary" value="제출하기" type="submit" name="" id="">
+              
+            </div>
+          </div>
+          
         </div>
-        <div class="m-3 form-check">
-        <label for="like_save">3. 적금 상품 추천을 원하십니까?</label>
-        <input  class="form-check-input" type="checkbox" id="like_save" v-model="like_save">
-        </div>
-        <div class="m-3">
-        <label for="period">4. 원하는 기간 유형을 선택해주세요</label>
-        <select v-model="period">
-          <option disabled value="">Please select one</option>
-          <option>단기</option>
-          <option>장기</option>
-        </select>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden bs-primary">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden bs-primary">Next</span>
+        </button>
       </div>
-      <div class="m-3 form-check">
-        <label for="need_loan">5. 대출 상품 추천을 원하십니까?</label>
-        <input  class="form-check-input" type="checkbox" id="need_loan" v-model="need_loan">
-      </div>
-      <div class="m-3">
-      <label for="need_loantype">6. 원하시는 대출 옵션을 골라주세요</label>
-      <select v-model="need_loantype">
-        <option disabled value="">Please select one</option>
-        <option>주택담보</option>
-        <!-- <option>개인신용</option> -->
-        <option>전세자금</option>
-      </select>
-      </div>
-      <div class="m-3">
-        <label for="like_high_limit">7. 원하는 대출 방향이 어떤것인가요?</label >
-          <select v-model="like_high_limit">
-          <option disabled value="">Please select one</option>
-          <option>높은 한도</option>
-          <option>낮은 금리</option>
-        </select>
-      </div>
-      <input type="submit" name="" id="">
+
     </form>
-    {{ like_yearsaving }}
+    <!-- {{ like_yearsaving }}
     {{ like_deposit }}
     {{ like_save }}
     {{ period }}
     {{ need_loan }}
     {{ need_loantype }}
-    {{ like_high_limit }}
+    {{ like_high_limit }} -->
   </div>
 </template>
 
@@ -71,6 +126,49 @@ const period = ref('단기')
 const need_loan = ref(false)
 const need_loantype = ref('주택담보')
 const like_high_limit = ref('높은 한도')
+
+
+
+const yesRisk = function (){
+  like_yearsaving.value = true
+}
+const noRisk = function (){
+  like_yearsaving.value = false
+}
+const yesdeposit = function (){
+  like_deposit.value = true
+}
+const nodeposit = function (){
+  like_deposit.value = false
+}
+const yessave = function (){
+  like_save.value = true
+}
+const nosave = function (){
+  like_save.value = false
+}
+const yesperiod = function (){
+  period.value = '단기'
+}
+const noperiod = function (){
+  period.value = '장기'
+}
+const yesloan = function (){
+  need_loan.value = true
+}
+const noloan = function (){
+  need_loan.value = false
+}
+
+const houseoption = function (){
+  need_loantype.value = "주택담보"
+}
+const depositoption = function (){
+  need_loantype.value = "전세자금"
+}
+
+
+
 
 const submitSurvey = function(){
   if (like_high_limit.value == '높은 한도'){
