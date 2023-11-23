@@ -177,8 +177,22 @@ export const useArticleStore = defineStore('articles', () => {
     }
   }
 
+  const exchangedata = ref(null)
+  const getExchangeData = function(){
+    axios({
+      method:'get',
+      url:`${API_URL}/exchangerate/get_data/`
+    })
+    .then((res)=>{
+      exchangedata.value=res.data.data
+      
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
   
 
   return { articles, signUp, login, token, getArticles, API_URL,
-    createArticles, myname, mypk, updateArticle, deleteArticle,}
+    createArticles, myname, mypk, updateArticle, deleteArticle,getExchangeData,exchangedata}
 }, { persist: true })

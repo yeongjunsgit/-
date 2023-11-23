@@ -26,7 +26,6 @@ import DetailHomeLoanView from '@/views/DetailHomeLoanView.vue'
 import DetailDepositLoanView from '@/views/DetailDepositLoanView.vue'
 
 
-
 import { useArticleStore } from '@/stores/articles'
 import axios from 'axios'
 import { ref, computed } from 'vue'

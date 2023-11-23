@@ -2,7 +2,7 @@
   <div v-if="mySurvey">
     <!-- {{   mySurvey }} -->
 
-    <h3>연금저축 상품</h3>
+    <h3 v-if="mySurvey.data.YearSavingPrdt">연금저축 상품</h3>
     <div class="card" v-for="yearsave in mySurvey.data.YearSavingPrdt" @click="gotoDetailyearSave(yearsave.fin_prdt_cd)">
       <p>상품 이름 : {{yearsave.fin_prdt_nm}}</p>
       <p>은행 : {{yearsave.kor_co_nm}}</p>
@@ -12,14 +12,14 @@
       <p>타입 : {{ yearsave.prdt_type_nm }}</p>
     </div>
     
-    <h3>적금 상품</h3>
+    <h3 v-if="mySurvey.data.saving_data">적금 상품</h3>
     <div class="card" v-for="save in mySurvey.data.saving_data" @click="gotoDetailSave(save.fin_prdt_cd)">
       <p>상품 이름 : {{save.fin_prdt_nm}}</p>
       <p>은행 : {{save.kor_co_nm}}</p>
       <p>최대 금리 : {{save.intr_rate2}}</p>
       <p>기간 : {{ save.save_rrm }}개월</p>
     </div>
-    <h3>예금 상품</h3>
+    <h3 v-if="mySurvey.data.deposit_data">예금 상품</h3>
     <div class="card" v-for="deposit in mySurvey.data.deposit_data" @click="gotoDetailFin(deposit.fin_prdt_cd)">
       <p>상품 이름 : {{deposit.fin_prdt_nm}}</p>
       <p>은행 : {{deposit.kor_co_nm}}</p>
@@ -27,7 +27,7 @@
       <p>기간 : {{ deposit.save_rrm }}개월</p>
     </div>
     <div v-if="mySurvey.data.deposit_data"></div>
-    <h3>대출 상품</h3>
+    <h3 v-if="mySurvey.data.loan_data">대출 상품</h3>
     <div class="card" v-for="loan in mySurvey.data.loan_data" @click="gotoDetailloan(loan.product_type,loan.fin_prdt_cd)">
       <p>상품 이름 : {{loan.fin_prdt_nm}}</p>
       <p>은행 : {{loan.kor_co_nm}}</p>
