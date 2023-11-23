@@ -6,8 +6,8 @@ export const useArticleStore = defineStore('articles', () => {
   const router = useRouter()
   const myname = ref(null)
   const mypk = ref(null)
-  // const doSurvey = ref(false)
-
+  const doSurvey = ref(null)
+  const isLogin = ref(null)
   const token = ref(null)
   const articles = ref([])
   const API_URL = 'http://127.0.0.1:8000'
@@ -29,7 +29,7 @@ export const useArticleStore = defineStore('articles', () => {
       console.log('회원가입 완료')
       console.log(res)
       router.push({name:'HomeView'})
- 
+      
     })
     .catch((err) => {
       console.log(err)
@@ -51,6 +51,7 @@ export const useArticleStore = defineStore('articles', () => {
     .then((res) => {
       // 로그인 후 토큰 값 저장
       console.log('로그인이 완료되었습니다.')
+      isLogin.value = true
       token.value = res.data.key
       // 유저 데이터 가져오기
         axios ({
@@ -64,8 +65,8 @@ export const useArticleStore = defineStore('articles', () => {
           console.log(res.data)
           myname.value = res.data.username
           mypk.value = res.data.pk
-          // console.log(myname.value)
-          // console.log(mypk.value)
+          isLogin.value=true
+
         })
         .catch((err) => {
           console.log(err)
@@ -96,11 +97,16 @@ export const useArticleStore = defineStore('articles', () => {
       myname.value = null
       mypk.value = null
       token.value = null
+      isLogin.value = false
     })
     .catch((err)=>{
       console.log(err)
+      window.alert('로그아웃 실패')
+      window.alert(`${token.value}`)
     })
   }
+
+
   const getArticles = function () {
     axios({
       method: 'get',
@@ -212,6 +218,6 @@ export const useArticleStore = defineStore('articles', () => {
   }
   
 
-  return { articles, signUp, login, token, getArticles, API_URL,
+  return { doSurvey,isLogin,articles, signUp, login, token, getArticles, API_URL,
     createArticles, myname, mypk, updateArticle, deleteArticle,getExchangeData,exchangedata,logout}
 }, { persist: true })

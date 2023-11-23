@@ -1,31 +1,44 @@
 <template>
   <div>
-    <div>
+    
+    <div v-if="mydata">
+      <h3>{{mydata[0].nickname}}님의 페이지</h3>
       
-      <h1>ProfileView</h1>
-      키 {{ store.token }}
-      <div v-if="mydata">
-        <p @click="gotoDetail"> 금융상품 추가하기 > </p>
-        <p @click="gotoSurvey"> 금융상품 취향 설문조사  > </p>
-        <!-- <p @click="gotoRecom"> 추천상품 받으러 가기  > </p> -->
-        <h3>{{mydata[0].nickname}}님의 페이지</h3>
-        <p>아이디 : {{mydata[0].username}}</p>
-        <p>내 나이 : {{ mydata[0].age }}세</p>
-        <p v-if="mydata[0].money">내 자산 : {{ mydata[0].money }}원</p>
-        <p v-if="mydata[0].financial_products">내 금융 상품 : {{ mydata[0].financial_products }}</p>
-        <div>
-          <nav>
-            {{ mydata[0].age }}
-            <RouterLink :to="{name:'ProfileAgeRecomView',params:{ age: mydata[0].age }}">나이별추천상품</RouterLink> | 
-            <RouterLink v-if="store.doSurvey" :to="{name:'ProfileSurveyRecomView'}">설문조사별 추천상품</RouterLink> 
+      <p>아이디 : {{mydata[0].username}}</p>
+      <p>내 나이 : {{ mydata[0].age }}세</p>
+      <p v-if="mydata[0].money">내 자산 : {{ mydata[0].money }}원</p>
+      <p v-if="mydata[0].financial_products">내 금융 상품 : {{ mydata[0].financial_products }}</p>
+      <div >
+        <button class="btn btn-primary" @click="gotoDetail"> 금융상품 추가하기 > </button>
+        <button class="btn btn-info text-white" @click="gotoSurvey"> 금융상품 취향 설문조사  > </button>
 
-          </nav>
-          <RouterView/>
+
+
+        <ul class="nav nav-tabs my-3" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+              
+              <RouterLink :to="{name:'ProfileAgeRecomView',params:{ age: mydata[0].age }}">나이별추천상품</RouterLink>
+            </button>
+            
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+              <RouterLink v-if="store.doSurvey" :to="{name:'ProfileSurveyRecomView'}">설문조사별 추천상품</RouterLink> 
+            </button>
+            </li>
+        </ul>
+        <nav>
 
           
-        </div>
+          
+        </nav>
+        <RouterView/>
+        
+        
       </div>
     </div>
+
   </div>
 </template>
 

@@ -207,11 +207,11 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
   const store = useArticleStore()
-  if ((to.name === 'ProfileView' || to.name==="CommunityView" || to.name==="recommendView" )&& !store.token) {
+  if ((to.name === 'ProfileView' || to.name==="CommunityView" || to.name==="recommendView" )&& !store.isLogin) {
     window.alert('로그인이 필요합니다.')
     return { name: 'LoginView' }
   }
-  if ((to.name === 'SignUpView' || to.name === 'LoginView') && (store.token)) {
+  if ((to.name === 'SignUpView' || to.name === 'LoginView') && (store.isLogin)) {
     window.alert('이미 로그인 했습니다.')
     return { name: 'ProfileView' }
   }

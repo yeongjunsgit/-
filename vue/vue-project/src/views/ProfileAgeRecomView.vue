@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- {{ ageRecommend }} -->
+    
     <ProfileRecommendPrdt
     v-for="recom in ageRecommend.data"
     :data="recom"

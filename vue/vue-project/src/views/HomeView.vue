@@ -1,8 +1,9 @@
 
 <template>
   <main>
-    <h1>홈</h1>
-    <div class="border carosal">
+    
+    
+    <div class="">
     <HomeEvent/>
     </div>
     <div class="border inblock">
@@ -17,7 +18,9 @@
 import HomeArticle from '@/components/HomeArticle.vue';
 import HomeEvent from '@/components/HomeEvent.vue';
 import HomeExchange from '@/components/HomeExchange.vue';
+
 </script>
+
 <style>
 
 </style>

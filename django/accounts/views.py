@@ -200,9 +200,8 @@ def survey(request):
 @api_view(['GET'])
 def get_survey(request):
     if request.method == 'GET':
-        s = UserSurvey.objects.filter(id=request.user.pk)[0]
+        s = UserSurvey.objects.filter(user_id=request.user.pk)[0]
 
-        # print(s)
         data = {
             'like_yearsaving':s.like_yearsaving,
             'like_save':s.like_save,
@@ -213,16 +212,7 @@ def get_survey(request):
             'like_high_limit':s.like_high_limit,
         }
         final_data = {}
-        print()
-        print()
-        print()
-        print()
-        print(data)
-        print()
-        print()
-        print()
-        print()
-        print()
+
         # # 위험성 필터 → 
         # # 위험을 안골랐을때
         # # 전년도, 전전년도, 전전전년도 셋이 비등비등 → 차가 적은것
@@ -302,16 +292,7 @@ def get_survey(request):
                     final_deposit_data.append(deposit_dict)
                 
             final_data['deposit_data'] = final_deposit_data
-        print()
-        print()
-        print()
-        print('예적금 저장')
-        print(final_data)
-        print()
-        print()
-        print()
-        print()
-        print()
+
 
         # 대출
         # 필요? → 추천
@@ -349,79 +330,6 @@ def get_survey(request):
                     }
                     final_loan_data.append(deposit_loan_dict)
             final_data['loan_data'] = final_loan_data
-# like_save
-# like_deposit
-# period
-# need_loan
-# need_loantype
-# like_high_limit
-
-# 주택담보
-# 개인신용
-# 전세자금
-
-# # 전세 자금 대출 상품
-# class DepositLoanPrdt(models.Model):
-#     dcls_month = models.CharField(max_length=20)                   # 공시 제출월 [YYYYMM] 1
-#     fin_co_no = models.CharField(max_length=200)                    # 금융회사 코드 1
-#     kor_co_nm = models.CharField(max_length=200,null=True)          # 금융회사 명
-#     fin_prdt_cd = models.CharField(max_length=200, primary_key=True) # 금융상품 코드 1
-#     fin_prdt_nm = models.CharField(max_length=200,null=True)        # 금융 상품명
-#     join_way = models.CharField(max_length=200,null=True)           # 가입 방법
-#     loan_inci_expn = models.CharField(max_length=500,null=True)     # 대출 부대비용
-#     erly_rpay_fee = models.CharField(max_length=200,null=True)      # 중도상환 수수료
-#     dly_rate = models.CharField(max_length=200,null=True)           # 연체 이자율
-#     loan_lmt = models.CharField(max_length=200,null=True)           # 대출한도
-#     dcls_strt_day = models.CharField(max_length=20,null=True)      # 공시 시작일
-#     dcls_end_day = models.CharField(max_length=20,null=True)       # 공시 종료일
-#     fin_co_subm_day = models.CharField(max_length=20,null=True)    # 금융회사 제출일 [YYYYMMDDHH24MI]
-
-
-# # 전세 자금 대출 옵션
-
-# class DepositLoanOptions(models.Model):
-#     product = models.ForeignKey(DepositLoanPrdt,on_delete=models.CASCADE,related_name="option")      # 상품 옵션
-#     rpay_type = models.CharField(max_length=200,null=True)            # 대출상환유형 코드
-#     rpay_type_nm = models.CharField(max_length=200)                   # 대출상환유형 **
-#     lend_rate_type = models.CharField(max_length=200,null=True)       # 대출금리유형 코드
-#     lend_rate_type_nm = models.CharField(max_length=200,null=True)    # 대출금리유형
-#     lend_rate_min = models.FloatField(null=True)        # 대출금리_최저 [소수점 2자리]
-#     lend_rate_max = models.FloatField(null=True)        # 대출금리_최고 [소수점 2자리]
-#     lend_rate_avg = models.CharField(max_length=20,null=True)        # 전월 취급 평균금리 [소수점 2자리]
-
-
-
-# # 주택 담보 대출
-# class HouseLoanPrdt(models.Model):
-#     dcls_month = models.CharField(max_length=6)                   # 공시 제출월 [YYYYMM] ***
-#     fin_co_no = models.CharField(max_length=200)                    # 금융회사 코드 ***
-#     kor_co_nm = models.CharField(max_length=200,null=True)          # 금융회사 명
-#     fin_prdt_cd = models.CharField(max_length=200,primary_key=True)  # 금융상품 코드 ***
-#     fin_prdt_nm = models.CharField(max_length=200,null=True)        # 금융 상품명
-#     join_way = models.CharField(max_length=200,null=True)           # 가입 방법
-#     loan_inci_expn = models.CharField(max_length=200,null=True)     # 대출 부대비용
-#     erly_rpay_fee = models.CharField(max_length=200,null=True)      # 중도상환 수수료
-#     dly_rate = models.CharField(max_length=200,null=True)           # 연체 이자율
-#     loan_lmt = models.CharField(max_length=200,null=True)                       # 대출한도
-#     dcls_strt_day = models.CharField(max_length=20,null=True)      # 공시 시작일
-#     dcls_end_day = models.CharField(max_length=20,null=True)       # 공시 종료일
-#     fin_co_subm_day = models.CharField(max_length=20,null=True)    # 금융회사 제출일 [YYYYMMDDHH24MI]
-
-
-# # 주택 담보 대출 옵션
-# class HouseLoanOptions(models.Model):
-#     product = models.ForeignKey(HouseLoanPrdt,on_delete=models.CASCADE,related_name='option')  # 금융상품 코드
-#     mrtg_type = models.CharField(max_length=200,null=True)  # 담보유형 코드
-#     mrtg_type_nm = models.CharField(max_length=200,null=True)  # 담보유형
-#     rpay_type = models.CharField(max_length=200,null=True)  # 대출상환유형 코드
-#     rpay_type_nm = models.CharField(max_length=200)         # 대출상환유형 **
-#     lend_rate_type = models.CharField(max_length=200,null=True)  # 대출금리유형 코드
-#     lend_rate_type_nm = models.CharField(max_length=200,null=True)  # 대출금리유형
-#     lend_rate_min = models.FloatField(null=True)  # 대출금리_최저 [소수점 2자리]
-#     lend_rate_max = models.FloatField(null=True)  # 대출금리_최고 [소수점 2자리]
-#     lend_rate_avg = models.CharField(max_length=10,null=True)  # 전월 취급 평균금리 [소수점 2자리]            
-            
-
 
         return JsonResponse({'data': final_data})
     

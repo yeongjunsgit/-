@@ -2,8 +2,26 @@
   <div class="signup-container">
     <h1>회원가입</h1>
     <form @submit.prevent="signUp" class="signup-form">
-      <div class="mb-3">
+      <div class="my-3">
         
+        <input
+          id="nickname"
+          v-model.trim="nickname"
+          type="text"
+          class="form-control"
+          name=""
+          placeholder="닉네임 *"
+        />
+        <input
+          id="age"
+          v-model.trim="age"
+          type="text"
+          class="form-control"
+          name=""
+          placeholder="나이 *"
+        />
+      </div>
+      <div class="mb-3">
         <input
           id="username"
           v-model.trim="username"
@@ -34,21 +52,9 @@
         />
       </div>
       <div class="mb-3">
-        <p>{{ typeof(age) }}</p>
-        <!-- <label for="password2" class="form-label">나이 :</label> -->
-        <input
-          id="age"
-          v-model.trim="age"
-          type="text"
-          class="form-control"
-          name=""
-          placeholder="나이 *"
-        />
-      </div>
+        
 
-      
-      <div class="mb-3">
-        <!-- <label for="salary" class="form-label">연봉 :</label> -->
+        
         <input
           id="salary"
           v-model.trim="salary"
@@ -57,9 +63,8 @@
           name=""
           placeholder="연봉"
         />
-      </div>
-      <div class="mb-3">
-        <!-- <label for="password2" class="form-label">자금 :</label> -->
+
+        
         <input
           id="money"
           v-model.trim="money"
@@ -68,22 +73,10 @@
           name=""
           placeholder="자금"
         />
-      </div>
-      <div class="mb-3">
-        <!-- <label for="password2" class="form-label">닉네임 :</label> -->
-        <input
-          id="nickname"
-          v-model.trim="nickname"
-          type="text"
-          class="form-control"
-          name=""
-          placeholder="닉네임"
-        />
-      </div>
 
-
-      <!-- <MyFinPrdtForm
-      @emit-prdts="gerPrdts"/> -->
+        
+        
+      </div>
       
       <button type="submit" class="btn btn-primary w-100 mt-3">회원가입</button>
     </form>

@@ -1,122 +1,201 @@
 <template>
   <div>
-    <div id="map"></div>
-    <div class="button-group">
-      <button @click="changeSize(0)">Hide</button>
-      <button @click="changeSize(400)">show</button>
-      <button @click="displayMarker(markerPositions1)">marker set 1</button>
-      <button @click="displayMarker(markerPositions2)">marker set 2</button>
-      <button @click="displayMarker([])">marker set 3 (empty)</button>
-      <button @click="displayInfoWindow">infowindow</button>
+    <div id="menu_wrap">
+      <form @submit.prevent="searchBanksNearby">
+        <input type="text" v-model="location" placeholder="위치" />
+        <input type="text" v-model="bankName" placeholder="은행명" />
+        <button type="submit">검색</button>
+      </form>
     </div>
+    <div id="map"></div>
+    <div id="placesList"></div>
+    <div id="pagination"></div>
   </div>
 </template>
 
 <script>
-import { toRaw } from "vue";
 export default {
-  name: "KakaoMap",
   data() {
     return {
-      markerPositions1: [
-        [33.452278, 126.567803],
-        [33.452671, 126.574792],
-        [33.451744, 126.572441],
-      ],
-      markerPositions2: [
-        [37.499590490909185, 127.0263723554437],
-        [37.499427948430814, 127.02794423197847],
-        [37.498553760499505, 127.02882598822454],
-        [37.497625593121384, 127.02935713582038],
-        [37.49629291770947, 127.02587362608637],
-        [37.49754540521486, 127.02546694890695],
-        [37.49646391248451, 127.02675574250912],
-      ],
+      location: "",
+      bankName: "",
       markers: [],
+      map: null,
       infowindow: null,
     };
   },
   mounted() {
-    if (window.kakao && window.kakao.maps) {
-      this.initMap();
-    } else {
-      const script = document.createElement("script");
-      /* global kakao */
-      script.onload = () => kakao.maps.load(this.initMap);
-      script.src =
-        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=515518f4fc322125ee5a59b92e14d7b6&libraries=services,clusterer,drawing";
-      document.head.appendChild(script);
-    }
+    this.loadKakaoMapScript();
   },
   methods: {
+    async loadKakaoMapScript() {
+      if (window.kakao && window.kakao.maps) {
+        // 이미 로드되어 있다면 바로 초기화
+        this.initMap();
+      } else {
+        // Kakao 지도 API 스크립트 로드
+        await new Promise((resolve) => {
+          const script = document.createElement("script");
+          script.onload = () => {
+            window.kakao.maps.load(() => {
+              resolve();
+            });
+          };
+          script.src =
+            "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=515518f4fc322125ee5a59b92e14d7b6&libraries=services,clusterer,drawing";
+          document.head.appendChild(script);
+        });
+
+        // 초기화
+        this.initMap();
+      }
+    },
     initMap() {
       const container = document.getElementById("map");
       const options = {
-        center: new kakao.maps.LatLng(37.5665, 126.570667),
-        level: 5,
+        center: new window.kakao.maps.LatLng(37.566826, 126.9786567),
+        level: 3,
       };
 
-      //지도 객체를 등록합니다.
-      //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
-      this.map = new kakao.maps.Map(container, options);
+      this.map = new window.kakao.maps.Map(container, options);
+      this.infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
     },
-    changeSize(size) {
-      const container = document.getElementById("map");
-      container.style.width = `${size}px`;
-      container.style.height = `${size}px`;
-      toRaw(this.map).relayout();
-    },
-    displayMarker(markerPositions) {
-      if (this.markers.length > 0) {
-        this.markers.forEach((marker) => marker.setMap(null));
-      }
+    searchBanksNearby() {
+      const location = this.location.trim();
+      const bankName = this.bankName.trim();
 
-      const positions = markerPositions.map(
-        (position) => new kakao.maps.LatLng(...position)
-      );
-
-      if (positions.length > 0) {
-        this.markers = positions.map(
-          (position) =>
-            new kakao.maps.Marker({
-              map: toRaw(this.map),
-              position,
-            })
-        );
-
-        const bounds = positions.reduce(
-          (bounds, latlng) => bounds.extend(latlng),
-          new kakao.maps.LatLngBounds()
-        );
-
-        toRaw(this.map).setBounds(bounds);
-      }
-    },
-    displayInfoWindow() {
-      if (this.infowindow && this.infowindow.getMap()) {
-        //이미 생성한 인포윈도우가 있기 때문에 지도 중심좌표를 인포윈도우 좌표로 이동시킨다.
-        toRaw(this.map).setCenter(this.infowindow.getPosition());
+      if (!location || !bankName) {
+        alert("위치와 은행명을 입력해주세요!");
         return;
       }
 
-      var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-        iwPosition = new kakao.maps.LatLng(33.450701, 126.570667), //인포윈도우 표시 위치입니다
-        iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+      // 검색을 위한 로직을 추가하세요.
+      // 위치와 은행명을 이용하여 검색하고 결과를 처리하세요.
+      // 예시로 주변 은행을 검색하는 함수를 호출하도록 작성했습니다.
+      this.searchNearbyBanks(location, bankName);
+    },
+    searchNearbyBanks(location, bankName) {
+      // 여기에 위치와 은행명을 이용하여 검색하는 로직을 추가하세요.
+      // 검색된 결과를 this.displayPlaces 메서드로 전달하여 표시하세요.
+      const ps = new window.kakao.maps.services.Places();
+      const keyword = `${location} ${bankName}`;
+      ps.keywordSearch(keyword, this.placesSearchCB);
+    },
+    placesSearchCB(data, status, pagination) {
+      if (status === window.kakao.maps.services.Status.OK) {
+        this.displayPlaces(data);
+        this.displayPagination(pagination);
+      } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
+        alert("검색 결과가 존재하지 않습니다.");
+      } else if (status === window.kakao.maps.services.Status.ERROR) {
+        alert("검색 결과 중 오류가 발생했습니다.");
+      }
+    },
+    displayPlaces(places) {
+      const listEl = document.getElementById("placesList"),
+        bounds = new window.kakao.maps.LatLngBounds();
 
-      this.infowindow = new kakao.maps.InfoWindow({
-        map: toRaw(this.map), // 인포윈도우가 표시될 지도
-        position: iwPosition,
-        content: iwContent,
-        removable: iwRemoveable,
+      // 기존 마커 및 목록 삭제
+      this.removeMarker();
+      this.removeAllChildNodes(listEl);
+
+      places.forEach((place, index) => {
+        const placePosition = new window.kakao.maps.LatLng(place.y, place.x);
+        const marker = this.addMarker(placePosition, index);
+        const itemEl = this.getListItem(index, place);
+
+        bounds.extend(placePosition);
+
+        itemEl.addEventListener("mouseover", () => {
+          this.displayInfowindow(marker, place.place_name);
+        });
+
+        itemEl.addEventListener("mouseout", () => {
+          this.infowindow.close();
+        });
+
+        listEl.appendChild(itemEl);
       });
 
-      toRaw(this.map).setCenter(iwPosition);
+      this.map.setBounds(bounds);
+    },
+    addMarker(position, idx) {
+      const imageSrc =
+        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png";
+      const imageSize = new window.kakao.maps.Size(36, 37);
+      const imgOptions = {
+        spriteSize: new window.kakao.maps.Size(36, 691),
+        spriteOrigin: new window.kakao.maps.Point(0, (idx * 46) + 10),
+        offset: new window.kakao.maps.Point(13, 37),
+      };
+
+      const markerImage = new window.kakao.maps.MarkerImage(
+        imageSrc,
+        imageSize,
+        imgOptions
+      );
+
+      const marker = new window.kakao.maps.Marker({
+        position: position,
+        image: markerImage,
+      });
+
+      marker.setMap(this.map);
+      this.markers.push(marker);
+
+      return marker;
+    },
+    removeMarker() {
+      this.markers.forEach((marker) => marker.setMap(null));
+      this.markers = [];
+    },
+    displayInfowindow(marker, title) {
+      const content = '<div style="padding:5px;z-index:1;">' + title + "</div>";
+      this.infowindow.setContent(content);
+      this.infowindow.open(this.map, marker);
+    },
+    getListItem(index, place) {
+      // 이 부분을 적절히 수정하세요.
+      const itemEl = document.createElement("div");
+      itemEl.className = "item";
+      itemEl.innerHTML = '<span class="markerbg marker_' + (index + 1) + '"></span>' + place.place_name;
+      return itemEl;
+    },
+    removeAllChildNodes(el) {
+      while (el.hasChildNodes()) {
+        el.removeChild(el.lastChild);
+      }
+    },
+    displayPagination(pagination) {
+      const paginationEl = document.getElementById("pagination");
+      const fragment = document.createDocumentFragment();
+
+      while (paginationEl.hasChildNodes()) {
+        paginationEl.removeChild(paginationEl.lastChild);
+      }
+
+      for (let i = 1; i <= pagination.last; i++) {
+        const el = document.createElement("a");
+        el.href = "#";
+        el.innerHTML = i;
+
+        if (i === pagination.current) {
+          el.className = "on";
+        } else {
+          el.addEventListener("click", () => {
+            pagination.gotoPage(i);
+          });
+        }
+
+        fragment.appendChild(el);
+      }
+
+      paginationEl.appendChild(fragment);
     },
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #map {
   width: auto;
