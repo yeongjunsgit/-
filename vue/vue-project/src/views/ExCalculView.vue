@@ -38,7 +38,7 @@
         {{ country.split(' ')[1] }}
       </p>
       
-      <p>{{ (koreaMoney / Number(filteredData[0].kftc_bkpr.replace(',',''))).toFixed(2)}}
+      <p>{{ (koreaMoney / Number(filteredData[0].kftc_bkpr.replace(',',''))).toFixed(2)}}{{ country.split(' ')[1] }}
         
       </p>
 
@@ -67,12 +67,12 @@ const otherMoney = ref(null)
 
 const koreaToForeign = computed(() => {
   // console.log(filteredData.value[0])
-  return koreaMoney.value * (Number(filteredData.value[0].kftc_bkpr.replace(',',''))).toFixed(2);
+  return koreaMoney.value / Number(filteredData.value[0].kftc_bkpr.replace(',',''));
 })
 
 const foreignToKorea = computed(() => {
   // console.log(filteredData.value[0])
-  return otherMoney.value / (Number(filteredData.value[0].kftc_bkpr.replace(',',''))).toFixed(2)
+  return otherMoney.value * Number(filteredData.value[0].kftc_bkpr.replace(',',''))
 })
 
 watch(koreaMoney, (newValue) => {

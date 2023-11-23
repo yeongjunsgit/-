@@ -1,6 +1,7 @@
 <template>
   <div>
     <div>
+      
       <h1>ProfileView</h1>
       키 {{ store.token }}
       <div v-if="mydata">
@@ -16,7 +17,7 @@
           <nav>
             {{ mydata[0].age }}
             <RouterLink :to="{name:'ProfileAgeRecomView',params:{ age: mydata[0].age }}">나이별추천상품</RouterLink> | 
-            <RouterLink :to="{name:'ProfileSurveyRecomView'}">설문조사별 추천상품</RouterLink> 
+            <RouterLink v-if="store.doSurvey" :to="{name:'ProfileSurveyRecomView'}">설문조사별 추천상품</RouterLink> 
 
           </nav>
           <RouterView/>
@@ -37,6 +38,10 @@ import { useRouter } from 'vue-router'
 import ProfileAgeRecomViewVue from '@/views/ProfileAgeRecomView.vue'
 // import { useArticleStore } from '@/stores/articles'
 const store = useArticleStore()
+
+
+
+
 // 0. 나의 데이터 가져오기
 const mydata = ref(null)
 const router = useRouter()
@@ -47,9 +52,7 @@ const gotoDetail = function(){
 const gotoSurvey = function(){
   router.push(`/profile/survey`)
 }
-const gotoRecom = function(){
-  router.push('/agerecommend')
-}
+
 onMounted(() => {
   const store = useArticleStore()
   // console.log('토큰',store.token)

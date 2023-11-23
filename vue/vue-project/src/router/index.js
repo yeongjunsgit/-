@@ -203,5 +203,17 @@ const router = createRouter({
    
   ]
 })
+// import { useArticleStore } from '@/stores/articles'
 
+router.beforeEach((to, from) => {
+  const store = useArticleStore()
+  if ((to.name === 'ProfileView' || to.name==="CommunityView" || to.name==="recommendView" )&& !store.token) {
+    window.alert('로그인이 필요합니다.')
+    return { name: 'LoginView' }
+  }
+  if ((to.name === 'SignUpView' || to.name === 'LoginView') && (store.token)) {
+    window.alert('이미 로그인 했습니다.')
+    return { name: 'ProfileView' }
+  }
+})
 export default router

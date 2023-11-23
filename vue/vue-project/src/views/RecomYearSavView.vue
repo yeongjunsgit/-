@@ -65,27 +65,6 @@ onMounted(() => {
   })
   
 
-  // axios({
-  //   method: 'get',
-  //   url: `${store.API_URL}/fin_prct/list-yearsaving-options/`,
-  //   headers: {
-  //     Authorization: `Token ${store.token}`
-  //   }
-  // })
-  // .then((res)=>{
-  //   console.log(res.data)
-  //   options.value = res.data
-  //   const loopCount = Math.min(res.data.length, 10); // 배열의 길이와 10 중 작은 값을 사용
-  //   for (let i = 0; i < loopCount; i++) {
-  //     filteredData.value.push(res.data[i])
-  //   }
-  //   console.log(filteredData)
-  // })
-  // .catch((err) => {
-  //       console.log(err)
-  //     })
-
-
 
 })
 

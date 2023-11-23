@@ -51,7 +51,8 @@ onMounted(() => {
       url: `${store.API_URL}/fin_prct/save-financial-products/`,
       headers: {
         Authorization: `Token ${store.token}`
-      }})
+      }
+    })
     .then((res)=>{
       console.log('저장')
      

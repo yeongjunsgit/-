@@ -1,16 +1,17 @@
 <template>
-  <div>
-    <h1>카카오맵 뷰</h1>
-    <BankMap />
+  <h1>근처 은행 찾기</h1>
+  <div id="app">
+    <KakaoMap />
   </div>
 </template>
 
 <script>
-import BankMap from '@/components/BankMap.vue'
+import KakaoMap from "@/components/KakaoMap.vue";
 
 export default {
+  name: "App",
   components: {
-    BankMap,
+    KakaoMap,
   },
 };
 </script>

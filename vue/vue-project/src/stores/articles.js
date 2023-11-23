@@ -82,6 +82,25 @@ export const useArticleStore = defineStore('articles', () => {
       })
   }
 
+
+  const logout = function(){
+    axios ({
+      method: 'post',
+      url:`${API_URL}/dj-rest-auth/logout/`,
+      headers: {
+        Authorization: `Token ${token.value}`
+      }
+    })
+    .then((res)=>{
+      console.log('로그아웃 성공')
+      myname.value = null
+      mypk.value = null
+      token.value = null
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
   const getArticles = function () {
     axios({
       method: 'get',
@@ -194,5 +213,5 @@ export const useArticleStore = defineStore('articles', () => {
   
 
   return { articles, signUp, login, token, getArticles, API_URL,
-    createArticles, myname, mypk, updateArticle, deleteArticle,getExchangeData,exchangedata}
+    createArticles, myname, mypk, updateArticle, deleteArticle,getExchangeData,exchangedata,logout}
 }, { persist: true })

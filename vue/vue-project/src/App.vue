@@ -11,23 +11,26 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
 
             <li class="nav-item">
-              <RouterLink :to="{name:'CommunityView'}" class="nav-link">커뮤니티 ㅎ</RouterLink>  
+              <RouterLink :to="{name:'CommunityView'}" class="nav-link">커뮤니티</RouterLink>  
             </li>
             <li class="nav-item">
               <RouterLink :to="{name:'ExCalculView'}" class="nav-link">환율계산기</RouterLink>  
             </li>
             <li class="nav-item">
-              <RouterLink to="/rate" class="nav-link">예적금 금리 비교 전체</RouterLink>  
+              <RouterLink to="/rate" class="nav-link">금융 상품</RouterLink>  
             </li>
             <li class="nav-item">
-              <RouterLink :to="{name:'ProfileView'}" class="nav-link">영준이의 프로필</RouterLink>  
+              <RouterLink :to="{name:'ProfileView'}" class="nav-link">프로필</RouterLink>  
             </li>
             
             <li class="nav-item">
-              <RouterLink :to="{name:'NearBankView'}" class="nav-link">예빈이 근처은행</RouterLink> 
+              <RouterLink :to="{name:'NearBankView'}" class="nav-link">근처은행</RouterLink> 
             </li>
-            <li class="nav-item">
+            <li v-if="!store.mypk" class="nav-item">
               <RouterLink :to="{name:'LoginView'}" class="nav-link">회원가입/로그인</RouterLink>
+            </li>
+            <li v-else class="nav-item">
+              <p class="nav-link" @click="logout">로그아웃</p>
             </li>
           </ul>
           <!-- <form class="d-flex" role="search">
@@ -44,7 +47,17 @@
     </footer>
   </header>
 </template>
+<script setup>
 
+import { useArticleStore } from '@/stores/articles'
+
+const store = useArticleStore()
+
+const logout = function(){
+  store.logout()
+  router.push(`/`)
+}
+</script>
 <style>
 /* 기존 스타일 유지 */
 .border {
