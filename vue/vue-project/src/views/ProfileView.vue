@@ -9,7 +9,7 @@
       <p v-if="mydata[0].money">내 자산 : {{ mydata[0].money }}원</p>
       <div v-if="mydata[0].financial_products">내 금융 상품 : 
         <div v-for="findata in mydata[0].financial_products.split(',')">
-          {{ findata }}
+          <!-- {{ findata }} -->
         <ProfileMyPrdt
         
         :findata="findata"
@@ -18,9 +18,10 @@
       
       </div>
       <div >
+        <div class="d-flex justify-content-evenly">
         <button class="btn btn-primary" @click="gotoDetail"> 금융상품 추가하기 > </button>
         <button class="btn btn-info text-white" @click="gotoSurvey"> 금융상품 취향 설문조사  > </button>
-
+      </div>  
 
 
         <ul class="nav nav-tabs my-3" id="myTab" role="tablist">
@@ -58,8 +59,8 @@ import { useArticleStore } from '@/stores/articles'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
-import ProfileAgeRecomViewVue from '@/views/ProfileAgeRecomView.vue'
-// import { useArticleStore } from '@/stores/articles'
+
+
 const store = useArticleStore()
 
 
@@ -89,10 +90,10 @@ onMounted(() => {
     }
   })
   .then((res)=>{
-    console.log(res.data)
-    console.log('저장한 내 이름',store.myname)
+    // console.log(res.data)
+    // console.log('저장한 내 이름',store.myname)
     mydata.value = res.data.filter((user) => user.username === store.myname)
-    console.log(mydata.value[0].financial_products)
+    // console.log(mydata.value[0].financial_products)
     
     
   })

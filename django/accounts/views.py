@@ -36,23 +36,14 @@ def add_data(request):
         user_instance = get_object_or_404(User, username=request.user.username)
         financial_products_list = request.data['financial_products'].split(',')
         type_products_list = request.data['product_type'].split(',')
+        name_products_list = request.data['fin_prdt_nm'].split(',')
         
         user_model_datas = []
         for i in range(len(financial_products_list)):
-            user_model_datas.append(f'{type_products_list[i]}|{financial_products_list[i]}')
+            user_model_datas.append(f'{name_products_list[i]}|{financial_products_list[i]}')
 
         user_model_datas = ','.join(user_model_datas)
-        print()
-        print()
-        print()
-        print()
-        print()
-        print(user_model_datas)
-        print()
-        print()
-        print()
-        print()
-        print()
+
         serializer = UserSerializer(user_instance, data={'financial_products':user_model_datas}, partial=True)
 
 

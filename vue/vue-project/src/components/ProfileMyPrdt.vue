@@ -1,27 +1,17 @@
 <template>
-    <div v-if="product">
-      {{ product }}
-      
-    </div>
+  <div class="card m-3 p-3">{{findata.split('|')[0]}}</div>
+
   </template>
   
   <script setup>
   
-  import {useArticleStore} from '@/stores/articles'
-  import { ref, onMounted } from "vue";
-
-  
+  import { useRouter } from 'vue-router';
+  const router = useRouter
   const props = defineProps(
-    {findata:Object,}
+    {findata:String,}
+    
     )
-  const product = ref(null)
-  onMounted(()=>{
-      const product_type = props.findata.split('|')[0]
-      const code = props.findata.split('|')[1]
-      const store = useArticleStore()
-      const url = null
-      product.value = store.findPrdt(product_type,code)
-  })
+
   </script>
   
   <style scoped>

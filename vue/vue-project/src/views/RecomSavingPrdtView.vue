@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>DepositeSaving</h1>
+  <div class="my-3">
+    <!-- <h1>DepositeSaving</h1> -->
     <div v-if="filteredOption">
     <div v-for="option in filteredOption">
       <SavingPrdtOption

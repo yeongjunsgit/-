@@ -15,6 +15,9 @@
       <div class="homeviewbtn" @click="gotoProfile">
         프로필
       </div>
+      <div class="homeviewbtn" @click="gotoExcalcul">
+        환율
+      </div>
       <div class="homeviewbtn" @click="gotoMap">
         근처 은행
       </div>
@@ -23,7 +26,7 @@
     <HomeArticle/>
     </div>
     <div class="border inblock">
-    <ExCalculView class="size"/>
+    
   </div>
   </main>
 </template>
@@ -59,18 +62,15 @@ const gotoExcalcul = function(){
 <style scoped>
 .homeviewbtn {
   margin:10px;
-  width: 20%;
+  width: 15%;
   padding: 15px;
-  border-radius: 15%;
+  border-radius: 12%;
   text-align: center;
-  background: rgb(90, 222, 237);
-  color: #fff; /* 글자 색상 설정 */
+  color: rgb(53, 169, 204); /* 글자 색상 설정 */
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid rgb(53, 169, 204);
 }
 
-.size {
-  width: 30%;
-}
 </style>
