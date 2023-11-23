@@ -1,39 +1,40 @@
 <template>
-  <header class="">
+  <header>
     <div class="wrapper">
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+        <!--  -->
       <div class="container-fluid shrink">
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-item-center">
 
             <li class="nav-item">
-              <RouterLink :to="{name:'HomeView'}" class="nav-link">홈</RouterLink> 
+              <RouterLink :to="{name:'HomeView'}" class="nav-link boldnav">홈</RouterLink> 
             </li>
             <li class="nav-item">
-              <RouterLink :to="{name:'CommunityView'}" class="nav-link">커뮤니티</RouterLink>  
+              <RouterLink :to="{name:'CommunityView'}" class="nav-link boldnav">커뮤니티</RouterLink>  
             </li>
             <li class="nav-item">
-              <RouterLink :to="{name:'ExCalculView'}" class="nav-link">환율계산기</RouterLink>  
+              <RouterLink :to="{name:'ExCalculView'}" class="nav-link boldnav">환율계산기</RouterLink>  
             </li>
             <li class="nav-item">
-              <RouterLink to="/rate" class="nav-link">금융 상품</RouterLink>  
+              <RouterLink to="/rate" class="nav-link boldnav">금융 상품</RouterLink>  
             </li>
             <li class="nav-item">
-              <RouterLink :to="{name:'ProfileView'}" class="nav-link">프로필</RouterLink>  
+              <RouterLink :to="{name:'ProfileView'}" class="nav-link boldnav">프로필</RouterLink>  
             </li>
             
             <li class="nav-item">
-              <RouterLink :to="{name:'NearBankView'}" class="nav-link">근처은행</RouterLink> 
+              <RouterLink :to="{name:'NearBankView'}" class="nav-link boldnav">근처은행</RouterLink> 
             </li>
             <li v-if="!store.isLogin" class="nav-item">
-              <RouterLink :to="{name:'LoginView'}" class="nav-link">회원가입/로그인</RouterLink>
+              <RouterLink :to="{name:'LoginView'}" class="nav-link boldnav">회원가입/로그인</RouterLink>
             </li>
             <li v-else class="nav-item">
-              <p class="nav-link" @click="logout">로그아웃</p>
+              <p class="nav-link boldnav" @click="logout">로그아웃</p>
             </li>
           </ul>
           <!-- <form class="d-flex" role="search">
@@ -85,6 +86,10 @@ const logout = function(){
 /* 추가된 스타일 */
 .nav-link {
   text-decoration: none; /* 밑줄 제거 */
+  
+}
+.boldnav {
+  font-weight:bold;
 }
 
 </style>

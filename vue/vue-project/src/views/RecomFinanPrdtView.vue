@@ -1,6 +1,7 @@
 <template>
   <div class="my-3">
     <!-- <h1>DepositeSaving</h1> -->
+    <h3 class="mb-3"><strong>고금리 예금 추천</strong></h3>
     <div v-if="filteredOption">
     <div v-for="option in filteredOption">
       <FinanPrdtOption

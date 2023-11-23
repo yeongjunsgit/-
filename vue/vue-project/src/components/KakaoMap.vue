@@ -1,15 +1,13 @@
 <template>
   <div>
     <div id="menu_wrap" class="mt-3 d-flex">
-      <form @submit.prevent="searchBanksNearby" class="d-flex flex-grow-1 justify-content-between">
+      <form @submit.prevent="searchBanksNearby" class="d-flex flex-grow-1 justify-content-between m-4">
         <div>
-          <label for="loca" class="mr-2">위치 : </label>
-          <input type="text" v-model="location" placeholder="위치" id="loca" class=" mr-2"/>
+          <input type="text" v-model="location" placeholder="위치" id="loca" class="form-control mr-2"/>
         </div>
-        <div>
-          <label for="bank_nm" class="mr-2">은행 명 : </label>
-          <input type="text" v-model="bankName" placeholder="은행명" id="bank_nm" class=" mr-2"/>
-          <button class="btn btn-info" type="submit">검색</button>
+        <div class="d-flex">
+          <input type="text" v-model="bankName" placeholder="은행명" id="bank_nm" class="form-control me-3"/>
+          <button style="width: 100px;" class="btn btn-info" type="submit">검색</button>
         </div>
         
       </form>

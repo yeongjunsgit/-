@@ -1,6 +1,5 @@
 <template>
   <div v-if="product" @click="gotoDetail([options[0].product])">
-    <p>상품</p>
     
     <h4>{{ product.fin_prdt_nm }}</h4>
     <p>대출 한도 : {{ product.loan_lmt }}</p>

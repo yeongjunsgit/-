@@ -1,8 +1,8 @@
 <template>
   <div>
     
-    <div v-if="mydata">
-      <h3>{{mydata[0].nickname}}님의 페이지</h3>
+    <div class="m-3" v-if="mydata">
+      <h3 class="mb-4">{{mydata[0].nickname}}님의 페이지</h3>
       
       <p>아이디 : {{mydata[0].username}}</p>
       <p>내 나이 : {{ mydata[0].age }}세</p>
@@ -17,11 +17,12 @@
       </div>
       
       </div>
-      <div >
+      <div>
+
         <div class="d-flex justify-content-evenly">
-        <button class="btn btn-primary" @click="gotoDetail"> 금융상품 추가하기 > </button>
+        <button class="btn btn-primary" @click="gotoDetail"> 금융상품 변경하기 > </button>
         <button class="btn btn-info text-white" @click="gotoSurvey"> 금융상품 취향 설문조사  > </button>
-      </div>  
+        </div>  
 
 
         <ul class="nav nav-tabs my-3" id="myTab" role="tablist">

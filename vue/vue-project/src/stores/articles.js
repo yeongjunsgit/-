@@ -190,10 +190,15 @@ export const useArticleStore = defineStore('articles', () => {
       },
     })
       .then((res) => {
-        console.log('게시글이 삭제되었습니다.')
-        router.push({name:'CommunityView'})
-      })
-      .catch((err) => {
+      // console.log('왜안됨')
+      // console.log(articles.value)
+      // articles.value = articles.value.filter((item) => item.id !== article_id);
+
+      console.log('게시글이 삭제되었습니다.')
+      router.push({name:'CommunityView'})
+    })
+    .catch((err) => {
+        console.log(articles.value)
         console.log(err)
       })
     }

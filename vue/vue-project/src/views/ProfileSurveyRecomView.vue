@@ -1,5 +1,5 @@
 <template>
-  <div class="m-3" v-if="mySurvey">
+  <div class="m-5" v-if="mySurvey">
  
 <div class="d-flex justify-content-evenly m-2">
 <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#yearsaving" aria-controls="yearsaving">연금저축</button>

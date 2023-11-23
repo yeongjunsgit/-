@@ -1,20 +1,21 @@
 <template>
-  <div>
+  <div >
+    <div class="m-3">
     <h1>Community Detail</h1>
   
-    <div v-if="article">
+    <div class="mt-3" v-if="article">
       <!-- {{ article }}
       {{ mypk }} -->
       <!-- {{ article[0] }}s -->
     <p>글쓴이 : {{ article[0].user.username }}</p>
     <p>제목 : {{ article[0].title }}</p>
     <p>내용 : {{ article[0].content }}</p>
-    <div v-if="mypk === article[0].user.id">
-      <button @click="gotoUpdate">수정</button>
-      <button @click="deleteArticle">삭제</button>
+    <div v-if="mypk === article[0].user.id" class="d-flex gap-3">
+      <button class="btn btn-outline-warning" @click="gotoUpdate">수정</button>
+      <button class="btn btn-outline-danger" @click="deleteArticle">삭제</button>
     </div>
   </div>
-
+  </div>
   </div>
 </template>
 

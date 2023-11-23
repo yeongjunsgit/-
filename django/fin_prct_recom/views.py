@@ -17,6 +17,7 @@ api_key = settings.BANK_API_KEY
 # Create your views here.
 @api_view(['GET'])
 def save_financial_products(request):
+
     for i in range(1,2):
         # 정기예금
         url = f"http://finlife.fss.or.kr/finlifeapi/depositProductsSearch.json?auth={api_key}&topFinGrpNo=020000&pageNo={i}"
@@ -24,6 +25,7 @@ def save_financial_products(request):
         # return Response(response)
         
         # 상품 저장
+
         for li in response['result']['baseList']:
             save_baseList = {
                 "dcls_month":li.get('dcls_month'),
@@ -52,6 +54,11 @@ def save_financial_products(request):
         # 저장된 product들을 순회
         for product in products:
             # 현재 옵션 리스트들을 순회
+            print()
+            print()
+            print(response['result'])
+            print()
+            print()
             for li in response['result']['optionList']:
                 # product의 금융상품 코드와 현재 옵션의 금융 상품 코드가 같으면
                 if li.get('fin_prdt_cd') == product.fin_prdt_cd:
