@@ -125,7 +125,8 @@ datas.value = store.exchangedata
 
 const filteredData = computed(() => {
   if(datas.value === null){
-    pass
+    console.log('dajs')
+    return []
   } else{
 
     return datas.value.filter((item) => item.cur_nm === country.value);

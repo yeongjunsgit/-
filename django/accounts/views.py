@@ -34,9 +34,27 @@ def add_data(request):
     print('add_data')
     if request.method == 'PUT':
         user_instance = get_object_or_404(User, username=request.user.username)
-        serializer = UserSerializer(user_instance, data={'financial_products':request.data['financial_products']}, partial=True)
         financial_products_list = request.data['financial_products'].split(',')
         type_products_list = request.data['product_type'].split(',')
+        
+        user_model_datas = []
+        for i in range(len(financial_products_list)):
+            user_model_datas.append(f'{type_products_list[i]}|{financial_products_list[i]}')
+
+        user_model_datas = ','.join(user_model_datas)
+        print()
+        print()
+        print()
+        print()
+        print()
+        print(user_model_datas)
+        print()
+        print()
+        print()
+        print()
+        print()
+        serializer = UserSerializer(user_instance, data={'financial_products':user_model_datas}, partial=True)
+
 
         if serializer.is_valid(raise_exception=True):
             serializer.save()

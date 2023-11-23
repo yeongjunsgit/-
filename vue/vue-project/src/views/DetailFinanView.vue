@@ -1,32 +1,37 @@
 <template>
-<div>
-    
-    <div v-if="product">
-        <!-- {{ product }} -->
-    <h1>{{ product.fin_prdt_nm }}</h1>
-    <h3>은행 : {{ product.kor_co_nm }}</h3>
-    <p>가입 방법 : {{ product.join_way }}</p>
-    <p>만기 후 이자율 : {{ product.mtrt_int }}</p>
-    <p>가입 대상 : {{ product.join_member }}</p>
-    <p>기타 유의 사항 : {{ product.etc_note }}</p>
-    <p>최대한도 : 
-        <span v-if="product.max_limit">{{ product.max_limit }}원</span>
-        <span v-else>없음</span>
-    </p>
-    <p>가입 방법 : {{ product.join_way }}</p>
-
-    </div>
-    <h3>옵션들</h3>
-    <div v-if="options">
-        <div class="card" v-for="option in options">
-           <p>저축 금리 유형 : {{ option.intr_rate_type }}</p>
-           <p>저축 금리 유형명 : {{ option.intr_rate_type_nm }}</p>
-           <p>저축 금리 [소수점 2자리] : {{ option.intr_rate }}</p>
-           <p>저축 기간 [단위: 개월] : {{ option.save_trm }}</p>
-           <p>최고 우대금리 [소수점 2자리] {{ option.intr_rate2 }}</p>
+    <div>
+        <br>
+        <div v-if="product" class="border">
+            <h1 class="fw-bold mt-3 ms-2">{{ product.fin_prdt_nm }}</h1>
+            <hr>
+            <h5 class="fw-bold ms-2">은행 : {{ product.kor_co_nm }}</h5>
+            <p class="ms-2">가입 방법 : {{ product.join_way }}</p>
+            <p class="ms-2">만기 후 이자율 : {{ product.mtrt_int }}</p>
+            <p class="ms-2">가입 대상 : {{ product.join_member }}</p>
+            <p class="ms-2">기타 유의 사항 : {{ product.etc_note }}</p>
+            <p class="ms-2">최대한도 : 
+                <span v-if="product.max_limit">{{ product.max_limit }}원</span>
+                <span v-else>없음</span>
+            </p>
+            <p class="ms-2">가입 방법 : {{ product.join_way }}</p>
+        </div>
+        <br>
+        <h2 class="fw-bold">옵션들</h2>
+        <div v-if="options">
+            <div class="card my-3" v-for="option in options">
+                <br>
+                <p class="ms-2">저축 금리 유형 : {{ option.intr_rate_type }}</p>
+                <br>
+                <p class="ms-2">저축 금리 유형명 : {{ option.intr_rate_type_nm }}</p>
+                <br>
+                <p class="ms-2">저축 금리 [소수점 2자리] : {{ option.intr_rate }}</p>
+                <br>
+                <p class="ms-2">저축 기간 [단위: 개월] : {{ option.save_trm }}</p>
+                <br>
+                <p class="ms-2">최고 우대금리 [소수점 2자리] {{ option.intr_rate2 }}</p>
+            </div>
         </div>
     </div>
-</div>
 </template>
 
 <script setup>

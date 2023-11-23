@@ -24,7 +24,7 @@
         <h6 class="card-subtitle mb-2 text-body-secondary">은행 : {{save.kor_co_nm}}</h6>
         <p class="card-text">최대 금리 : {{save.intr_rate2}}</p>
         <p class="card-text">기간 : {{ save.save_rrm }}개월</p>
-        <a href="#" @click="gotoDetailyearSave(yearsave.fin_prdt_cd)" class="card-link">세부정보 보러가기 ></a>
+        <a href="#" @click="gotoDetailSave(gotoDetailloan.fin_prdt_cd)" class="card-link">세부정보 보러가기 ></a>
       </div>
     </div>
     <h3 v-if="mySurvey.data.deposit_data">예금 상품</h3>
@@ -34,7 +34,7 @@
         <h6 class="card-subtitle mb-2 text-body-secondary">은행 : {{deposit.kor_co_nm}}</h6>
         <p class="card-text">최대 금리 : {{deposit.intr_rate2}}</p>
         <p class="card-text">기간 : {{ deposit.save_rrm }}개월</p>
-        <a href="#" @click="gotoDetailyearSave(yearsave.fin_prdt_cd)" class="card-link">세부정보 보러가기 ></a>
+        <a href="#" @click="gotoDetailFin(deposit.fin_prdt_cd)" class="card-link">세부정보 보러가기 ></a>
       </div>
     </div>
     <div v-if="mySurvey.data.deposit_data"></div>
@@ -45,7 +45,7 @@
         <h6 class="card-subtitle mb-2 text-body-secondary">은행 : {{loan.kor_co_nm}}</h6>
         <p class="card-text">최저 금리 : {{loan.lend_rate_min}}</p>
         <p class="card-text">최대 금리 : {{ loan.lend_rate_max }}</p>
-        <a href="#" @click="gotoDetailyearSave(yearsave.fin_prdt_cd)" class="card-link">세부정보 보러가기 ></a>
+        <a href="#" @click="gotoDetailloan(loan.fin_prdt_cd)" class="card-link">세부정보 보러가기 ></a>
       </div>
     </div>
 

@@ -17,11 +17,11 @@
         <h3>옵션들</h3>
         <div v-if="options">
         <div class="card" v-for="option in options">
-           <p>저축 금리 유형 : {{ option.intr_rate_type }}</p>
-           <p>저축 금리 유형명 : {{ option.intr_rate_type_nm }}</p>
-           <p>저축 금리 [소수점 2자리] : {{ option.intr_rate }}</p>
-           <p>저축 기간 [단위: 개월] : {{ option.save_trm }}</p>
-           <p>최고 우대금리 [소수점 2자리] {{ option.intr_rate2 }}</p>
+            <p>저축 금리 유형 : {{ option.intr_rate_type }}</p>
+            <p>저축 금리 유형명 : {{ option.intr_rate_type_nm }}</p>
+            <p>저축 금리 [소수점 2자리] : {{ option.intr_rate }}</p>
+            <p>저축 기간 [단위: 개월] : {{ option.save_trm }}</p>
+            <p>최고 우대금리 [소수점 2자리] {{ option.intr_rate2 }}</p>
         </div>
     </div>
 </div>
