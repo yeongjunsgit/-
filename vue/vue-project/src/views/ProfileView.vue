@@ -7,7 +7,16 @@
       <p>아이디 : {{mydata[0].username}}</p>
       <p>내 나이 : {{ mydata[0].age }}세</p>
       <p v-if="mydata[0].money">내 자산 : {{ mydata[0].money }}원</p>
-      <p v-if="mydata[0].financial_products">내 금융 상품 : {{ mydata[0].financial_products }}</p>
+      <div v-if="mydata[0].financial_products">내 금융 상품 : 
+        <div v-for="findata in mydata[0].financial_products.split(',')">
+          {{ findata }}
+        <ProfileMyPrdt
+        
+        :findata="findata"
+        />
+      </div>
+      
+      </div>
       <div >
         <button class="btn btn-primary" @click="gotoDetail"> 금융상품 추가하기 > </button>
         <button class="btn btn-info text-white" @click="gotoSurvey"> 금융상품 취향 설문조사  > </button>
@@ -43,6 +52,7 @@
 </template>
 
 <script setup>
+import ProfileMyPrdt from '@/components/ProfileMyPrdt.vue'
 // /agerecommend
 import { useArticleStore } from '@/stores/articles'
 import { ref, onMounted } from 'vue'

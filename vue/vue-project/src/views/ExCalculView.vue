@@ -45,7 +45,10 @@
       
       <div>
         <h3 class="my-3"> 
-        최종 금액 : {{ (koreaMoney / Number(filteredData[0].kftc_bkpr.replace(',',''))).toFixed(2)}}{{ country.split(' ')[1] }}
+        최종 금액 : {{ koreaMoney}}원
+        </h3>
+        <h3 class="my-3"> 
+        최종 금액 : {{ otherMoney}}{{ country.split(' ')[1] }}
         </h3>
       <div class="d-flex gap-3">
 
@@ -68,6 +71,7 @@
       </div>
 
     </div>
+    
   
 
 

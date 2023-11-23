@@ -216,7 +216,20 @@ export const useArticleStore = defineStore('articles', () => {
     })
   }
   
-
+  const findPrdt = function(type,fin_prdt_cd){
+    axios({
+      method:'get',
+      url:`${store.API_URL}/opject_${type}_product/${fin_prdt_cd}`
+    })
+    .then((res)=>{
+      console.log(res.data)
+      return res.data
+    })
+    .catch((err)=>{
+      console.log(err)
+      return err
+    })
+  }
   return { doSurvey,isLogin,articles, signUp, login, token, getArticles, API_URL,
     createArticles, myname, mypk, updateArticle, deleteArticle,getExchangeData,exchangedata,logout}
 }, { persist: true })
