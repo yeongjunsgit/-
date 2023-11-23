@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>설문조사</h3>
+    <h3 class="m-5 text-center">설문조사</h3>
     <form @submit.prevent="submitSurvey">
       <div style="height: 300px;" id="carouselExample" class="carousel slide text-bg-light d-flex  text-center align-items-center">
         <div class="carousel-indicators bg-primary-subtle text-emphasis-primary">
@@ -21,8 +21,8 @@
             <div class="m-3 form-check">
               <p>1. 손해를 보더라도 높은 수익률을 기대하십니까?</p>
               <div class="d-flex justify-content-evenly">
-                <a @click="yesRisk" class="btn btn-primary">예</a>
-                <a @click="noRisk" class="btn btn-outline-primary">아니요</a>
+                <a @click="yesRisk" class="btn btn-outline-primary" data-bs-target="#carouselExample" data-bs-slide="next">예</a>
+                <a @click="noRisk" class="btn btn-outline-primary" data-bs-target="#carouselExample" data-bs-slide="next">아니요</a>
               </div>
             </div>
           </div>
@@ -32,8 +32,8 @@
             <div class="m-3 form-check">
               <p for="like_deposit">2. 예금 상품 추천을 원하십니까?</p>
               <div class="d-flex justify-content-evenly">
-                <a @click="yesdeposit" class="btn btn-primary">예</a>
-                <a @click="nodeposit" class="btn btn-outline-primary">아니요</a>
+                <a @click="yesdeposit" class="btn btn-outline-primary" data-bs-target="#carouselExample" data-bs-slide="next">예</a>
+                <a @click="nodeposit" class="btn btn-outline-primary" data-bs-target="#carouselExample" data-bs-slide="next">아니요</a>
               </div>
             </div>
           </div>
@@ -42,8 +42,8 @@
             <div class="m-3 form-check">
               <p for="like_save">3. 적금 상품 추천을 원하십니까?</p>
               <div class="d-flex justify-content-evenly">
-                <a @click="yessave" class="btn btn-primary">예</a>
-                <a @click="nosave" class="btn btn-outline-primary">아니요</a>
+                <a @click="yessave" class="btn btn-outline-primary" data-bs-target="#carouselExample" data-bs-slide="next">예</a>
+                <a @click="nosave" class="btn btn-outline-primary" data-bs-target="#carouselExample" data-bs-slide="next">아니요</a>
               </div>
             </div>
           </div>
@@ -52,8 +52,8 @@
             <div class="m-3">
               <p for="period">4. 원하는 기간 유형을 선택해주세요</p>
               <div class="d-flex justify-content-evenly">
-                <a @click="yesperiod" class="btn btn-primary">단기</a>
-                <a @click="noperiod" class="btn btn-outline-primary">장기</a>
+                <a @click="yesperiod" class="btn btn-outline-primary" data-bs-target="#carouselExample" data-bs-slide="next">단기</a>
+                <a @click="noperiod" class="btn btn-outline-primary" data-bs-target="#carouselExample" data-bs-slide="next">장기</a>
               </div>
             </div>
           </div>
@@ -65,8 +65,8 @@
               <p for="need_loan">5. 대출 상품 추천을 원하십니까?</p>
               
               <div class="d-flex justify-content-evenly">
-                <a @click="yesloan" class="btn btn-primary">예</a>
-                <a @click="noloan" class="btn btn-outline-primary">아니요</a>
+                <a @click="yesloan" class="btn btn-outline-primary" data-bs-target="#carouselExample" data-bs-slide="next">예</a>
+                <a @click="noloan" class="btn btn-outline-primary" data-bs-target="#carouselExample" data-bs-slide="next">아니요</a>
               </div>
             </div>
           </div>
@@ -75,8 +75,8 @@
             <div class="m-3">
               <p for="need_loantype">6. 원하시는 대출 옵션을 골라주세요</p>
               <div class="d-flex justify-content-evenly">
-                <a @click="houseoption" class="btn btn-primary">주택담보</a>
-                <a @click="depositoption" class="btn btn-outline-primary">전세자금</a>
+                <a @click="houseoption" class="btn btn-outline-primary" data-bs-target="#carouselExample" data-bs-slide="next">주택담보</a>
+                <a @click="depositoption" class="btn btn-outline-primary" data-bs-target="#carouselExample" data-bs-slide="next">전세자금</a>
               </div>
               
             </div>

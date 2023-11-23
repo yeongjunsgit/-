@@ -2,7 +2,7 @@
 <template>
   <div class="border d-flex"> 
     <!-- {{ article }} -->
-    <div class="p-2 px-3" @click="goDetail">{{ article.id }}</div>
+    <div class="p-2 px-3" @click="goDetail">{{ number }}</div>
     <div class="p-2 flex-grow-1" @click="goDetail">{{ article.title }}</div>
     
     <div class="p-2 ">{{ article.user.username }}</div>
@@ -15,6 +15,7 @@ import { useRouter } from 'vue-router'
 
 const props = defineProps({
   article: Object,
+  number:Number,
 })
 // console.log(props.article.id)
 const router = useRouter()

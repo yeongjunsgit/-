@@ -6,33 +6,36 @@
     <HomeEvent/>
     </div>
     <div class="d-flex justify-content-evenly">
-      <div class="homeviewbtn" @click="gotoCom">
-        커뮤니티
+      <div class="homeviewbtn " @click="gotoCom">
+        <strong>커뮤니티</strong>
       </div>
-      <div class="homeviewbtn" @click="gotoFin">
-        금융상품
+      <div class="homeviewbtn " @click="gotoFin">
+        <strong>금융상품</strong>
       </div>
-      <div class="homeviewbtn" @click="gotoProfile">
-        프로필
+      <div class="homeviewbtn " @click="gotoProfile">
+        <strong>프로필</strong>
       </div>
-      <div class="homeviewbtn" @click="gotoExcalcul">
-        환율
+      <div class="homeviewbtn " @click="gotoExcalcul">
+        <strong>환율</strong>
       </div>
-      <div class="homeviewbtn" @click="gotoMap">
-        근처 은행
+      <div class="homeviewbtn " @click="gotoMap">
+        <strong>근처 은행</strong>
       </div>
     </div>
-    <div class="border inblock">
+    <div class="d-flex">
+    <div class="w-50 p-5">
     <HomeArticle/>
     </div>
-    <div class="border inblock">
-    
+    <div class="w-30 p-5">
+    <HomeExchange/>
+    </div>
   </div>
   </main>
 </template>
 <script setup>
 import HomeArticle from '@/components/HomeArticle.vue';
 import HomeEvent from '@/components/HomeEvent.vue';
+import HomeExchange from '@/components/HomeExchange.vue';
 // import ExCalculView from '@/views/ExCalculView.vue';
 import { useRouter } from 'vue-router';
 import ExCalculView from './ExCalculView.vue';
@@ -63,6 +66,7 @@ const gotoExcalcul = function(){
 .homeviewbtn {
   margin:10px;
   width: 15%;
+  height:100px;
   padding: 15px;
   border-radius: 12%;
   text-align: center;

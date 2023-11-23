@@ -1,6 +1,7 @@
 <template>
   <div class="my-3">
     <!-- <h1>HomeLoan</h1> -->
+    <h3 class="mb-3"><strong>낮은 금리순</strong></h3>
     <div v-if="filteredData">
       <div v-for="product in filteredData">
         <HomeLoanOptionVue
