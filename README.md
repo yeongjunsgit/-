@@ -141,7 +141,10 @@
 
 
 ### 알게된 점
-- 카카오 맵 API를 할 때 export default를 이용했는데 해당 구문은 기존처럼 v-base-setup
+- 카카오 맵 API를 할 때 export default를 이용했는데 해당 구문은 기존처럼 v-base-setup으로 선언하면 사용할 수가 없었고,
+  v-base-setup으로 선언했을시 <script setup> 부분에 setup을 지우면 해당 구문을 사용할 수가 있다. 
+  export default는 import와 약간 반대되는 개념 같은건데, import가 외부 모듈의 기능을 가져오는 거라면, export 는 외부에서 export안에 있는 모듈을 접근이 가능하게 해주는 것이다.
+  그렇다면 export default란 무엇일까? 바로 export 중에서도 export안에 단 1개의 개체만 선언되어 있다는걸 명시한 것이다.
 
 
 
@@ -238,3 +241,24 @@
 ### VI. 기타(느낀 점, 후기 등)
 - 백과 프론트를 동시에 제대로 진행한 프로젝트는 처음이였는데 각각의 기능보다 굉장히 복잡하고 어려웠다.
 - 뷰에서의 장단점, 장고에서의 장단점과 헷갈리는 부분에 대해서 확실하게 알고 갈 수 있었다.
+- 실제로 API를 통해 다양한 정보를 받아오는 것이 상당히 어렵고 ERD의 중요성을 조금 알았다.
+- 생각보다 금융프로젝트라고 해서 금융 API에 한정되는게 아니라 다양한 데이터와 접목시켜서 프로젝트를 진행할 수 있다는 걸 알았다.
+
+
+
+### 최종 화면
+1. 로그인 뷰
+![Alt text](images/image-11.png)
+1. ![Alt text](images/image.png)
+![Alt text](images/image-1.png)
+![Alt text](images/image-2.png)
+
+![Alt text](images/image-3.png)
+![Alt text](images/image-4.png)
+![Alt text](images/image-5.png)
+![Alt text](images/image-6.png)
+![Alt text](images/image-7.png)
+![Alt text](images/image-8.png)
+![Alt text](images/image-9.png)
+
+![Alt text](images/image-10.png)
