@@ -4,7 +4,7 @@
       <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
         <!--  -->
       <div class="container-fluid shrink">
-        
+        <a class="me-3" href=""><i class="fa-solid fa-hippo fa-2x" :to="{name:'HomeView'}" style="color: #204ccf;"></i></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -46,7 +46,7 @@
                                       
     </footer>
     <footer class="text-center text-bg-light p-2 mt-5 fixed-bottom">
-      footer
+       돈 먹는 하마
     </footer>
   </header>
 </template>
@@ -63,7 +63,7 @@ const logout = function(){
 </script>
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap');
+
 
 
 /* 기존 스타일 유지 */
