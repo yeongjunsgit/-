@@ -142,7 +142,7 @@
 
 ### 알게된 점
 - 카카오 맵 API를 할 때 export default를 이용했는데 해당 구문은 기존처럼 v-base-setup으로 선언하면 사용할 수가 없었고,
-  v-base-setup으로 선언했을시 <script setup> 부분에 setup을 지우면 해당 구문을 사용할 수가 있다. 
+  v-base-setup으로 선언했을시 `<script setup>` 부분에 setup을 지우면 해당 구문을 사용할 수가 있다. 
   export default는 import와 약간 반대되는 개념 같은건데, import가 외부 모듈의 기능을 가져오는 거라면, export 는 외부에서 export안에 있는 모듈을 접근이 가능하게 해주는 것이다.
   그렇다면 export default란 무엇일까? 바로 export 중에서도 export안에 단 1개의 개체만 선언되어 있다는걸 명시한 것이다.
 
@@ -249,16 +249,19 @@
 ### 최종 화면
 1. 로그인 뷰
 ![Alt text](images/image-11.png)
-1. ![Alt text](images/image.png)
+2. 홈 뷰 
+ ![Alt text](images/image.png)
+3. 커뮤니티 뷰
 ![Alt text](images/image-1.png)
-![Alt text](images/image-2.png)
 
-![Alt text](images/image-3.png)
-![Alt text](images/image-4.png)
-![Alt text](images/image-5.png)
-![Alt text](images/image-6.png)
-![Alt text](images/image-7.png)
-![Alt text](images/image-8.png)
-![Alt text](images/image-9.png)
+4. 환율 계산기 ![Alt text](images/image-2.png)
 
-![Alt text](images/image-10.png)
+5. 금융상품 추천 탭 ![Alt text](images/image-3.png)
+6. 금융상품 상세 페이지 뷰![Alt text](images/image-4.png)
+7. 프로필 뷰 - 나이별 추천 ![Alt text](images/image-5.png)
+8. 프로필 뷰 - 설문조사 별 추천![Alt text](images/image-6.png)
+9. 프로필 뷰 - 설문조사 타입변 알고리즘 설명 ![Alt text](images/image-7.png)
+10. 설문조사 뷰![Alt text](images/image-8.png)
+11. 은행 맵 뷰![Alt text](images/image-9.png)
+
+12. 은행 검색 시 화면![Alt text](images/image-10.png)
