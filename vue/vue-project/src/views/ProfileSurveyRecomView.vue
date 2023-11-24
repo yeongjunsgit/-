@@ -1,7 +1,7 @@
 <template>
   <div class="m-5" v-if="mySurvey">
- 
-<div class="d-flex justify-content-evenly m-2">
+ <h4 class="text-center my-5"><strong>설문조사에 대한 추천 알고리즘 설명</strong></h4>
+<div class="d-flex justify-content-evenly mx-2 my-5">
 <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#yearsaving" aria-controls="yearsaving">연금저축</button>
 <div class="offcanvas offcanvas-top" tabindex="-1" id="yearsaving" aria-labelledby="offcanvasTopLabel">
   <div class="offcanvas-header">
@@ -82,7 +82,7 @@
       </div>
     </div>
     <h3 v-if="mySurvey.data.deposit_data">예금 상품</h3>
-    <div class="card" v-for="deposit in mySurvey.data.deposit_data">
+    <div class="card my-3" v-for="deposit in mySurvey.data.deposit_data">
       <div class="card-body">
         <h5 class="card-title">상품 이름 : {{deposit.fin_prdt_nm}}</h5>
         <h6 class="card-subtitle mb-2 text-body-secondary">은행 : {{deposit.kor_co_nm}}</h6>
@@ -92,7 +92,7 @@
       </div>
     </div>
     <div v-if="mySurvey.data.deposit_data"></div>
-    <h3 v-if="mySurvey.data.loan_data">대출 상품</h3>
+    <h3 class="my-3" v-if="mySurvey.data.loan_data">대출 상품</h3>
     <div class="card my-3" v-for="loan in mySurvey.data.loan_data">
       <div class="card-body">
         <h5 class="card-title">상품 이름 : {{loan.fin_prdt_nm}}</h5>
@@ -107,13 +107,6 @@
 </template>
 
 <script setup>
-{/* <p>1. 손해를 보더라도 높은 수익률을 기대하십니까?</p>
-<p for="like_deposit">2. 예금 상품 추천을 원하십니까?</p>
-<p for="like_save">3. 적금 상품 추천을 원하십니까?</p>
-<p for="period">4. 원하는 기간 유형을 선택해주세요</p>
-<p for="need_loan">5. 대출 상품 추천을 원하십니까?</p>
-<p for="need_loantype">6. 원하시는 대출 옵션을 골라주세요</p> */}
-
 
 import { ref, onMounted } from 'vue'
 import { useArticleStore } from '@/stores/articles'

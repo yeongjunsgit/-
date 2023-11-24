@@ -32,13 +32,14 @@
     <div  v-if="filteredData.length">
       <h3 class="my-3">현재 환율 : {{   filteredData[0].kftc_bkpr }}</h3>
       <div class="input-group">
-        <input class="form-control" v-model="koreaMoney" type="text" name="" id="">
+        
+        <input class="form-control" v-model="koreaMoney" type="text" name="" id="" placeholder="한국">
         <span class="input-group-text"> 원</span>
       </div>
       <p>
-        <div class="input-group">
-          <input class="form-control" v-model="otherMoney" type="text" name="" id="">
+        <div class="input-group mt-3">
           
+          <input class="form-control" v-model="otherMoney" type="text" name="" id="" :placeholder="country.split(' ')[0]">
           <span class="input-group-text">{{ country.split(' ')[1] }}</span>
         </div>
       </p>

@@ -11,36 +11,32 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-item-center">
 
-            <li class="nav-item">
+            <li class="nav-item d-flex align-items-center">
               <RouterLink :to="{name:'HomeView'}" class="nav-link boldnav">홈</RouterLink> 
             </li>
-            <li class="nav-item">
+            <li class="nav-item d-flex align-items-center">
               <RouterLink :to="{name:'CommunityView'}" class="nav-link boldnav">커뮤니티</RouterLink>  
             </li>
-            <li class="nav-item">
+            <li class="nav-item d-flex align-items-center">
               <RouterLink :to="{name:'ExCalculView'}" class="nav-link boldnav">환율계산기</RouterLink>  
             </li>
-            <li class="nav-item">
+            <li class="nav-item d-flex align-items-center">
               <RouterLink to="/rate" class="nav-link boldnav">금융 상품</RouterLink>  
             </li>
-            <li class="nav-item">
+            <li class="nav-item d-flex align-items-center">
               <RouterLink :to="{name:'ProfileView'}" class="nav-link boldnav">프로필</RouterLink>  
             </li>
             
-            <li class="nav-item">
+            <li class="nav-item d-flex align-items-center">
               <RouterLink :to="{name:'NearBankView'}" class="nav-link boldnav">근처은행</RouterLink> 
             </li>
-            <li v-if="!store.isLogin" class="nav-item">
+            <li v-if="!store.isLogin" class="nav-item d-flex align-items-center">
               <RouterLink :to="{name:'LoginView'}" class="nav-link boldnav">회원가입/로그인</RouterLink>
             </li>
-            <li v-else class="nav-item">
-              <p class="nav-link boldnav" @click="logout">로그아웃</p>
+            <li v-else class="nav-item d-flex align-items-center">
+              <a class="nav-link boldnav" @click="logout">로그아웃</a>
             </li>
           </ul>
-          <!-- <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form> -->
         </div>
       </div>
     </nav>
@@ -79,7 +75,7 @@ const logout = function(){
   height: 300px;
 }
 .shrink{
-  width: 60%;
+  width: 50%;
   margin-left: auto;
   margin-right: auto;
 }

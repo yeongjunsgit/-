@@ -6,19 +6,19 @@
     <HomeEvent/>
     </div>
     <div class="d-flex justify-content-evenly">
-      <div class="homeviewbtn " @click="gotoCom">
+      <div class="homeviewbtn btn btn-outline-primary" @click="gotoCom">
         <strong>커뮤니티</strong>
       </div>
-      <div class="homeviewbtn " @click="gotoFin">
+      <div class="homeviewbtn btn btn-outline-primary" @click="gotoFin">
         <strong>금융상품</strong>
       </div>
-      <div class="homeviewbtn " @click="gotoProfile">
+      <div class="homeviewbtn btn btn-outline-primary" @click="gotoProfile">
         <strong>프로필</strong>
       </div>
-      <div class="homeviewbtn " @click="gotoExcalcul">
+      <div class="homeviewbtn btn btn-outline-primary" @click="gotoExcalcul">
         <strong>환율</strong>
       </div>
-      <div class="homeviewbtn " @click="gotoMap">
+      <div class="homeviewbtn btn btn-outline-primary" @click="gotoMap">
         <strong>근처 은행</strong>
       </div>
     </div>
@@ -64,17 +64,15 @@ const gotoExcalcul = function(){
 
 <style scoped>
 .homeviewbtn {
-  margin:10px;
+  margin:30px 10px;
   width: 15%;
   height:100px;
   padding: 15px;
-  border-radius: 12%;
+  border-radius: 15%;
   text-align: center;
-  color: rgb(53, 169, 204); /* 글자 색상 설정 */
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid rgb(53, 169, 204);
 }
 
 </style>

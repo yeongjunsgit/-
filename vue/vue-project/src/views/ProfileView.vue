@@ -1,23 +1,28 @@
 <template>
   <div>
-    
     <div class="m-3" v-if="mydata">
-      <h3 class="mb-4">{{mydata[0].nickname}}님의 페이지</h3>
+      <h3 class="mb-4"><strong>{{mydata[0].nickname}}</strong>님의 페이지</h3>
+      <div class="d-flex">
+      <img class="round" src="@/assets/myimage.png" alt="">
+      <div>
       
       <p>아이디 : {{mydata[0].username}}</p>
       <p>내 나이 : {{ mydata[0].age }}세</p>
       <p v-if="mydata[0].money">내 자산 : {{ mydata[0].money }}원</p>
-      <div v-if="mydata[0].financial_products">내 금융 상품 : 
+      </div>
+    </div>
+
+      <div v-if="mydata[0].financial_products">
+        <h4><strong>내 금융 상품  </strong></h4>
         <div v-for="findata in mydata[0].financial_products.split(',')">
           <!-- {{ findata }} -->
         <ProfileMyPrdt
-        
         :findata="findata"
         />
       </div>
+    </div>
       
-      </div>
-      <div>
+    <div>
 
         <div class="d-flex justify-content-evenly">
         <button class="btn btn-primary" @click="gotoDetail"> 금융상품 변경하기 > </button>
@@ -29,7 +34,7 @@
           <li class="nav-item" role="presentation">
             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
               
-              <RouterLink :to="{name:'ProfileAgeRecomView',params:{ age: mydata[0].age }}">나이별추천상품</RouterLink>
+              <RouterLink :to="{name:'ProfileAgeRecomView',params:{ age: mydata[0].age }}">나이별 추천상품</RouterLink>
             </button>
             
           </li>
@@ -119,4 +124,11 @@ onMounted(() => {
 
 <style scoped>
 
+.round{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-left: 20px;
+  margin-right: 20px;
+}
 </style>

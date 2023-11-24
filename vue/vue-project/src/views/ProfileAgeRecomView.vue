@@ -1,6 +1,6 @@
 <template>
   <div>
-    
+    <h5 class="text-center my-5"><strong>나와 비슷한 나이대의 이용자들이 가입한 상품</strong></h5>
     <ProfileRecommendPrdt
     v-for="recom in ageRecommend.data"
     :data="recom"

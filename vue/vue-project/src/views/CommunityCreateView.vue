@@ -10,7 +10,9 @@
         <label for="content" class="form-label">내용</label>
         <textarea v-model="content" class="form-control" id="content" rows="3"></textarea>
       </div>
-      <input type="submit" name="" id="">
+      <div class="text-end">
+      <input class="btn btn-outline-primary " style="width: 150px;" type="submit" name="" id="">
+    </div>
     </form>
   </div>
 </template>

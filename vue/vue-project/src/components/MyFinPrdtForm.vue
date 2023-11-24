@@ -57,7 +57,7 @@
         <div v-for="prdt in prdtsList" :key="prdt.id" class="col-3 mb-3">
           <div style="height: 130px;" class="card">
             <div class="card-body">
-              <h5 class="card-text">{{ prdt.fin_prdt_nm }}</h5>
+              <p class="card-text">{{ prdt.fin_prdt_nm }}</p>
               <a href="#" class="btn btn-danger" @click="deletePrdt(prdt)">삭제하기</a>
             </div>
           </div>
@@ -172,8 +172,5 @@ const donePrdt = function (){
 </script>
 
 <style scoped>
-.selected{
-  /* color: red; */
-  font-weight: bold;
-}
+
 </style>
