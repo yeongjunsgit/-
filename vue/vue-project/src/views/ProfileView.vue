@@ -34,13 +34,13 @@
           <li class="nav-item" role="presentation">
             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
               
-              <RouterLink :to="{name:'ProfileAgeRecomView',params:{ age: mydata[0].age }}">나이별 추천상품</RouterLink>
+              <RouterLink class="deco" :to="{name:'ProfileAgeRecomView',params:{ age: mydata[0].age }}">나이별 추천상품</RouterLink>
             </button>
             
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
-              <RouterLink v-if="store.doSurvey" :to="{name:'ProfileSurveyRecomView'}">설문조사별 추천상품</RouterLink> 
+              <RouterLink class="deco" v-if="store.doSurvey" :to="{name:'ProfileSurveyRecomView'}">설문조사별 추천상품</RouterLink> 
             </button>
             </li>
         </ul>
@@ -130,5 +130,9 @@ onMounted(() => {
   border-radius: 50%;
   margin-left: 20px;
   margin-right: 20px;
+}
+.deco {
+  text-decoration: none;
+  color: black;
 }
 </style>

@@ -4,6 +4,7 @@
 <div class="d-flex justify-content-evenly mx-2 my-5">
 <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#yearsaving" aria-controls="yearsaving">연금저축</button>
 <div class="offcanvas offcanvas-top" tabindex="-1" id="yearsaving" aria-labelledby="offcanvasTopLabel">
+  <div style="width: 80%;" class="m-auto">
   <div class="offcanvas-header">
     <h3 class="offcanvas-title" id="offcanvasTopLabel">연금저축</h3>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -13,9 +14,12 @@
     아니오를 고른 경우, 수익률이 높지는 않지만 안정성 있는 연금저축 상품을 추천드립니다.
   </div>
 </div>
+</div>
+
 
 <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#deposit" aria-controls="deposit">예적금</button>
 <div class="offcanvas offcanvas-top" tabindex="-1" id="deposit" aria-labelledby="offcanvasTopLabel">
+  <div style="width: 80%;" class="m-auto">
   <div class="offcanvas-header">
     <h3 class="offcanvas-title" id="offcanvasTopLabel">예적금</h3>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -23,10 +27,12 @@
   <div class="offcanvas-body">
     예적금 상품 추천받기를 원하는 분들에게는 최대 금리가 높은 예적금 상품들을 추천해드립니다.
   </div>
+  </div>
 </div>
 
 <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#period" aria-controls="period">기간</button>
 <div class="offcanvas offcanvas-top" tabindex="-1" id="period" aria-labelledby="offcanvasTopLabel">
+  <div style="width: 80%;" class="m-auto">
   <div class="offcanvas-header">
     <h3 class="offcanvas-title" id="offcanvasTopLabel">기간</h3>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -35,9 +41,11 @@
     단기를 원하시는 분들에게는 6개월, 장기를 원하시는 분들에게는 12개월 이상의 상품을 추천드립니다.
   </div>
 </div>
+</div>
 
 <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#loan" aria-controls="loan">대출</button>
 <div class="offcanvas offcanvas-top" tabindex="-1" id="loan" aria-labelledby="offcanvasTopLabel">
+  <div style="width: 80%;" class="m-auto">
   <div class="offcanvas-header">
     <h3 class="offcanvas-title" id="offcanvasTopLabel">대출</h3>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -45,6 +53,7 @@
   <div class="offcanvas-body">
     대출을 원하시는 분들에게는 원하는 타입에 따라 금리가 낮은 상품들을 추천드립니다.
   </div>
+</div>
 </div>
 
 </div>
