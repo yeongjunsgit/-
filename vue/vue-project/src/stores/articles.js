@@ -28,7 +28,7 @@ export const useArticleStore = defineStore('articles', () => {
     .then((res) =>{
       console.log('회원가입 완료')
       console.log(res)
-      router.push({name:'HomeView'})
+      router.push({name:'LoginView'})
       
     })
     .catch((err) => {

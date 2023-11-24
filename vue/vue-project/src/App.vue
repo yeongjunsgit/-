@@ -62,6 +62,10 @@ const logout = function(){
 }
 </script>
 <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap');
+
+
 /* 기존 스타일 유지 */
 .border {
   border: 1px solid black;
@@ -86,6 +90,10 @@ const logout = function(){
 }
 .boldnav {
   font-weight:bold;
+}
+
+.v-application {
+  font-family: 'Dongle', sans-serif;
 }
 
 </style>
