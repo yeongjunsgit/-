@@ -8,8 +8,8 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework.response import Response
 import requests
-from .serializers import FinancialPrdtSerializer, FinancialOptionsSerializer,YearSavingPrdtSerializer, YearSavingOptionsSerializer, DepositLoanPrdtSerializer, DepositLoanOptionsSerializer, SavingPrdtSerializer, SavingOptionsSerializer, PersonalCreditLoanPrdtSerializer, PersonalCreditLoanOptionsSerializer, FinCompanyInfoSerializer, FinCompanyOptionSerializer, HouseLoanPrdtSerializer, HouseLoanOptionsSerializer, UserJoinPrdtSerializer
-from .models import FinancialOptions,FinancialPrdt,YearSavingPrdt,YearSavingOptions, DepositLoanPrdt, DepositLoanOptions, SavingPrdt, PersonalCreditLoanPrdt,FinCompanyInfo,FinCompanyOptions, HouseLoanPrdt,HouseLoanOptions,SavingOptions, UserJoinPrdt
+from .serializers import FinancialPrdtSerializer, FinancialOptionsSerializer,YearSavingPrdtSerializer, YearSavingOptionsSerializer, DepositLoanPrdtSerializer, DepositLoanOptionsSerializer, SavingPrdtSerializer, SavingOptionsSerializer, FinCompanyInfoSerializer, FinCompanyOptionSerializer, HouseLoanPrdtSerializer, HouseLoanOptionsSerializer, UserJoinPrdtSerializer
+from .models import FinancialOptions,FinancialPrdt,YearSavingPrdt,YearSavingOptions, DepositLoanPrdt, DepositLoanOptions, SavingPrdt,FinCompanyInfo,FinCompanyOptions, HouseLoanPrdt,HouseLoanOptions,SavingOptions, UserJoinPrdt
 # from rest_framework.decorators import permiSthenticated, IsAdminUser
 
 
@@ -272,63 +272,6 @@ def save_saving_products(request):
                         serializers.save(product=product)
     return JsonResponse({ 'message': 'save_complete'})
 
-# 개인 신용 대출
-@api_view(['GET'])
-def save_personalcreditloan_products(request):
-    url = f"http://finlife.fss.or.kr/finlifeapi/creditLoanProductsSearch.json?auth={api_key}&topFinGrpNo=030200&pageNo=1"
-
-    response = requests.get(url).json()
-    return Response(response)
-    
-    # # 상품 저장
-    # for li in response['result']['baseList']:
-    #     save_baseList = {
-    #         "dcls_month":li.get('dcls_month'),
-    #         "fin_co_no":li.get('fin_co_no'),
-    #         "kor_co_nm":li.get('kor_co_nm'),
-    #         "fin_prdt_cd":li.get('fin_prdt_cd'),
-    #         "fin_prdt_nm":li.get('fin_prdt_nm'),
-    #         "join_way":li.get('join_way'),
-    #         "crdt_prdt_type":li.get('crdt_prdt_type'),
-    #         "crdt_prdt_type_nm":li.get('crdt_prdt_type_nm'),
-    #         "cb_name":li.get('cb_name'),
-    #         "dcls_strt_day":li.get('dcls_strt_day'),
-    #         "dcls_end_day":li.get('dcls_end_day'),
-    #         "fin_co_subm_day":li.get('fin_co_subm_day'),
-    #     }
-    #     # 데이터를 포장해서 유효성 확인
-    #     serializers = PersonalCreditLoanPrdtSerializer(data=save_baseList)
-    #     if serializers.is_valid(raise_exception=True):
-    #         serializers.save()
-    # # 데이터베이스를 돌면서 이름이 같은지 확인하기!
-    # products = PersonalCreditLoanPrdt.objects.all()
-
-    # # 저장된 product들을 순회
-    # for product in products:
-    #     # 현재 옵션 리스트들을 순회
-    #     for li in response['result']['optionList']:
-    #         # product의 금융상품 코드와 현재 옵션의 금융 상품 코드가 같으면
-    #         if li.get('fin_prdt_cd') == product.fin_prdt_cd:
-    #             # 딕셔너리 형태로 저장 
-    #             save_optionList = {
-    #                 'crdt_lend_rate_type': li.get('crdt_lend_rate_type'),
-    #                 'crdt_lend_rate_type_nm': li.get('crdt_lend_rate_type_nm'),
-    #                 'crdt_grad_1': li.get('crdt_grad_1'),
-    #                 'crdt_grad_4': li.get('crdt_grad_4'),
-    #                 'crdt_grad_5': li.get('crdt_grad_5'),
-    #                 'crdt_grad_6': li.get('crdt_grad_6'),
-    #                 'crdt_grad_10': li.get('crdt_grad_10'),
-    #                 'crdt_grad_11': li.get('crdt_grad_11'),
-    #                 'crdt_grad_12': li.get('crdt_grad_12'),
-    #                 'crdt_grad_13': li.get('crdt_grad_13'),
-    #                 'crdt_grad_avg': li.get('crdt_grad_avg'),
-    #             }
-    #             # 데이터 저장
-    #             serializers = PersonalCreditLoanOptionsSerializer(data=save_optionList)
-    #             if serializers.is_valid(raise_exception=True):
-    #                 # 저장 전에 product pk값 참조해야함
-    #                 serializers.save(product=product)
-    # return JsonResponse({ 'message': 'save_complete'})
 
 
 # 주택 담보 대출
@@ -455,8 +398,8 @@ def delete(req):
     data.delete()
     data = SavingOptions.objects.all()
     data.delete()
-    data = PersonalCreditLoanPrdt.objects.all()
-    data.delete()
+    # data = PersonalCreditLoanPrdt.objects.all()
+    # data.delete()
     data = FinCompanyInfo.objects.all()
     data.delete()
     data = FinCompanyOptions.objects.all()

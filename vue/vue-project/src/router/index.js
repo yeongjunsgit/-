@@ -6,6 +6,8 @@ import ExCalculView from '@/views/ExCalculView.vue'
 import RecommendView from '@/views/RecommendView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import ProfileChangeView from '@/views/ProfileChangeView.vue'
+import ProfilePasswordChangeView from '@/views/ProfilePasswordChangeView.vue'
 import ProfileFinChangeView from '@/views/ProfileFinChangeView.vue'
 import ProfileSurveyView from '@/views/ProfileSurveyView.vue'
 import ProfileAgeRecomView from '@/views/ProfileAgeRecomView.vue'
@@ -129,7 +131,7 @@ const router = createRouter({
       ]
     },
     {
-      path: '/profile',
+      path: '/profile/:username',
       name: 'ProfileView',
       component: ProfileView,
       children: [{
@@ -145,14 +147,24 @@ const router = createRouter({
 
     },
     {
-      path: '/profile/:id',
+      path: '/profile/:username/:id',
       name: 'ProfileFinChangeView',
       component: ProfileFinChangeView
     },
     {
-      path: '/profile/survey',
+      path: '/profile/:username/survey',
       name: 'ProfileSurveyView',
       component: ProfileSurveyView
+    },
+    {
+      path: '/profile/:username/change',
+      name: 'ProfileChangeView',
+      component: ProfileChangeView
+    },
+    {
+      path: '/profile/:username/change/password',
+      name: 'ProfilePasswordChangeView',
+      component: ProfilePasswordChangeView
     },
     {
       path: '/signup',

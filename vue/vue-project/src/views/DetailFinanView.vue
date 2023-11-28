@@ -4,16 +4,28 @@
         <div v-if="product" class="border">
             <h1 class="fw-bold mt-3 ms-2">{{ product.fin_prdt_nm }}</h1>
             <hr>
-            <h5 class="fw-bold ms-2"><strong>은행 : </strong>{{ product.kor_co_nm }}</h5>
+            <h5 class="fw-bold ms-2"><strong>은행 : </strong>
+                <span @click="gotoCompany(product.fin_co_no)">{{ product.kor_co_nm }}</span></h5>
+            
             <p class="ms-2"><strong>가입 방법 : </strong>{{ product.join_way }}</p>
             <p class="ms-2"><strong>만기 후 이자율 : </strong>{{ product.mtrt_int }}</p>
+            <p class="ms-2"><strong>우대조건 : </strong>{{ product.spcl_cnd }}</p>
+            <p class="ms-2"><strong>가입제한 : </strong>
+                <span v-if="product.join_deny == 1">제한 없음</span>
+                <span v-else-if="product.join_deny == 2">서민전용</span>
+                <span v-else>일부제한</span>
+            </p>
             <p class="ms-2"><strong>가입 대상 : </strong>{{ product.join_member }}</p>
             <p class="ms-2"><strong>기타 유의 사항 : </strong>{{ product.etc_note }}</p>
             <p class="ms-2"><strong>최대한도 : </strong>
                 <span v-if="product.max_limit">{{ product.max_limit }}원</span>
                 <span v-else>없음</span>
             </p>
-            <p class="ms-2"><strong>가입 방법 : </strong>{{ product.join_way }}</p>
+            
+            <p class="ms-2"><strong>공시 종료일 : </strong>
+                <span v-if="product.dcls_end_dat">{{ product.dcls_end_dat }}</span>
+                <span v-else>미정</span>
+            </p>
         </div>
         <br>
         <h2 class="fw-bold">옵션들</h2>
@@ -47,6 +59,10 @@ const route = useRoute()
 const fin_prdt_cd = ref(route.params.fin_prdt_cd)
 const product = ref(null)
 const options = ref(null)
+
+const gotoCompany = function(code){
+    console.log('회사 이동')
+}
 onMounted(() => {
 const store = useArticleStore()
 // object_financial_products

@@ -1,20 +1,23 @@
 <template>
   <div>
     <div class="m-3" v-if="mydata">
-      <h3 class="mb-4"><strong>{{mydata[0].nickname}}</strong>님의 페이지</h3>
+      <div class="d-flex justify-content-between">
+        <h3 class="mb-4"><strong>{{mydata.nickname}}</strong>님의 페이지</h3>
+        <button class="btn btn-primary" @click="gotoProfileChange"> 내 정보 변경하기 > </button>
+      </div>
       <div class="d-flex">
       <img class="round" src="@/assets/myimage.png" alt="">
       <div>
       
-      <p>아이디 : {{mydata[0].username}}</p>
-      <p>내 나이 : {{ mydata[0].age }}세</p>
-      <p v-if="mydata[0].money">내 자산 : {{ mydata[0].money }}원</p>
+      <p>아이디 : {{mydata.username}}</p>
+      <p>내 나이 : {{ mydata.age }}세</p>
+      <p v-if="mydata.money">내 자산 : {{ mydata.money }}원</p>
       </div>
     </div>
 
-      <div v-if="mydata[0].financial_products">
+      <div v-if="mydata.financial_products">
         <h4><strong>내 금융 상품  </strong></h4>
-        <div v-for="findata in mydata[0].financial_products.split(',')">
+        <div v-for="findata in mydata.financial_products.split(',')">
           <!-- {{ findata }} -->
         <ProfileMyPrdt
         :findata="findata"
@@ -25,7 +28,7 @@
     <div>
 
         <div class="d-flex justify-content-evenly">
-        <button class="btn btn-primary" @click="gotoDetail"> 금융상품 변경하기 > </button>
+        <button class="btn btn-primary" @click="gotoFinDetail"> 금융상품 변경하기 > </button>
         <button class="btn btn-info text-white" @click="gotoSurvey"> 금융상품 취향 설문조사  > </button>
         </div>  
 
@@ -34,7 +37,7 @@
           <li class="nav-item" role="presentation">
             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
               
-              <RouterLink class="deco" :to="{name:'ProfileAgeRecomView',params:{ age: mydata[0].age }}">나이별 추천상품</RouterLink>
+              <RouterLink class="deco" :to="{name:'ProfileAgeRecomView',params:{ age: mydata.age }}">나이별 추천상품</RouterLink>
             </button>
             
           </li>
@@ -75,12 +78,16 @@ const store = useArticleStore()
 // 0. 나의 데이터 가져오기
 const mydata = ref(null)
 const router = useRouter()
-const gotoDetail = function(){
-  router.push(`/profile/${store.mypk}`)
+const gotoFinDetail = function(){
+  router.push(`/profile/${store.myname}/${store.mypk}`)
 }
 
 const gotoSurvey = function(){
-  router.push(`/profile/survey`)
+  router.push(`/profile/${store.myname}/survey`)
+}
+
+const gotoProfileChange = function () {
+  router.push(`/profile/${store.myname}/change`)
 }
 
 onMounted(() => {
@@ -90,15 +97,17 @@ onMounted(() => {
   
   axios({
     method: 'get',
-    url: `${store.API_URL}/accounts/user-detail/`,
+    url: `${store.API_URL}/accounts/user-detail/${store.myname}/`,
     headers: {
       Authorization: `Token ${store.token}`
     }
   })
   .then((res)=>{
-    // console.log(res.data)
+    console.log(res.data)
+    mydata.value = res.data
+    console.log(mydata.value)
     // console.log('저장한 내 이름',store.myname)
-    mydata.value = res.data.filter((user) => user.username === store.myname)
+    // mydata.value = res.data.filter((user) => user.username === store.myname)
     // console.log(mydata.value[0].financial_products)
     
     
