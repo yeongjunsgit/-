@@ -7,10 +7,10 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 # from rest_framework.response import JsonResponse
 from django.shortcuts import get_object_or_404, get_list_or_404
 # from django.contrib.auth import get_
-from .serializers import CustomRegisterSerializer,UserSerializer,UserSurveySerializer
+from .serializers import CustomRegisterSerializer,UserSerializer,UserSurveySerializer, UserProfileChangeSerializer
 from .models import User,UserSurvey
 from django.shortcuts import render
-from fin_prct_recom.models import UserJoinPrdt, FinancialPrdt, YearSavingPrdt, DepositLoanPrdt, SavingPrdt, PersonalCreditLoanPrdt, HouseLoanPrdt,FinancialOptions, YearSavingOptions, DepositLoanOptions, SavingOptions, PersonalCreditLoanOptions, HouseLoanOptions
+from fin_prct_recom.models import UserJoinPrdt, FinancialPrdt, YearSavingPrdt, DepositLoanPrdt, SavingPrdt, HouseLoanPrdt,FinancialOptions, YearSavingOptions, DepositLoanOptions, SavingOptions, HouseLoanOptions
 from fin_prct_recom.serializers import UserJoinPrdtSerializer
 from django.core import serializers 
 from django.core.serializers import serialize
@@ -20,13 +20,18 @@ from django.db.models import F, ExpressionWrapper, fields
 import json
 
 # Create your views here.
-@api_view(['GET'])
-def user_detail(request):
+@api_view(['GET','PUT'])
+def user_detail(request, username):
+    Users = get_object_or_404(User, username=username)
     if request.method == 'GET':
-        Users = get_list_or_404(User)
-        serializer = CustomRegisterSerializer(Users, many=True)
+        serializer = CustomRegisterSerializer(Users)
         return Response(serializer.data)
-        
+    elif request.method == 'PUT':
+        serializer = UserProfileChangeSerializer(Users, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+
 
 from django.contrib.auth import get_user_model
 @api_view(['PUT'])

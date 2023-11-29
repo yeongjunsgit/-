@@ -64,3 +64,9 @@ class UserSurveySerializer(serializers.ModelSerializer):
         model = UserSurvey
         fields=('__all__')
         # read_only_fields=('user',)
+        
+        
+class UserProfileChangeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ('nickname', 'age', 'salary', 'money',)

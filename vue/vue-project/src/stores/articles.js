@@ -36,7 +36,33 @@ export const useArticleStore = defineStore('articles', () => {
     })
     
   }
-  
+
+  const changeInfo = function(payload){
+    // 구조분해할당
+    const { age, salary, money, nickname} = payload
+
+    axios({
+      method:'put',
+      url:`${API_URL}/accounts/user-detail/${myname.value}/`,
+      // 단축 속성
+      data:{
+        age, salary, money, nickname
+      }
+      
+    })
+    .then((res) =>{
+      console.log('수정 완료')
+      console.log(res)
+      router.push(`/profile/${myname}`)
+      
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    
+  }
+
+
   const login = function (payload) {
     const { username, password } = payload
     // console.log('스토어도착')
@@ -102,6 +128,30 @@ export const useArticleStore = defineStore('articles', () => {
       window.alert(`${token.value}`)
     })
   }
+
+
+  const changePassword = function(payload){
+    const {new_password1,new_password2} = payload
+    axios({
+      method:'post',
+      url:`${API_URL}/dj-rest-auth/password/change/`,
+      data:{
+        new_password1,new_password2
+      },
+      headers: {
+        Authorization: `Token ${token.value}`
+      }
+
+    })
+    .then((res)=> {
+      console.log('비밀번호 변경 성공')
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+
+
 
 
   const getArticles = function () {
@@ -238,7 +288,26 @@ export const useArticleStore = defineStore('articles', () => {
     })
   }
 
-
+  const changeUserdetail = function(payload){
+    const {username, password1, password2, age, salary, money, nickname} = payload
+    axios({
+      method:'put',
+      url:`${API_URL}/dj-rest-auth/user-detail/${myname.value}/`,
+      data:{
+        username, password1, password2, age, salary, money, nickname
+      },
+      headers: {
+        Authorization: `Token ${token.value}`
+      }
+    })
+    .then((res)=>{
+      console.log(res.data)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
   return { doSurvey,isLogin,articles, signUp, login, token, getArticles, API_URL,
-    createArticles, myname, mypk, updateArticle, deleteArticle,getExchangeData,exchangedata,logout,findPrdt}
+    createArticles, myname, mypk, updateArticle, deleteArticle, getExchangeData, exchangedata,
+    logout, findPrdt, changePassword, changeInfo}
 }, { persist: true })

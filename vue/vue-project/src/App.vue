@@ -24,7 +24,7 @@
               <RouterLink to="/rate" class="nav-link boldnav">금융 상품</RouterLink>  
             </li>
             <li class="nav-item d-flex align-items-center">
-              <RouterLink :to="{name:'ProfileView'}" class="nav-link boldnav">프로필</RouterLink>  
+              <RouterLink :to="{ name: 'ProfileView', params: {username: myname}}" class="nav-link boldnav">프로필</RouterLink>  
             </li>
             
             <li class="nav-item d-flex align-items-center">
@@ -53,6 +53,7 @@
 <script setup>
 
 import { useArticleStore } from '@/stores/articles'
+import { ref } from 'vue'
 
 const store = useArticleStore()
 
@@ -60,6 +61,10 @@ const logout = function(){
   store.logout()
   router.push(`/`)
 }
+
+const myname = ref(null)
+myname.value = store.myname
+
 </script>
 <style>
 
@@ -94,6 +99,11 @@ const logout = function(){
 
 .v-application {
   font-family: 'Dongle', sans-serif;
+}
+
+.title_over {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 </style>

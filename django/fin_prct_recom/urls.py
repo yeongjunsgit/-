@@ -20,7 +20,7 @@ urlpatterns = [
     path('save-saving-products/',views.save_saving_products, name="save_saving_products" ),
 
     # 안됨
-    path('save-personalcreditloan-products/',views.save_personalcreditloan_products, name="save_personalcreditloan_products" ),
+    # path('save-personalcreditloan-products/',views.save_personalcreditloan_products, name="save_personalcreditloan_products" ),
 
     # 됨
     path('save-houseloan-products/',views.save_houseloan_products, name="save_houseloan_products" ),

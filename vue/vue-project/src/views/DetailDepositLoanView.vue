@@ -8,7 +8,7 @@
             <p class="ms-2"><strong>중도상환 수수료 : </strong>{{ product.erly_rpay_fee }}</p>
             <p class="ms-2"><strong>연체 이자율 : </strong>{{ product.dly_rate }}</p>
             <p class="ms-2"><strong>대출 한도 : </strong>{{ product.loan_lmt }}</p>
-            <p class="ms-2"><strong>대출 인지비용 : </strong>{{ product.loan_inci_expn }}</p>
+            <p class="ms-2"><strong>대출 부대비용 : </strong>{{ product.loan_inci_expn }}</p>
             <p class="ms-2"><strong>가입 방법 : </strong>{{ product.join_way }}</p>
         </div>
         <br>

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import FinancialPrdt, FinancialOptions,YearSavingPrdt,YearSavingOptions, DepositLoanPrdt,DepositLoanOptions, SavingPrdt,SavingOptions, PersonalCreditLoanPrdt, PersonalCreditLoanOptions,HouseLoanPrdt,HouseLoanOptions,FinCompanyInfo,FinCompanyOptions, UserJoinPrdt
+from .models import FinancialPrdt, FinancialOptions,YearSavingPrdt,YearSavingOptions, DepositLoanPrdt,DepositLoanOptions, SavingPrdt,SavingOptions, HouseLoanPrdt,HouseLoanOptions,FinCompanyInfo,FinCompanyOptions, UserJoinPrdt
 
 
 class FinancialPrdtSerializer(serializers.ModelSerializer):
@@ -56,18 +56,19 @@ class SavingOptionsSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields=('product',)
 
-class PersonalCreditLoanPrdtSerializer(serializers.ModelSerializer):
-    class Meta():
-        model = PersonalCreditLoanPrdt
-        fields = '__all__'
+# 개인 신용 대출 데이터 문제로 인해 사용 불가
+# class PersonalCreditLoanPrdtSerializer(serializers.ModelSerializer):
+#     class Meta():
+#         model = PersonalCreditLoanPrdt
+#         fields = '__all__'
 
-class PersonalCreditLoanOptionsSerializer(serializers.ModelSerializer):
-    # product 는 읽기 전용 필드로 지정한다.
-    # product = serializers.ReadOnlyField(source='PersonalCreditLoanOptions.product')
-    class Meta():
-        model = PersonalCreditLoanOptions
-        fields = '__all__'
-        read_only_fields=('product',)
+# class PersonalCreditLoanOptionsSerializer(serializers.ModelSerializer):
+#     # product 는 읽기 전용 필드로 지정한다.
+#     # product = serializers.ReadOnlyField(source='PersonalCreditLoanOptions.product')
+#     class Meta():
+#         model = PersonalCreditLoanOptions
+#         fields = '__all__'
+#         read_only_fields=('product',)
 
 class HouseLoanPrdtSerializer(serializers.ModelSerializer):
     class Meta():
