@@ -4,7 +4,7 @@
     <h3 class="mb-3"><strong>전년도 수익률 순</strong></h3>
     <div v-if="products">
       <div v-for="product in products">
-        <div @click="gotoDetail(product.fin_prdt_cd)">
+        <!-- <div class="d-flex justify-content-between" @click="gotoDetail(product.fin_prdt_cd)">
           
           <div class="title_over">{{product.fin_prdt_nm }}
           </div>
@@ -12,9 +12,9 @@
           <div>{{product.kor_co_nm }}
           </div>
 
-        </div>
-        <!-- <YearSavPrdtOptionVue
-        :option="option"/> -->
+        </div> -->
+        <YearSavPrdtOptionVue
+        :product="product"/>
       </div>
     </div>
   </div>

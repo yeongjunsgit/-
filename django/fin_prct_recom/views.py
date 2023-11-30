@@ -54,11 +54,11 @@ def save_financial_products(request):
         # 저장된 product들을 순회
         for product in products:
             # 현재 옵션 리스트들을 순회
-            print()
-            print()
-            print(response['result'])
-            print()
-            print()
+            # print()
+            # print()
+            # print(response['result'])
+            # print()
+            # print()
             for li in response['result']['optionList']:
                 # product의 금융상품 코드와 현재 옵션의 금융 상품 코드가 같으면
                 if li.get('fin_prdt_cd') == product.fin_prdt_cd:
@@ -159,7 +159,7 @@ def save_yearsaving_products(request):
 
 # 전세 자금 대출
 @api_view(['GET'])
-def save_deposiloan_products(request):
+def save_depositloan_products(request):
     for i in range(1,8):
         url = f"http://finlife.fss.or.kr/finlifeapi/rentHouseLoanProductsSearch.json?auth={api_key}&topFinGrpNo=050000&pageNo={i}"
 
@@ -276,7 +276,7 @@ def save_saving_products(request):
 
 # 주택 담보 대출
 @api_view(['GET'])
-def save_houseloan_products(request):
+def save_homeloan_products(request):
     for i in range(1,9):
         url = f"http://finlife.fss.or.kr/finlifeapi/mortgageLoanProductsSearch.json?auth={api_key}&topFinGrpNo=050000&pageNo={i}"
 
@@ -524,26 +524,6 @@ def list_depositloan_options(request):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-
-@api_view(['GET'])
-def list_depositloan_products(request):
-    if request.method == 'GET':
-        financial_datas = DepositLoanPrdt.objects.all().order_by('-loan_lmt')
-        if financial_datas:
-            serializer = DepositLoanPrdtSerializer(financial_datas, many=True)
-            return Response(serializer.data)
-        else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-    
-@api_view(['GET'])
-def list_depositloan_options(request):
-    if request.method == 'GET':
-        financial_datas = DepositLoanOptions.objects.all().order_by('lend_rate_min')
-        if financial_datas:
-            serializer = DepositLoanOptionsSerializer(financial_datas, many=True)
-            return Response(serializer.data)
-        else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 # -----------------------------------------------------------------------------------------

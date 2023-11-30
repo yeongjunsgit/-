@@ -45,21 +45,21 @@ onMounted(() => {
   })
   .catch((err) => {
     console.log(err)
-    // axios({
-    //   method: 'get',
-    //   url: `${store.API_URL}/fin_prct/save-deposiloan-products/`,
-    //   headers: {
-    //     Authorization: `Token ${store.token}`
-    //   }
-    //   })
-    //     .then((res)=>{
-    //       console.log('저장')
+    axios({
+      method: 'get',
+      url: `${store.API_URL}/fin_prct/save-depositloan-products/`,
+      headers: {
+        Authorization: `Token ${store.token}`
+      }
+      })
+        .then((res)=>{
+          console.log('저장')
       
-    //     })
-    //     .catch((err)=>{
-    //       console.log(err)
-    // }
-    // )
+        })
+        .catch((err)=>{
+          console.log(err)
+    }
+    )
   })
 })
 
