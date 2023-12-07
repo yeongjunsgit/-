@@ -1,57 +1,66 @@
 <template>
-  <div v-if="product" @click="gotoDetail([options[0].product])">
-    
-    <h4>{{ product.fin_prdt_nm }}</h4>
-    <p>대출 한도 : {{ product.loan_lmt }}</p>
-    <p>연체 이자율 : {{product.dly_rate}} </p>
+  <div v-if="product">
 
-    <p v-if="options">최저 금리 : {{   options[0].lend_rate_min }}</p>
-    <hr>
+    <div class="d-flex">
+    <div class="first">
+        <h5><strong>{{ product.fin_prdt_nm }}</strong></h5>
+        <div v-if="product.dly_rate">
+          {{product.dly_rate}}
+        </div>
+        <div v-if="product.loan_lmt">
+          {{product.loan_lmt}}
+        </div>
+    </div>
+    <div class="others">
+      <div v-if="options">
+        {{options[0].lend_rate_min}}%
+      </div>
+      <div v-else>
+        -
+      </div>
+    </div>
+    <div class="others">
+      <div v-if="options">
+        {{options[0].lend_rate_max}}%
+      </div>
+      <div v-else>
+        -
+      </div>
+    </div>
+    
   </div>
+  </div>
+  <hr>
+
+    
 </template>
 
 <script setup>
-import { ref,onMounted } from 'vue'
-import axios from 'axios'
 import { useArticleStore } from '@/stores/articles'
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
+import { ref, onMounted } from 'vue'
 
 const router = useRouter()
-
 const store = useArticleStore()
-
 const props = defineProps({
   product: Object,
 })
-
-const gotoDetail = function(fin_prdt_cd){
-  console.log(options)
-  router.push(`/depositloan_prdt/${fin_prdt_cd}`)
-}
-
 const options = ref(null)
 
-onMounted (()=>{
-
-axios({
-    method:"get",
-    url: `${store.API_URL}/fin_prct/list-depositloan-options/`,
-    headers: {
-      Authorization: `Token ${store.token}`
-    }
+onMounted(async () => {
+  const type = 'depositloan'
+  // console.log(props.product.fin_prdt_cd)
+  options.value = await store.tmp_options(type, props.product.fin_prdt_cd)
+  // console.log(options)
 })
-.then ((res)=>{
-
-    options.value = res.data.filter((option)=>option.product === props.product.fin_prdt_cd)
-    
-})
-.catch ((err) => {
-    console.log(err)
-})
-})
-
 </script>
 
 <style scoped>
+.first {
+  flex-basis: 80%;
+}
 
+.others {
+  flex-basis: 10%;
+}
 </style>

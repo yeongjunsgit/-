@@ -66,7 +66,7 @@ class YearSavingOptions(models.Model):
     mon_paym_atm = models.CharField(max_length=20, null=True)   # 월 납입 금액
     paym_prd = models.CharField(max_length=20, null=True)       # 납입기간
     pnsn_strt_age = models.CharField(max_length=20, null=True)  # 연금 개시나이
-    pnsn_recp_amt = models.CharField(max_length=20, null=True)  # 연금 수령액
+    pnsn_recp_amt = models.IntegerField(null=True)  # 연금 수령액
     
     # dcls_month = models.CharField(max_length=20, null=True)     # 시작년도달?
     # pnsn_recp_trm_nm = models.CharField(max_length=20, null=True)

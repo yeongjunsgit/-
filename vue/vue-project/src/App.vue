@@ -84,7 +84,7 @@ myname.value = store.myname
   height: 300px;
 }
 .shrink{
-  width: 50%;
+  width: 70%;
   margin-left: auto;
   margin-right: auto;
 }

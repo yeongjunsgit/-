@@ -1,13 +1,32 @@
 <template>
   <div class="my-3">
-    <!-- <h1>HomeLoan</h1> -->
-    <h3 class="mb-3"><strong>낮은 금리순</strong></h3>
-    <div v-if="products">
-      <div v-for="product in products">
-        <div class="title_over" @click="gotoDetail(product.fin_prdt_cd)">{{   product.fin_prdt_nm }}</div>
-        <!-- <HomeLoanOptionVue
-        :product="product"
-        /> -->
+    <div class="input-group mb-3">
+      <input v-model="search_prdt" type="text" class="form-control" placeholder="상품이름" aria-label="Recipient's username" aria-describedby="button-addon2">
+      <button @click="searchPrdt" class="btn btn-outline-primary" type="button" id="button-addon2">검색하기</button>
+    </div>
+    <br>
+    <div class="d-flex">
+      <div class="first">상품이름</div>
+      <div class="others">최저 금리</div>
+      <div class="others">최대 금리</div>
+    </div>
+    <hr>
+    <div v-if="search">
+      <div v-for="product in result_prdt">
+        <div class="title_over" @click="gotoDetail(product.fin_prdt_cd)">
+        <HomeLoanOptionVue
+        :product="product"/>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <div v-if="products">
+        <div v-for="product in products">
+          <div class="title_over" @click="gotoDetail(product.fin_prdt_cd)">
+            <HomeLoanOptionVue
+            :product="product"/>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -21,47 +40,33 @@ import axios from 'axios'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-
 const store = useArticleStore()
 const products = ref(null)
+const search_prdt = ref(null)
+const result_prdt = ref(null)
+const search = ref(false)
+const searchPrdt = function () {
+  result_prdt.value = products.value.filter((item) => item.fin_prdt_nm.includes(search_prdt.value))
+  search.value = true
+}
 
 const gotoDetail = function(fin_prdt_cd){
     router.push(`/homeloan_prdt/${fin_prdt_cd}`)
 }
 
-onMounted(() => {
-  const store = useArticleStore()
-  axios({
-    method: 'get',
-    url: `${store.API_URL}/fin_prct/list-homeloan-products/`,
-    headers: {
-      Authorization: `Token ${store.token}`
-    }
-  })
-  .then((res)=>{
-    products.value = res.data
-  })
-  .catch((err) => {
-        console.log(err)
-        axios({
-          method: 'get',
-          url: `${store.API_URL}/fin_prct/save-homeloan-products/`,
-          headers: {
-            Authorization: `Token ${store.token}`
-          }})
-        .then((res)=>{
-          console.log('저장')
-         
-        })
-        .catch((err)=>{
-          console.log(err)
-        }
-        )
-      })
+onMounted(async () => {
+  const type = 'homeloan'
+  products.value = await store.tmp_products(type)
 })
 
 </script>
 
 <style scoped>
+.first {
+  flex-basis: 80%;
+}
 
+.others {
+  flex-basis: 10%;
+}
 </style>
