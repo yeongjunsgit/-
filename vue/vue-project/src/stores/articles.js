@@ -288,11 +288,11 @@ export const useArticleStore = defineStore('articles', () => {
     })
   }
 
+  const products = ref(null)
   const list_products = async function (type) {
     // 원래 products에 받은 상품 데이터들을 저장해서 return하는 함수를 만들어보려고 했는데, 
     // 비동기 구조때문에 저장되기 전에 벌써 null을 보내버려서 작동이 안됨
     
-    const products = ref(null)
     axios({
         method: 'get',
         url: `${API_URL}/fin_prct/list-${type}-products/`,
@@ -319,30 +319,53 @@ export const useArticleStore = defineStore('articles', () => {
         console.log(err)
       })
     })
-    return products.value 
   }
 
   // 차라리 밖으로 빼서 참조하는게 나을듯..?
-  const options = ref(null)
-  const list_options = function (type,code){
-    axios({
-      method: 'get',
-      url: `${API_URL}/fin_prct/object_${type}_options/${code}`,
-      headers: {
-      Authorization: `Token ${token.value}`
-      }
+  const list_options = function (type, code) {
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'get',
+        url: `${API_URL}/fin_prct/object_${type}_options/${code}`,
+        headers: {
+          Authorization: `Token ${token.value}`
+        }
       })
-      .then((res)=>{
-          // console.log(res.data)
-          options.value = res.data
+      .then((res) => {
+        console.log(`지금은 옵션 ${code} 불러오기!!!`);
+        console.log(res.data);
+        resolve(res.data); // 새로운 Promise 객체를 생성하여 데이터를 전달
       })
       .catch((err) => {
-          console.log(err)
-      })
+        console.log(err);
+        reject(err); // 오류가 발생한 경우에도 새로운 Promise 객체를 생성하여 오류를 전달
+      });
+    });
+  };
+  
+  
+  const tmp_products = async (type) => {
+    try {
+      const response = await axios.get(`${API_URL}/fin_prct/list-${type}-products/`)
+      const tmpProducts = response.data
+      return tmpProducts
+    } catch{err} {
+      console.log(err)
+    }
   }
 
 
+  const tmp_options = async (type, code) => {
+    try {
+      const response = await axios.get(`${API_URL}/fin_prct/object_${type}_options/${code}`)
+      const tmpOptions = response.data
+      return tmpOptions
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
   return { doSurvey,isLogin,articles, signUp, login, token, getArticles, API_URL,
     createArticles, myname, mypk, updateArticle, deleteArticle, getExchangeData, exchangedata,
-    logout, findPrdt, changePassword, changeInfo, list_products, list_options, options}
+    logout, findPrdt, changePassword, changeInfo, products,list_products, list_options, tmp_options, tmp_products}
 }, { persist: true })

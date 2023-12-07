@@ -563,7 +563,7 @@ def object_yearsaving_products(request,fin_prdt_cd):
 @api_view(['GET'])
 def object_yearsaving_options(request,fin_prdt_cd):
     if request.method == 'GET':
-        financial_datas = get_list_or_404(YearSavingOptions,fin_prdt_cd=fin_prdt_cd)
+        financial_datas = YearSavingOptions.objects.filter(fin_prdt_cd=fin_prdt_cd).order_by('-pnsn_recp_amt')
         serializer = YearSavingOptionsSerializer(financial_datas, many=True)
         return Response(serializer.data)
         
@@ -575,6 +575,7 @@ def object_yearsaving_options(request,fin_prdt_cd):
 def object_saving_products(request,fin_prdt_cd):
     if request.method == 'GET':
         financial_data = get_object_or_404(SavingPrdt,fin_prdt_cd=fin_prdt_cd)
+        
         serializer = SavingPrdtSerializer(financial_data)
         return Response(serializer.data)
     

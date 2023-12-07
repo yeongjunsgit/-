@@ -1,26 +1,44 @@
 <template>
-    <div v-if="product" @click="gotoDetailFinan(product[0].fin_prdt_cd)">
+    <div v-if="product">
 
-    <h4>{{ product[0].fin_prdt_nm }}</h4>
-    <p>우대 조건 : {{ product[0].spcl_cnd }}</p>
-    <p>가입 제한 : 
-        <span v-if="product[0].join_deny===1">
-            제한없음
-        </span>
-        <span v-else-if="product[0].join_deny===2">
-            서민전용
-        </span>
-        <span v-else>
-            일부제한
-        </span>
-    </p>
-    <p>가입 대상 : {{ product[0].join_member }}</p>
-
-    <p>최고 금리 옵션 : {{  option.intr_rate2 }}</p>
-    
-
-
-    
+    <div class="d-flex">
+    <div class="first">
+        {{ product.fin_prdt_nm }}
+    </div>
+    <div class="others">
+        <div v-if=six_month_option>
+            {{six_month_option.intr_rate2}}
+        </div>
+        <div v-else>
+            -
+        </div>
+    </div>
+    <div class="others">
+        <div v-if=one_year_option>
+            {{one_year_option.intr_rate2}}
+        </div>
+        <div v-else>
+            -
+        </div>
+        
+    </div>
+    <div class="others">
+        <div v-if=two_year_option>
+            {{two_year_option.intr_rate2}}
+        </div>
+        <div v-else>
+            -
+        </div>
+    </div>
+    <div class="others">
+        <div v-if=three_year_option>
+            {{three_year_option.intr_rate2}}
+        </div>
+        <div v-else>
+            -
+        </div>
+    </div>
+    </div>
     <hr>
     </div>
 </template>
@@ -29,39 +47,36 @@
 import { ref,onMounted } from 'vue'
 import axios from 'axios'
 import { useArticleStore } from '@/stores/articles'
-import { useRouter } from 'vue-router';
-const router = useRouter()
 
-const gotoDetailFinan=function(fin_prdt_cd){
-    router.push(`/finan_prdt/${fin_prdt_cd}`)
-}
-const store = useArticleStore()
-
+const six_month_option = ref(null)
+const one_year_option = ref(null)
+const two_year_option = ref(null)
+const three_year_option = ref(null)
+const options = ref(null)
 const props = defineProps({
-    option:Object,
+    product:Object,
+})
+onMounted(async  ()=>{
+    const store = useArticleStore()
+    const type = 'financial'
+    options.value = await store.tmp_options(type, props.product.fin_prdt_cd)
+    
+    six_month_option.value = options.value.find(option => option.save_trm === 6)
+    one_year_option.value = options.value.find(option => option.save_trm === 12)
+    two_year_option.value = options.value.find(option => option.save_trm === 24)
+    three_year_option.value = options.value.find(option => option.save_trm === 36)
 })
 
-const product = ref(null)
 
-onMounted (()=>{
-axios({
-    method:"get",
-    url: `${store.API_URL}/fin_prct/list-financial-products/`,
-    headers: {
-      Authorization: `Token ${store.token}`
-    }
-})
-.then ((res)=>{
-    // console.log(res.data)
-    // console.log(props.option)
-    product.value = res.data.filter((product)=>product.fin_prdt_cd === props.option.product)
-})
-.catch ((err) => {
-    console.log(err)
-})
-})
 </script>
 
 <style  scoped>
 
+.first {
+  flex-basis: 60%;
+}
+
+.others {
+  flex-basis: 10%;
+}
 </style>
